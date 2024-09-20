@@ -1,60 +1,6 @@
 const jerseysModel = require("../models/jerseys")
 
 
-function getHomePage(req, res){
-    const jerseys = jerseysModel.getAllJerseys()
-    res.render("getHomePage.ejs", { jerseys } )
-}    
-
-
-
-
-// function handleDeleteNoteById(res, noteId){
-//     const code = notesModel.deleteNote(noteId)
-//     if (code == -1)
-//         res.status(404).send()
-//     else {
-//         res.redirect("/")
-//     }
-// }
-
-// function handleUpdateNoteById(res, noteId, newContent){
-//     const returnedValue = notesModel.updateNote(noteId, newContent)
-//     if (returnedValue == undefined)
-//         res.status(404).send()
-//     else {
-//         res.redirect("/")
-//     }
-// }
-
-
-
-
-function handleFormSubmission(req, res){
-    const { userInput, operation } = req.body;
-    
-    if (operation === 'create') {
-        handleCreateJersey(res, userInput)
-    }
-
-    else if (operation === 'read') {
-        getAllJerseys(req, res)
-    }
-
-}
-
-
-function handleCreateJersey(res, content) {
-    jerseysModel.createJersey(content); 
-
-    // Redirect to the home page
-    res.redirect("/");  
-}
-
-
-
-
-
 function getAllJerseys(req, res){
     const jerseys = jerseysModel.getAllJerseys()
 
@@ -76,6 +22,14 @@ function getJersey(req, res){
     }
 }
 
+function CreateJersey(res, content) {
+    jerseysModel.createJersey(content); 
+
+    // Redirect to the home page
+    res.redirect("/");  
+}
+
+
 function deleteJersey(req, res){
     const jerseyId = req.query.id
     if (jerseyId == undefined)
@@ -92,16 +46,30 @@ function deleteJersey(req, res){
     }
 }
 
-// function updateJersey
 
-// function createJersey
+// function DeleteNoteById(res, noteId){
+//     const code = notesModel.deleteNote(noteId)
+//     if (code == -1)
+//         res.status(404).send()
+//     else {
+//         res.redirect("/")
+//     }
+// }
+
+// function UpdateNoteById(res, noteId, newContent){
+//     const returnedValue = notesModel.updateNote(noteId, newContent)
+//     if (returnedValue == undefined)
+//         res.status(404).send()
+//     else {
+//         res.redirect("/")
+//     }
+// }
+
 
 
 module.exports = {
-    getHomePage,
-    handleFormSubmission,
-    handleCreateJersey,
     getAllJerseys,
     getJersey,
+    CreateJersey,
     deleteJersey
 }
