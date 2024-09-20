@@ -1,0 +1,18 @@
+/* Card link styling */
+.card-link {
+    text-decoration: none;
+    color: inherit; /* Inherit color from the parent */
+}
+
+/* Additional styling for nav links and brand */
+.nav-link, .navbar-brand {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Background color on hover */
+.nav-link:hover, .navbar-brand:hover {
+    background-color: #343a40; /* Dark background similar to the "Sign In" button */
+    color: #ffffff; /* White text on hover */
+}
