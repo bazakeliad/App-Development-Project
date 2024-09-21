@@ -1,81 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jersey Shop</title>
+    <title>Allstars Jerseys Shop</title>
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!-- Bootstrap Icons -->
+    <!-- Bootstrap CSS and Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="getAllJerseys.css">
 </head>
-
 <body>
 
-    <header class="bg-dark text-light text-center py-4">
-        <h1 class="mb-0"><img src="images/logo.jpg" style="width: 80px; padding-right: 5px;"/>Allstars Jerseys Shop<img src="images/logo.jpg" style="width: 80px;"/></h1>
-    </header>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand btn btn-outline-dark" href="/"><i class="bi bi-house-fill"></i> Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
+    <!-- Header -->
+    <header>
+        <!-- Top Bar -->
+        <div class="top-bar d-flex justify-content-between align-items-center">
+            <!-- Logo and Site Name -->
+            <div class="logo">
+                <a href="/" class="d-flex align-items-center text-decoration-none">
+                    <img src="images/logo.jpg" alt="Logo">
+                    <span>Allstars Jerseys Shop</span>
+                </a>
+            </div>
+            <!-- Navigation Bar -->
+            <nav class="nav-bar">
+                <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-dark" aria-current="page" href="#">Shop</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-dark" href="#">Contact</a>
+                        <a class="nav-link" href="/browse">Browse</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-dark" href="#">About Us</a>
+                        <a class="nav-link" href="/myteam">My Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/aboutus">About Us</a>
                     </li>
                 </ul>
-            </div>
-            <div class="d-lg-flex mt-2 mt-lg-0 ms-auto">
-                <button class="btn btn-outline-dark"><i class="bi bi-person-circle"></i> Sign In</button>
+            </nav>
+            <!-- Account Links -->
+            <div class="account-links">
+                <a href="/search" class="text-decoration-none me-3"><i class="bi bi-search"></i></a>
+                <a href="/login" class="text-decoration-none me-3"><i class="bi bi-person-circle"></i></a>
+                <a href="/cart" class="text-decoration-none"><i class="bi bi-cart"></i></a>
             </div>
         </div>
-    </nav>
+    </header>
 
+    <!-- "All Jerseys" Section -->
+    <section class="all-jerseys-title">
+        <div class="container">
+            <h2>All Jerseys</h2>
+        </div>
+    </section>
+
+    <!-- Main Content -->
     <div class="container my-5">
         <div class="row">
-            <% for(i=0; i < jerseys.length; i++) { %> 
-                <div class="col-md-4 py-1">
-                    <!-- Wrap the card in an a tag -->
-                    <a href="/getJersey?id=<%= jerseys[i]._id %>" class="card-link">
-                        <div class="card">
-                            <img src="images/stam-jersey.png" style="height: 350px;" class="card-img-top" alt="<%= jerseys[i].team %>">
-                            <div class="card-body text-center">
-                                <h5 class="card-title"><%= jerseys[i].team %> Jersey </h5>
-                                <p class="card-text"><%= jerseys[i].kitType %></p>
-                                <p class="card-text text-primary fw-bold"><%= jerseys[i].price %></p>
-                                <a href="#" class="btn btn-dark"><i class="bi bi-cart-plus"></i> Add to Cart</a>
+            <!-- Filter Sidebar -->
+            <aside class="col-md-3">
+                <h5>Filter By</h5>
+                <form action="/getAllJerseys" method="GET" id="filter-form">
+                    <!-- Filter by Team -->
+                    <div class="mb-3">
+                        <label class="form-label">Team</label>
+                        <% teams.forEach(function(teamName) { %>
+                            <div>
+                                <input type="checkbox" name="team" value="<%= teamName %>" id="team-<%= teamName %>" <%= team.includes(teamName) ? 'checked' : '' %>>
+                                <label for="team-<%= teamName %>"><%= teamName %></label>
                             </div>
-                            <a href="/deleteJersey?id=<%= jerseys[i]._id %>">Delete Jersey</a>
-                        </div>                        
-                    </a>
+                        <% }); %>
+                    </div>
+                    <!-- Filter by Kit Type -->
+                    <div class="mb-3">
+                        <label class="form-label">Kit Type</label>
+                        <% kitTypes.forEach(function(type) { %>
+                            <div>
+                                <input type="checkbox" name="kitType" value="<%= type %>" id="kitType-<%= type %>" <%= kitType.includes(type) ? 'checked' : '' %>>
+                                <label for="kitType-<%= type %>"><%= type %></label>
+                            </div>
+                        <% }); %>
+                    </div>
+                    <!-- Filter by Price Range -->
+                    <div class="mb-3">
+                        <label class="form-label">Price Range</label>
+                        <input type="number" name="minPrice" class="form-control mb-2" placeholder="Min Price" value="<%= minPrice %>">
+                        <input type="number" name="maxPrice" class="form-control" placeholder="Max Price" value="<%= maxPrice %>">
+                    </div>
+                    <!-- Apply Filters Button -->
+                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                </form>
+            </aside>
+
+            <!-- Product Grid -->
+            <main class="col-md-9">
+                <!-- Sorting Options -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <p class="mb-0">Showing <strong><%= jerseys.length %></strong> results</p>
+                    </div>
+                    <div>
+                        <form action="/getAllJerseys" method="GET" class="d-flex align-items-center">
+                            <!-- Preserve existing filters -->
+                            <% team.forEach(function(t) { %>
+                                <input type="hidden" name="team" value="<%= t %>">
+                            <% }); %>
+                            <% kitType.forEach(function(k) { %>
+                                <input type="hidden" name="kitType" value="<%= k %>">
+                            <% }); %>
+                            <input type="hidden" name="minPrice" value="<%= minPrice %>">
+                            <input type="hidden" name="maxPrice" value="<%= maxPrice %>">
+                            <label for="orderBy" class="form-label me-2 mb-0">Sort by:</label>
+                            <select id="orderBy" name="orderBy" class="form-select me-2">
+                                <option value="featured" <%= orderBy === 'featured' ? 'selected' : '' %>>Featured</option>
+                                <option value="priceAsc" <%= orderBy === 'priceAsc' ? 'selected' : '' %>>Price: Low to High</option>
+                                <option value="priceDesc" <%= orderBy === 'priceDesc' ? 'selected' : '' %>>Price: High to Low</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Sort</button>
+                        </form>
+                    </div>
                 </div>
-            <% } %>
+
+                <!-- Products -->
+                <div class="row">
+                    <% for (let i = 0; i < jerseys.length; i++) { %>
+                        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="card h-100">
+                                <a href="/getJersey?id=<%= jerseys[i]._id %>" class="card-link">
+                                    <img src="images/<%= jerseys[i].image || 'default-image.jpg' %>" class="card-img-top" alt="<%= jerseys[i].team %>">
+                                    <div class="card-body">
+                                        <p class="card-text"><%= jerseys[i].team %> <%= jerseys[i].kitType %></p>
+                                        <p class="card-text fw-bold">$<%= (typeof jerseys[i].price === 'number') ? jerseys[i].price.toFixed(2) : 'N/A' %></p>
+                                    </div>
+                                </a>
+                                <div class="card-footer text-center">
+                                    <a href="/addToCart?id=<%= jerseys[i]._id %>" class="btn btn-outline-primary"><i class="bi bi-cart-plus"></i> Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </main>
         </div>
     </div>
 
-    <footer class="bg-dark text-light text-center py-3">
-        <p class="mb-0">&copy; 2024 Allstars Jerseys Shop. All rights reserved.</p>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <!-- Company Info -->
+                <div class="col-md-3">
+                    <h6>Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none">About Us</a></li>
+                        <li><a href="#" class="text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Customer Service -->
+                <div class="col-md-3">
+                    <h6>Customer Service</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none">Returns</a></li>
+                        <li><a href="#" class="text-decoration-none">Shipping</a></li>
+                    </ul>
+                </div>
+                <!-- Follow Us -->
+                <div class="col-md-3">
+                    <h6>Follow Us</h6>
+                    <div class="social-icons">
+                        <a href="#" class="text-decoration-none me-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-decoration-none me-2"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-decoration-none me-2"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+                <!-- Newsletter -->
+                <div class="col-md-3">
+                    <h6>Newsletter</h6>
+                    <form>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Your email">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p class="mb-0">&copy; 2024 Allstars Jerseys Shop. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Optional: Include the jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
-
 </html>
