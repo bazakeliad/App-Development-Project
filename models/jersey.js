@@ -67,12 +67,14 @@ const Jersey = new Schema ({
     },
     kitType: {
         type: String,
+        enum: ['2024 Home Kit', '2024 Away Kit'], // Restricting to two options
         required: true
     },
     price: {
         type: String,
         required: true
     }
+
     // // not required(by default required field is false), but if the user doesnt put it, we will add it automatically
     // published: {
     //     type: Date,

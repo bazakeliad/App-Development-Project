@@ -6,7 +6,7 @@ const jerseysController = require("../controllers/jerseysController")
 const getHomePage = async(req, res) => {
     const jerseys = await jerseysServices.getAllJerseys()
     res.render("getHomePage.ejs", { jerseys } )
-}    
+}
 
 
 // handle user input operation in home page
