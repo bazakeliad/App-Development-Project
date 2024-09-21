@@ -16,3 +16,12 @@
     background-color: #343a40; /* Dark background similar to the "Sign In" button */
     color: #ffffff; /* White text on hover */
 }
+/* Add hover effect to enlarge jersey */
+.card:hover {
+    transform: scale(1.05); /* Enlarge card on hover */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.card {
+    transition: transform 0.3s ease; /* Apply smooth transition to all cards */
+}

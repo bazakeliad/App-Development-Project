@@ -1,34 +1,62 @@
-[{
-  "_id": {
-    "$oid": "66ee149de87ee2b8cc83aab5"
+[
+  {
+      "team": "Lakers",
+      "kitType": "Home",
+      "price": 99.99,
+      "image": "lakers-home.jpg"
   },
-  "team": "Paris Saint Germain",
-  "kitType": "2024 Home Kit",
-  "price": "$74.99"
-},
-{
-  "_id": {
-    "$oid": "66ee14ace87ee2b8cc83aab6"
+  {
+      "team": "Lakers",
+      "kitType": "Away",
+      "price": 99.99,
+      "image": "lakers-away.jpg"
   },
-  "team": "Chelsea",
-  "kitType": "2024 Home Kit",
-  "price": "$74.99"
-},
-{
-  "_id": {
-    "$oid": "66ee150a626f8019abfd0d32"
+  {
+      "team": "Warriors",
+      "kitType": "Home",
+      "price": 89.99,
+      "image": "warriors-home.jpg"
   },
-  "team": "Liverpool",
-  "kitType": "2024 Home Kit",
-  "price": "$84.99",
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "66ee1c204fd79f7c8582eb9d"
+  {
+      "team": "Warriors",
+      "kitType": "Away",
+      "price": 89.99,
+      "image": "warriors-away.jpg"
   },
-  "team": "Juventus",
-  "kitType": "2024 Home Kit",
-  "price": "$84.99",
-  "__v": 0
-}]
+  {
+      "team": "Bulls",
+      "kitType": "Classic",
+      "price": 79.99,
+      "image": "bulls-classic.jpg"
+  },
+  {
+      "team": "Bulls",
+      "kitType": "Home",
+      "price": 79.99,
+      "image": "bulls-home.jpg"
+  },
+  {
+      "team": "Celtics",
+      "kitType": "Home",
+      "price": 85.99,
+      "image": "celtics-home.jpg"
+  },
+  {
+      "team": "Celtics",
+      "kitType": "Away",
+      "price": 85.99,
+      "image": "celtics-away.jpg"
+  },
+  {
+      "team": "Heat",
+      "kitType": "City Edition",
+      "price": 95.99,
+      "image": "heat-city.jpg"
+  },
+  {
+      "team": "Heat",
+      "kitType": "Home",
+      "price": 90.99,
+      "image": "heat-home.jpg"
+  }
+]

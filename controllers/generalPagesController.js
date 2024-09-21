@@ -8,6 +8,10 @@ const getHomePage = async(req, res) => {
     res.render("getHomePage.ejs", { jerseys } )
 }    
 
+const getAboutUs = async(req, res) => {
+    res.render("getAboutUs.ejs")
+}    
+
 
 // handle user input operation in home page
 const handleFormSubmission = async(req, res) => {
@@ -39,5 +43,6 @@ const handleFormSubmission = async(req, res) => {
 // exporting functions
 module.exports = {
     getHomePage,
-    handleFormSubmission
+    handleFormSubmission,
+    getAboutUs
 }
