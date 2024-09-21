@@ -32,4 +32,4 @@ const generalPagesRoutes = require("./routes/generalPagesRoutes")
 server.use(generalPagesRoutes)
 
 // server.listen(process.env.PORT)
-server.listen(81)
+server.listen(80)
