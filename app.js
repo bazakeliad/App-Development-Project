@@ -1,35 +1,42 @@
-const express = require("express")
-const server = express()
+// app.js
 
-// for using post parameters
+const express = require("express");
+const server = express();
+
+// For parsing URL-encoded data and JSON
 server.use(express.urlencoded({ extended: true }));
+server.use(express.json());
 
-
-
-// require('custom-env').env(process.env.NODE_ENV, './config');
-
-
+// Mongoose connection
 const mongoose = require('mongoose');
 
-// mongoose.connect(process.env.CONNECTION_STRING,
-//     {   useNewUrlParser: true,
-//         useUnifiedTopology: true });
-mongoose.connect('mongodb://localhost:27017/jerseysAllstarsShop',
-    {   useNewUrlParser: true,
-        useUnifiedTopology: true });
+// Connect to your MongoDB database
+mongoose.connect('mongodb://localhost:27017/jerseysAllstarsShop', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
+// Expose public directory resources
+server.use(express.static("public"));
 
+// Set the view engine to EJS
+const path = require('path');
+server.set('view engine', 'ejs');
+server.set('views', path.join(__dirname, 'views'));
 
-// expose public directory resources.
-server.use(express.static("public"))
+// Expose jerseys routes
+const jerseysRoutes = require("./routes/jerseysRoutes");
+server.use(jerseysRoutes);
 
-// expose jerseys routes
-const jerseysRoutes = require("./routes/jerseysRoutes")
-server.use(jerseysRoutes)
+// Expose generalPages routes
+const generalPagesRoutes = require("./routes/generalPagesRoutes");
+server.use(generalPagesRoutes);
 
-// expose generalPages routes
-const generalPagesRoutes = require("./routes/generalPagesRoutes")
-server.use(generalPagesRoutes)
+// Expose admin routes
+const adminRoutes = require("./routes/adminRoutes");
+server.use('/admin', adminRoutes);
 
-// server.listen(process.env.PORT)
-server.listen(80)
+// Start the server
+server.listen(80, () => {
+    console.log("Server is running on port 80");
+});

@@ -1,16 +1,68 @@
 const jerseysServices = require("../services/jerseysServices")
 
+const getAllJerseys = async (req, res) => {
+    // Extract filters and sorting options from the query parameters
+    const team = req.query.team || [];
+    const kitType = req.query.kitType || [];
+    const minPrice = req.query.minPrice || '';
+    const maxPrice = req.query.maxPrice || '';
+    const orderBy = req.query.orderBy || 'featured';
 
-// return all jerseys page.
-const getAllJerseys = async(req, res) => {
-    const jerseys = await jerseysServices.getAllJerseys()
+    // Ensure team and kitType are arrays
+    const teamArray = Array.isArray(team) ? team : [team];
+    const kitTypeArray = Array.isArray(kitType) ? kitType : [kitType];
 
-    // by default ejs engine search inside views directory, so we dont have to specify this.
-    res.render("getAllJerseys.ejs", { jerseys } )
+    // Initialize the query object
+    let query = {};
 
-    // **** replace every render with json, or example:    res.render("getAllJerseys.ejs", { jerseys } ) ->  res.json(jerseys)
-}    
+    // Add filters to the query object if they exist
+    if (teamArray.length > 0 && teamArray[0] !== '') {
+        query.team = { $in: teamArray };
+    }
 
+    if (kitTypeArray.length > 0 && kitTypeArray[0] !== '') {
+        query.kitType = { $in: kitTypeArray };
+    }
+
+    // Filter by price range
+    if (minPrice || maxPrice) {
+        query.price = {};
+        if (minPrice) query.price.$gte = parseFloat(minPrice);
+        if (maxPrice) query.price.$lte = parseFloat(maxPrice);
+    }
+
+    // Initialize the sort object
+    let sort = {};
+
+    // Add sorting options
+    if (orderBy === 'priceAsc') {
+        sort.price = 1; // Ascending order
+    } else if (orderBy === 'priceDesc') {
+        sort.price = -1; // Descending order
+    } else if (orderBy === 'featured') {
+        // Define your own sorting logic for 'featured' if needed
+    }
+
+    try {
+        // Fetch the jerseys from the database with filters and sorting applied
+        const jerseys = await jerseysServices.getAllJerseys(query, sort);
+        const { teams, kitTypes } = await jerseysServices.getDistinctTeamsAndKitTypes();
+
+        res.render("getAllJerseys.ejs", {
+            jerseys,
+            teams,
+            kitTypes,
+            team: teamArray,
+            kitType: kitTypeArray,
+            minPrice,
+            maxPrice,
+            orderBy
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
 
 // return specific jersey page
 const getJerseyById = async (req, res) => {
@@ -35,9 +87,22 @@ const getJerseyById = async (req, res) => {
 
 
 
-const createJersey = async (res, team) => {
-    await jerseysServices.createJersey(team); 
-}
+const createJersey = async (team) => {
+
+    // create new document using team parameter provided by the user
+    const jersey = new Jersey({
+        team: team,
+        price: 84.99, // Store as Number, not String
+        kitType: "2024 Home Kit"
+    });
+
+    // You can set additional fields if necessary
+    // jersey.price = 84.99; 
+    // jersey.kitType = "2024 Home Kit"; 
+
+    // Actually add this document inside our Jerseys collection
+    return await jersey.save();
+};
 
 
 
