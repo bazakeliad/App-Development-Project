@@ -1,19 +1,32 @@
 const express = require("express")
 const server = express()
 
+// for using post parameters
 server.use(express.urlencoded({ extended: true }));
 
-const jerseysController = require("./controllers/jerseysController")
-const generalPagesController = require("./controllers/generalPagesController")
 
+
+require('custom-env').env(process.env.NODE_ENV, './config');
+
+
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.CONNECTION_STRING,
+    {   useNewUrlParser: true,
+        useUnifiedTopology: true });
+
+
+
+
+// expose public directory resources.
 server.use(express.static("public"))
 
-server.get("/", generalPagesController.getHomePage)
-server.post('/submit', generalPagesController.handleFormSubmission)
+// expose jerseys routes
+const jerseysRoutes = require("./routes/jerseysRoutes")
+server.use(jerseysRoutes)
 
-server.get("/getAllJerseys", jerseysController.getAllJerseys)
-server.get("/getJersey", jerseysController.getJersey)
-server.get("/deleteJersey", jerseysController.deleteJersey)
+// expose generalPages routes
+const generalPagesRoutes = require("./routes/generalPagesRoutes")
+server.use(generalPagesRoutes)
 
-
-server.listen(81) 
+server.listen(process.env.PORT)
