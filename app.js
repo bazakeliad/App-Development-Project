@@ -6,15 +6,17 @@ server.use(express.urlencoded({ extended: true }));
 
 
 
-require('custom-env').env(process.env.NODE_ENV, './config');
+// require('custom-env').env(process.env.NODE_ENV, './config');
 
 
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.CONNECTION_STRING,
+// mongoose.connect(process.env.CONNECTION_STRING,
+//     {   useNewUrlParser: true,
+//         useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/jerseysAllstarsShop',
     {   useNewUrlParser: true,
         useUnifiedTopology: true });
-
 
 
 
@@ -29,4 +31,5 @@ server.use(jerseysRoutes)
 const generalPagesRoutes = require("./routes/generalPagesRoutes")
 server.use(generalPagesRoutes)
 
-server.listen(process.env.PORT)
+// server.listen(process.env.PORT)
+server.listen(81)

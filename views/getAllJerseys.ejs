@@ -17,7 +17,7 @@
 <body>
 
     <header class="bg-dark text-light text-center py-4">
-        <h1 class="mb-0">Allstars Jerseys Shop</h1>
+        <h1 class="mb-0"><img src="images/logo.jpg" style="width: 80px; padding-right: 5px;"/>Allstars Jerseys Shop<img src="images/logo.jpg" style="width: 80px;"/></h1>
     </header>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -53,7 +53,7 @@
                     <!-- Wrap the card in an a tag -->
                     <a href="/getJersey?id=<%= jerseys[i]._id %>" class="card-link">
                         <div class="card">
-                            <img src="jersey1.jpg" class="card-img-top" alt="<%= jerseys[i].team %>">
+                            <img src="images/stam-jersey.png" style="height: 350px;" class="card-img-top" alt="<%= jerseys[i].team %>">
                             <div class="card-body text-center">
                                 <h5 class="card-title"><%= jerseys[i].team %> Jersey </h5>
                                 <p class="card-text"><%= jerseys[i].kitType %></p>

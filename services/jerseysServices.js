@@ -82,8 +82,6 @@ const getJerseyById = async (id) => {
 };
 
 
-
-// we need to expose the data, we will achieve that using functions
 const getAllJerseys = async (id) => {
     // return all jerseys
     return Jersey.find({});
@@ -92,15 +90,14 @@ const getAllJerseys = async (id) => {
 
 const createJersey = async (team) => {
 
-    // create new document
+    // create new document using team parameter provided by the user
     const jersey = new Jersey({
         team: team,
         price: "$80",
-        kitType: "2000 Home Kit",
-        _id: 6
+        kitType: "2000 Home Kit"
     });
 
-    // example of update or adding him values
+    // update values
     jersey.price = "$84.99"; 
     jersey.kitType = "2024 Home Kit"; 
     
@@ -110,12 +107,12 @@ const createJersey = async (team) => {
 
 
 const deleteJerseyById = async (id) => {
+    // get the jersey
+    // we need to add try and exceptions, like un exist id drop the server.
     const jersey = await getJerseyById(id);
 
     if (!jersey)
         return null;
-    
-    console.log(id)
 
     await jersey.deleteOne({_id: id});
     

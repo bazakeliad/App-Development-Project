@@ -72,10 +72,6 @@ const Jersey = new Schema ({
     price: {
         type: String,
         required: true
-    },
-    _id: {
-        type: Number,
-        required: true
     }
     // // not required(by default required field is false), but if the user doesnt put it, we will add it automatically
     // published: {
