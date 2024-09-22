@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const JerseySchema = new Schema ({
+const JerseySchema = new Schema({
     team: {
         type: String,
         required: true
@@ -11,13 +11,13 @@ const JerseySchema = new Schema ({
         required: true
     },
     price: {
-        type: Number, // Changed to Number
+        type: Number,
         required: true,
         min: 0
     },
     image: {
-        type: String,
-        required: true
+        data: Buffer,
+        contentType: String
     },
     // Optional fields
     sizes: {

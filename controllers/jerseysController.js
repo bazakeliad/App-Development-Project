@@ -126,6 +126,21 @@ const deleteJerseyById = async (req, res) => {
     }
 }
 
+// Function to serve jersey images
+const getJerseyImage = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const jersey = await jerseysServices.getJerseyById(id);
+        if (!jersey || !jersey.image || !jersey.image.data) {
+            return res.status(404).send('Image not found');
+        }
+        res.contentType(jersey.image.contentType);
+        res.send(jersey.image.data);
+    } catch (error) {
+        console.error('Error fetching image:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
 
 
 
@@ -149,5 +164,6 @@ module.exports = {
     getAllJerseys,
     getJerseyById,
     createJersey,
-    deleteJerseyById
+    deleteJerseyById,
+    getJerseyImage
 }

@@ -1,12 +1,16 @@
-const express = require("express")
-const router = express.Router()
-
-const jerseysController = require("../controllers/jerseysController")
-
-// jerseys paths
-router.route("/getAllJerseys").get(jerseysController.getAllJerseys)
-router.route("/getJersey").get(jerseysController.getJerseyById)
-router.route("/deleteJersey").get(jerseysController.deleteJerseyById)
 
 
-module.exports = router
+const express = require("express");
+const router = express.Router();
+
+const jerseysController = require("../controllers/jerseysController");
+
+// Jerseys paths
+router.get("/getAllJerseys", jerseysController.getAllJerseys);
+router.get("/getJersey", jerseysController.getJerseyById);
+router.get("/deleteJersey", jerseysController.deleteJerseyById);
+
+// Route to serve jersey images
+router.get("/jerseys/image/:id", jerseysController.getJerseyImage);
+
+module.exports = router;
