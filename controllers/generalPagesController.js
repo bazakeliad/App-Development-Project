@@ -39,10 +39,33 @@ const handleFormSubmission = async(req, res) => {
 }
 
 
+const teams = [
+    { name: 'Manchester United', twitterHandle: 'ManUtd' },
+    { name: 'Liverpool FC', twitterHandle: 'LFC' },
+    { name: 'Chelsea FC', twitterHandle: 'ChelseaFC' },
+    // Add more teams as needed
+];
+
+const getTeamSelection = (req, res) => {
+    res.render('myteam', { teams });
+};
+
+const postTeamSelection = (req, res) => {
+    const twitterHandle = req.body.team;
+    res.redirect(`/myteam/${twitterHandle}`);
+};
+
+const getTeamTweets = (req, res) => {
+    const twitterHandle = req.params.twitterHandle;
+    res.render('teamTweets', { twitterHandle });
+};
 
 // exporting functions
 module.exports = {
     getHomePage,
     handleFormSubmission,
-    getAboutUs
+    getAboutUs,
+    getTeamSelection,
+    postTeamSelection,
+    getTeamTweets
 }
