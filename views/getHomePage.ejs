@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jersey Shop</title>
+    <title>ALLSTARS JERSEYS</title>
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 
     <!-- Bootstrap CSS -->
@@ -37,22 +37,26 @@
         <div class="row">
             <% for (let i = 0; i < Math.min(jerseys.length, 3); i++) { %> 
                 <div class="col-md-4 py-1">
-                    <!-- Wrap the card in an a tag -->
-                    <a href="/getJersey?id=<%= jerseys[i]._id %>" class="card-link">
-                        <div class="card mx-2" style="min-width: 200px;">
-                            <img src="images/stam-jersey.png" class="card-img-top" alt="<%= jerseys[i].team %>" style="height: 250px;">
-                            <div class="card-body text-center">
-                                <h5 class="card-title"><%= jerseys[i].team %> Jersey</h5>
-                                <p class="card-text"><%= jerseys[i].kitType %></p>
-                                <p class="card-text text-primary fw-bold"><%= jerseys[i].price %></p>
-                                <a href="#" class="btn btn-dark"><i class="bi bi-cart-plus"></i> Add to Cart</a>
+                    <div class="card h-100">
+                        <a href="/getJersey?id=<%= jerseys[i]._id %>" class="card-link">
+                            <img src="images/<%= jerseys[i].image || 'default-image.jpg' %>" class="card-img-top" alt="<%= jerseys[i].team %>">
+                            <div class="card-body">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title"><%= jerseys[i].team %> Jersey</h5>
+                                    <p class="card-text"><%= jerseys[i].kitType %></p>
+                                    <p class="card-text fw-bold">$<%= (typeof jerseys[i].price === 'number') ? jerseys[i].price.toFixed(2) : 'N/A' %></p>
+                                    <div class="card-footer text-center">
+                                        <a href="/addToCart?id=<%= jerseys[i]._id %>" class="btn btn-outline-primary"><i class="bi bi-cart-plus"></i> Add to Cart</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
             <% } %>
         </div>
     </div>
+    
 
    <!-- Footer -->
    <%- include('partials/footer.ejs') %>

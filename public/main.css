@@ -5,14 +5,14 @@
     --accent-color: #FFFFFF;       /* White */
     --text-color: #333333;         /* Dark Gray */
     --background-color: #FFFFFF;   /* White */
-    --header-bg: #F2F2F2;          /* Light Gray */
+    --header-bg: #c4afafad;          /* Light Gray */
     --footer-bg: #e4050524;          /* Light Gray */
     --nav-bg: #A50044;             /* Burgundy */
 }
 
 /* General Styles */
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: system-ui, -apple-system;
     color: var(--text-color);
     background-color: var(--background-color);
     margin: 0;
