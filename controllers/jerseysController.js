@@ -15,7 +15,7 @@ const getAllJerseys = async(req, res) => {
 // return specific jersey page
 const getJerseyById = async (req, res) => {
     // we need to get the id of the jersey, for displaying the specified jersey in the request.
-    const jerseyId = req.query.id
+    const jerseyId = req.params.id
 
     if (jerseyId == undefined)
         res.status(404).send()
@@ -42,7 +42,7 @@ const createJersey = async (res, team) => {
 
 
 const deleteJerseyById = async (req, res) => {
-    const jerseyId = req.query.id
+    const jerseyId = req.params.id
     if (jerseyId == undefined)
         res.status(404).send()
     else{
@@ -54,15 +54,20 @@ const deleteJerseyById = async (req, res) => {
         else{
             // we could do this line instead:
             // getAllJerseys(req, res)
-            // but the user would be staying in this url - /deleteJersey?id=2 , and a refresh would do this operation again. so we want redirect him to another url,
+            // but the user would be staying in this url - /jerseys/2 , and a refresh would do this operation again. so we want redirect him to another url,
             // so after refresh we will get the same page he is  again and not the operation
-            res.redirect("/getAllJerseys")
+
+            // Send a success response instead of redirecting, because redirect stay at DELETE methood, bad
+            res.status(200).json({ message: 'Item deleted successfully' });
         }
     }
 }
 
 
-
+const searchJerseys = async (req, res) => {
+    const jerseys = await jerseysServices.getJerseysByTeamPrefix(req.params.teamPrefix);
+    res.json(jerseys);
+}
 
 // const updateJersey = async (req, res) => {
 //     if (!req.body.title) {
@@ -84,5 +89,6 @@ module.exports = {
     getAllJerseys,
     getJerseyById,
     createJersey,
-    deleteJerseyById
+    deleteJerseyById,
+    searchJerseys
 }

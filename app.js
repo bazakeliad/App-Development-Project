@@ -23,13 +23,18 @@ mongoose.connect('mongodb://localhost:27017/jerseysAllstarsShop',
 // expose public directory resources.
 server.use(express.static("public"))
 
-// expose jerseys routes
-const jerseysRoutes = require("./routes/jerseysRoutes")
-server.use(jerseysRoutes)
 
 // expose generalPages routes
 const generalPagesRoutes = require("./routes/generalPagesRoutes")
 server.use(generalPagesRoutes)
+
+// expose jerseys routes
+const jerseysRoutes = require("./routes/jerseysRoutes")
+server.use("/jerseys", jerseysRoutes)
+
+// expose apis path
+const apis = require('./routes/apisRoutes')
+server.use("/apis", apis)
 
 // server.listen(process.env.PORT)
 server.listen(80)

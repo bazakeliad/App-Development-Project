@@ -76,16 +76,31 @@
 
 const Jersey = require("../models/jersey");
 
-
+// try and exceptions
 const getJerseyById = async (id) => {
     return await Jersey.findOne({ _id: id });
 };
 
 
-const getAllJerseys = async (id) => {
+const getAllJerseys = async () => {
     // return all jerseys
     return Jersey.find({});
 }
+
+const getJerseysByTeamPrefix = async (teamPrefix) => {
+    try {
+        // Using regex to match the start of the 'team' field with the 'teamprefix'
+        const teams = await Jersey.find({
+          team: { $regex: `^${teamPrefix}`, $options: 'i' } // 'i' option for case-insensitive search
+        });
+        return teams;
+    } 
+    catch (error) {
+        console.error('Error retrieving teams by prefix:', error);
+        throw error;
+    }
+}
+
 
 
 const createJersey = async (team) => {
@@ -136,6 +151,7 @@ module.exports = {
     getJerseyById,
     getAllJerseys,
     createJersey,
-    deleteJerseyById
+    deleteJerseyById,
+    getJerseysByTeamPrefix
     // updateJersey
 }
