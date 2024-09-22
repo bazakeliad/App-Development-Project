@@ -16,73 +16,60 @@
 
 <body>
 
-    <header class="bg-dark text-light text-center py-4">
-            <h1 class="mb-0"><img src="images/logo.jpg" style="width: 80px; padding-right: 5px;"/>Allstars Jerseys Shop<img src="images/logo.jpg" style="width: 80px;"/></h1>
+    <header class="bg-light text-dark text-center py-4">
+            <h1 class="mb-0"><img src="images/logo.jpg" style="width: 80px; padding-right: 5px;"/>ALLSTARS JERSEYS</h1>
     </header>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand btn btn-outline-dark" href="/"><i class="bi bi-house-fill"></i> Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-dark" aria-current="page" href="#">Shop</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-dark" href="#">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-dark" href="#">About Us</a>
-                    </li>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 10vh;">
+        <div class="container-fluid d-flex justify-content-between align-items-center" style="height: 100%;">
+
+            <!-- Centering the nav items -->
+            <div class="d-flex flex-grow-1 justify-content-center">
+                <ul class="navbar-nav d-flex flex-row" style="margin-left: 150px;">
+                    <li class="nav-item mx-4"><a class="nav-link text-dark" href="#">HOME</a></li>
+                    <li class="nav-item mx-4"><a class="nav-link text-dark" href="/getAllJerseys">BROWSE</a></li>
+                    <li class="nav-item mx-4"><a class="nav-link text-dark" href="#">MY TEAM</a></li>
+                    <li class="nav-item mx-4"><a class="nav-link text-dark" href="/aboutus">ABOUT US</a></li>
                 </ul>
             </div>
-            <div class="d-lg-flex mt-2 mt-lg-0 ms-auto">
-                <button class="btn btn-outline-dark"><i class="bi bi-person-circle"></i> Sign In</button>
+
+            <!-- Login and Cart icons at the right corner -->
+            <div class="d-flex">
+                <a href="/login" class="btn btn-link mx-2"><i class="bi bi-person"></i></a>
+                <a href="/cart" class="btn btn-link mx-2"><i class="bi bi-cart"></i></a>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <h3>Select Operation</h3>
-        <form action="/submit" method="POST">
-            <div class="mb-3" id="readInputField">
-                <label for="userInput" class="form-label">Enter Text:</label>
-                <input type="text" class="form-control" id="userInput" name="userInput">
+    <!-- Big Photo with Buttons -->
+    <div class="container-fluid p-0">
+        <div class="position-relative">
+            <img src="images/banner.jpg" class="img-fluid w-100" alt="Big Banner" style="height: 60vh; object-fit: cover;">
+            
+            <!-- Overlay buttons at the bottom -->
+            <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4 text-center">
+                <a href="/shop" class="btn btn-dark btn-lg mx-2">SHOP NOW <i class="bi bi-arrow-right"></i></a>
+                <a href="/signup" class="btn btn-light btn-lg mx-2">JOIN THE CLUB!</a>
             </div>
-            <div class="mb-3">
-                <label for="operation" class="form-label">Select Operation:</label>
-                <select class="form-select" id="operation" name="operation" required>
-                    <option value="read">Closer Look</option>
-                    <option value="create">Create Jersey</option>
-                </select>
-            </div>
-            <!-- <div class="mb-3" id="updateInputField">
-                <label for="newInput" class="form-label">Enter New Value:</label>
-                <input type="text" class="form-control" id="newInput" name="newInput">
-            </div> -->
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        </div>
     </div>
 
+    <!-- Jersey Section with Hover Effect -->
     <div class="container my-5">
         <div class="row">
-            <% for(i=0; i < jerseys.length; i++) { %> 
+            <% for (let i = 0; i < Math.min(jerseys.length, 3); i++) { %> 
                 <div class="col-md-4 py-1">
                     <!-- Wrap the card in an a tag -->
                     <a href="/getJersey?id=<%= jerseys[i]._id %>" class="card-link">
-                        <div class="card">
-                            <img src="images/stam-jersey.png" style="height: 350px;" class="card-img-top" alt="<%= jerseys[i].team %>">
+                        <div class="card mx-2" style="min-width: 200px;">
+                            <img src="images/stam-jersey.png" class="card-img-top" alt="<%= jerseys[i].team %>" style="height: 250px;">
                             <div class="card-body text-center">
-                                <h5 class="card-title"><%= jerseys[i].team %> Jersey </h5>
+                                <h5 class="card-title"><%= jerseys[i].team %> Jersey</h5>
                                 <p class="card-text"><%= jerseys[i].kitType %></p>
                                 <p class="card-text text-primary fw-bold"><%= jerseys[i].price %></p>
                                 <a href="#" class="btn btn-dark"><i class="bi bi-cart-plus"></i> Add to Cart</a>
                             </div>
-                        </div>                        
+                        </div>
                     </a>
                 </div>
             <% } %>
