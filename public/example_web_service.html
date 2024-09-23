@@ -21,6 +21,34 @@
     </div>
 
 
-    <script src="example_web_service.js"></script>
+
+
+
+    <ul id="newsList"></ul>
+
+    <!-- HTML template for news items -->
+    <script type="text/html" id="newsTemplate">
+        <li>
+            <h3>{title}</h3>
+            <p><b>Author:</b> {author}</p>
+            <p><b>Source:</b> {source}</p>
+            <p>{description}</p>
+            <a href="{url}" target="_blank">Read more</a>
+            <img src="{urlToImage}" alt="Article image" width="150">
+        </li>
+    </script>
+
+
+    <ul id="ulListUsingTemplate"> </ul>
+
+    <!-- this dont doing nothing, we can put this template in another tags after editing it. -->
+    <script type="text/html" id="jerseyTemplate">
+        <!-- i can also: <li>{team} <b>{kitType}</b>  <b>{price}</b> </li> -->
+        <li>{team} <b>{kitType}</b>  <b>{price}</b> </li>
+    </script>
+
+        
+    <script src="example_web_service.js"></script>    
+
 </body>
 </html>

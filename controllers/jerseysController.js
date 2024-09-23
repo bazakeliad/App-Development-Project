@@ -64,8 +64,14 @@ const deleteJerseyById = async (req, res) => {
 }
 
 
-const searchJerseys = async (req, res) => {
+const apiGetJerseysByPrefix = async (req, res) => {
     const jerseys = await jerseysServices.getJerseysByTeamPrefix(req.params.teamPrefix);
+    res.json(jerseys);
+    
+}
+
+const apiGetAllJerseys = async (req, res) => {
+    const jerseys = await jerseysServices.getAllJerseys();
     res.json(jerseys);
 }
 
@@ -90,5 +96,6 @@ module.exports = {
     getJerseyById,
     createJersey,
     deleteJerseyById,
-    searchJerseys
+    apiGetJerseysByPrefix,
+    apiGetAllJerseys
 }
