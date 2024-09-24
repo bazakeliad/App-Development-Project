@@ -2,7 +2,7 @@ const express = require("express")
 const server = express()
 
 // for using post parameters
-server.use(express.urlencoded({ extended: true }));
+server.use(express.urlencoded({ extended: false }));
 
 
 
@@ -14,9 +14,20 @@ const mongoose = require('mongoose');
 // mongoose.connect(process.env.CONNECTION_STRING,
 //     {   useNewUrlParser: true,
 //         useUnifiedTopology: true });
-mongoose.connect('mongodb://localhost:27017/jerseysAllstarsShop',
-    {   useNewUrlParser: true,
-        useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/jerseysAllstarsShop', {   
+    useNewUrlParser: true,
+    useUnifiedTopology: true 
+});
+
+
+const session = require('express-session');
+server.use(session({
+    secret: 'bestSiteEver',
+    saveUninitialized: false,
+    resave: false
+}));
+
+server.set("view engine", "ejs");
 
 
 
@@ -38,3 +49,4 @@ server.use("/apis", apis)
 
 // server.listen(process.env.PORT)
 server.listen(80)
+
