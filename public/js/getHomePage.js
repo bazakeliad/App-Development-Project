@@ -65,42 +65,12 @@ document.getElementById('inpSearch').onkeyup = search
 
 // ----------------------------------------------------------------------------------------------------------------
 // shabo added web service
-const jsonResponse = {
-    "status": "ok",
-    "totalResults": 4823,
-    "articles": [
-        {
-            "source": { "id": "the-verge", "name": "The Verge" },
-            "author": "Kylie Robison",
-            "title": "Alexis Ohanian is premiering his women’s soccer show on X",
-            "description": "X CEO Linda Yaccarino emails staff about a TikTok-like video tab and X TV App...",
-            "url": "https://www.theverge.com/2024/9/20/24250374/alexis-ohanian-twitter-x-the-offseason-midge-purce-linda-yaccarino",
-            "urlToImage": "https://cdn.vox-cdn.com/thumbor/7B8eJZYbXg4F_HkICJxQN9IS1JY=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/25535555/STK160_X_TWITTER__B.jpg",
-            "publishedAt": "2024-09-21T00:59:22Z",
-            "content": "Alexis Ohanian is premiering his women's soccer show on X..."
-        },
-        {
-            "source": { "id": null, "name": "Yahoo Entertainment" },
-            "author": "Jeremy Gan",
-            "title": "The MLS Season Pass on Apple TV is now $10 for the rest of the season",
-            "description": "Soccer fans who want to catch up on the latest MLS matches for the rest of the 2024 season...",
-            "url": "https://consent.yahoo.com/v2/collectConsent?sessionId=1_cc-session_6f4103e7-8dc0-494e-9621-324b85c36454",
-            "urlToImage": null,
-            "publishedAt": "2024-09-03T14:51:01Z",
-            "content": "If you click 'Accept all', we and our partners..."
-        },
-        {
-            "source": { "id": null, "name": "CNET" },
-            "author": "Kevin Lynch",
-            "title": "Premier League Soccer: Livestream Man City vs. Ipswich From Anywhere",
-            "description": "Pep Guardiola's side host the newly promoted Tractor Boys...",
-            "url": "https://www.cnet.com/tech/services-and-software/premier-league-soccer-livestream-man-city-vs-ipswich-from-anywhere/",
-            "urlToImage": "https://www.cnet.com/a/img/resize/3ad40d9807319afd093f8d74826ecff73604bda3/hub/2024/08/23/8a6764fd-2c62-4785-8e9f-1dda5d39e6ac/gettyimages-2167146822.jpg",
-            "publishedAt": "2024-08-23T13:48:25Z",
-            "content": "Premier League newcomers Ipswich face a daunting task..."
-        }
-    ]
-};
+async function getNews() {
+    const res = await fetch('https://newsapi.org/v2/everything?q=(football AND (jersey OR jerseys OR kit OR uniform OR "team kit" OR "team uniform")) AND (best OR top OR popular OR iconic OR famous OR "most loved" OR "most iconic" OR ranking OR review OR "fan favorite") AND (team OR club OR player OR "football club")&apiKey=...')
+    const jsonResponse = await res.json()
+    console.log(jsonResponse)
+    return jsonResponse
+}
 
 // Function to get 3 random articles
 function getRandomArticles(jsonData, count) {
@@ -143,5 +113,10 @@ function displayArticles(articles) {
 }
 
 // Get and display 3 random articles
-const randomArticles = getRandomArticles(jsonResponse, 2);
-displayArticles(randomArticles);
+async function loadNews() {
+    const jsonResponse = await getNews()
+    const randomArticles = getRandomArticles(jsonResponse, 2);
+    displayArticles(randomArticles);
+}
+
+loadNews();
