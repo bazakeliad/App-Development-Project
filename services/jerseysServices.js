@@ -13,6 +13,22 @@ const getAllJerseys = async (query = {}, sort = {}) => {
     }
 };
 
+
+const getJerseysByTeamPrefix = async (teamPrefix) => {
+    try {
+        // Using regex to match the start of the 'team' field with the 'teamprefix'
+        const teams = await Jersey.find({
+          team: { $regex: `^${teamPrefix}`, $options: 'i' } // 'i' option for case-insensitive search
+        });
+        return teams;
+    } 
+    catch (error) {
+        console.error('Error retrieving teams by prefix:', error);
+        throw error;
+    }
+}
+
+
 const createJersey = async (jerseyData) => {
     const jersey = new Jersey(jerseyData);
     return await jersey.save();
@@ -57,5 +73,7 @@ module.exports = {
     createJersey,
     getDistinctTeamsAndKitTypes,
     updateJerseyById,
+    deleteJerseyById,
+    getJerseysByTeamPrefix,
     deleteJerseyById
 };
