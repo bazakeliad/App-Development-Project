@@ -2,14 +2,36 @@ const jerseysServices = require("../services/jerseysServices")
 const jerseysController = require("../controllers/jerseysController")
 
 
-// return home page to the user
-const getHomePage = async(req, res) => {
-    const jerseys = await jerseysServices.getAllJerseys()
-    res.render("getHomePage.ejs", { jerseys } )
-}    
+const testimonials = [
+    { name: 'John Doe', message: 'Great service and amazing jerseys!' },
+    { name: 'Jane Smith', message: 'Fast shipping and quality products. Highly recommend!' },
+    { name: 'Alex Johnson', message: 'Excellent customer support and fantastic selection.' },
+];
+
+// Return home page to the user
+const getHomePage = async (req, res) => {
+    try {
+        // Fetch featured jerseys from the database
+        const allFeaturedJerseys = await jerseysServices.getFeaturedJerseys();
+
+        // Limit the number of jerseys to display (e.g., 4 jerseys)
+        const featuredJerseys = allFeaturedJerseys.slice(0, 4);
+
+        // Render the home.ejs template with the jerseys and testimonials
+        res.render('getHomePage.ejs', { featuredJerseys, testimonials });
+    } catch (error) {
+        console.error('Error fetching data for homepage:', error);
+        res.status(500).send('An error occurred while loading the homepage.');
+    }
+};
+
 
 const getAboutUs = async(req, res) => {
     res.render("getAboutUs.ejs")
+}    
+
+const login = async(req, res) => {
+    res.render("login.ejs")
 }    
 
 
@@ -78,5 +100,6 @@ module.exports = {
     getAboutUs,
     getTeamSelection,
     postTeamSelection,
-    getTeamTweets
+    getTeamTweets,
+    login
 }
