@@ -102,21 +102,6 @@ const editJersey = async (req, res) => {
     }
 };
 
-// // Handle deleting a jersey
-// const deleteJersey = async (req, res) => {
-//     const id = req.params.id;
-//     try {
-//         const jersey = await jerseysServices.deleteJerseyById(id);
-//         if (!jersey) {
-//             return res.status(404).send('Jersey not found');
-//         }
-//         res.redirect('/admin/jerseys');
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).send('Internal Server Error');
-//     }
-// };
-
 // Serve jersey image
 const getJerseyImage = async (req, res) => {
     const id = req.params.id;

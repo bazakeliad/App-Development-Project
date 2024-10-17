@@ -67,6 +67,15 @@ const deleteJerseyById = async (id) => {
     }
 };
 
+const getFeaturedJerseys = async () => {
+    try {
+        return await Jersey.find().limit(6);
+    } catch (error) {
+        console.error("Error fetching featured jerseys:", error);
+        throw error;
+    }
+};
+
 module.exports = {
     getJerseyById,
     getAllJerseys,
@@ -74,6 +83,7 @@ module.exports = {
     getDistinctTeamsAndKitTypes,
     updateJerseyById,
     deleteJerseyById,
+    getFeaturedJerseys,
     getJerseysByTeamPrefix,
     deleteJerseyById
 };

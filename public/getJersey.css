@@ -1,12 +1,21 @@
-/* Additional styling for nav links and brand */
-.nav-link, .navbar-brand {
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+.auth-container {
+    max-width: 500px;
+    margin: 5% auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
 }
-
-/* Background color on hover */
-.nav-link:hover, .navbar-brand:hover {
-    background-color: #343a40; /* Dark background similar to the "Sign In" button */
-    color: #ffffff; /* White text on hover */
+.auth-container h2 {
+    margin-bottom: 30px;
+}
+.form-control:focus {
+    box-shadow: none;
+}
+.btn-primary {
+    background-color: #0046AD;
+    border-color: #0046AD;
+}
+.btn-primary:hover {
+    background-color: #003B94;
+    border-color: #003B94;
 }

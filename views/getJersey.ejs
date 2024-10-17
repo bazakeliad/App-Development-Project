@@ -1,75 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jersey Shop</title>
+    <title><%= jersey.team %> <%= jersey.kitType %> Jersey - ALLSTARS JERSEYS</title>
+    <meta name="description" content="Purchase the official <%= jersey.team %> <%= jersey.kitType %> jersey at ALLSTARS JERSEYS.">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!-- Bootstrap Icons -->
+    <!-- Bootstrap CSS and Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="/getJersey.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/main.css">
 </head>
-
 <body>
+    <!-- Header -->
+    <%- include('partials/compactHeader.ejs') %>
 
-    <header class="bg-dark text-light text-center py-4">
-        <h1 class="mb-0"><img src="/images/logo.jpg" style="width: 80px; padding-right: 5px;"/>Allstars Jerseys Shop<img src="/images/logo.jpg" style="width: 80px;"/></h1>
-    </header>
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/jerseys">All Jerseys</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><%= jersey.team %> <%= jersey.kitType %></li>
+            </ol>
+        </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand btn btn-outline-dark" href="/"><i class="bi bi-house-fill"></i> Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-dark" aria-current="page" href="#">Shop</a>
+        <div class="row">
+            <!-- Left Column: Images -->
+            <div class="col-md-6">
+                <% if (jersey.images && jersey.images.length > 1) { %>
+                    <!-- Image Carousel -->
+                    <div id="jerseyCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <% jersey.images.forEach((image, index) => { %>
+                                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                    <img src="/jerseys/image/<%= jersey._id %>/<%= index %>" class="d-block w-100 rounded" alt="Jersey Image <%= index + 1 %>">
+                                </div>
+                            <% }); %>
+                        </div>
+                        <!-- Carousel Controls -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#jerseyCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#jerseyCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                <% } else { %>
+                    <!-- Single Image -->
+                    <% if (jersey.images && jersey.images.length === 1) { %>
+                        <img src="/jerseys/image/<%= jersey._id %>/0" class="img-fluid rounded" alt="<%= jersey.team %> Jersey">
+                    <% } else if (jersey.image && jersey.image.data) { %>
+                        <img src="/jerseys/image/<%= jersey._id %>" class="img-fluid rounded" alt="<%= jersey.team %> Jersey">
+                    <% } else { %>
+                        <img src="/images/default-image.jpg" class="img-fluid rounded" alt="Default Image">
+                    <% } %>
+                <% } %>
+            </div>
+
+            <!-- Right Column: Jersey Details -->
+            <div class="col-md-6">
+                <h1 class="display-5"><%= jersey.team %> <%= jersey.kitType %> Jersey</h1>
+                <h2 class="text-muted mb-4">$<%= (typeof jersey.price === 'number') ? jersey.price.toFixed(2) : 'N/A' %></h2>
+
+                <!-- Size and Quantity Selection -->
+                <form action="/addToCart" method="GET">
+                    <input type="hidden" name="id" value="<%= jersey._id %>">
+                    <!-- Size Selection -->
+                    <div class="mb-3">
+                        <label for="size" class="form-label">Select Size:</label>
+                        <select name="size" id="size" class="form-select" required>
+                            <option value="" disabled selected>Select a size</option>
+                            <% jersey.sizes.forEach(size => { %>
+                                <option value="<%= size %>"><%= size %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <!-- Quantity Selection -->
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity:</label>
+                        <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1">
+                    </div>
+                    <!-- Add to Cart Button -->
+                    <button type="submit" class="btn btn-primary btn-lg mt-3">
+                        <i class="bi bi-cart-plus"></i> Add to Cart
+                    </button>
+                </form>
+
+                <!-- Tabs for Additional Information -->
+                <ul class="nav nav-tabs mt-5" id="jerseyTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab">Description</button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-dark" href="#">Contact</a>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">Reviews</button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-outline-dark" href="#">About Us</a>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#shipping" type="button" role="tab">Shipping Info</button>
                     </li>
                 </ul>
-            </div>
-            <div class="d-lg-flex mt-2 mt-lg-0 ms-auto">
-                <button class="btn btn-outline-dark"><i class="bi bi-person-circle"></i> Sign In</button>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container my-5">
-        <div class="row justify-content-center">
-
-            <div class="col-md-4">
-                <div class="card py-4">
-                    <img src="/images/stam-jersey.png" class="card-img-top" alt="<%= jersey.team %>" >
-                    <div class="card-body text-center">
-                        <h5 class="card-title"><%= jersey.team %> Jersey </h5>
-                        <p class="card-text"><%= jersey.kitType %></p>
-                        <p class="card-text text-primary fw-bold"><%= jersey.price %></p>
-                        <a href="#" class="btn btn-dark"><i class="bi bi-cart-plus"></i> Add to Cart</a>
+                <div class="tab-content" id="jerseyTabContent">
+                    <!-- Description Tab -->
+                    <div class="tab-pane fade show active p-3" id="description" role="tabpanel">
+                        <% if (jersey.description) { %>
+                            <p><%= jersey.description %></p>
+                        <% } else { %>
+                            <p>No description available.</p>
+                        <% } %>
+                    </div>
+                    <!-- Reviews Tab -->
+                    <div class="tab-pane fade p-3" id="reviews" role="tabpanel">
+                        <!-- Placeholder for reviews -->
+                        <p>No reviews yet.</p>
+                    </div>
+                    <!-- Shipping Info Tab -->
+                    <div class="tab-pane fade p-3" id="shipping" role="tabpanel">
+                        <p>Standard shipping: 3-5 business days.</p>
+                        <p>Express shipping: 1-2 business days.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-dark text-light text-center py-3">
-        <p class="mb-0">&copy; 2024 Allstars Jerseys Shop. All rights reserved.</p>
-    </footer>
+    <!-- Footer -->
+    <%- include('partials/footer.ejs') %>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    <!-- Bootstrap JS and Optional jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Optional: Include the jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
-
 </html>
