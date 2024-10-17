@@ -15,10 +15,17 @@ const OrderSchema = new Schema({
         type: String,
         required: true
     },
-    items: {
-        type: [String],
-        required: true
-    },
+    items: [{
+        itemId: { 
+            type: String, 
+            required: true 
+        },
+        quantity: { 
+            type: Number, 
+            required: true, 
+            min: 1 // Ensure quantity is at least 1
+        }
+    }],
     status: {
         type: String,
         required: true,

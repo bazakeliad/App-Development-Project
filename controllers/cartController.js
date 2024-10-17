@@ -1,31 +1,14 @@
 const Cart = require('../models/cart');
 const Order = require('../models/order');
 const Item = require('../models/jersey');
+const cartServices = require('../services/cartServices')
 
 // Create or update a cart
 exports.updateCart = async (req, res) => {
     const { userId, items } = req.body; // Accept items as an array
     try {
         // Create an array to hold updated items with prices
-        const updatedItems = [];
-
-        for (const { itemId, quantity } of items) {
-            const item = await Item.findById(itemId);
-            if (!item) return res.status(404).json({ message: 'Item not found' });
-
-            const price = item.price; // Get the price from the item
-            updatedItems.push({
-                itemId,
-                quantity,
-                price: price
-            });
-        }
-
-        const cart = await Cart.findOneAndUpdate(
-            { userId },
-            { $set: { items: updatedItems } },
-            { upsert: true, new: true, runValidators: true }
-        );
+        const cart = await cartServices.updateCart(userId, items)
         res.status(200).json(cart);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -50,7 +33,11 @@ exports.checkoutCart = async (req, res) => {
         const cart = await Cart.findOne({ userId });
         if (!cart) return res.status(404).json({ message: 'Cart not found' });
         
-        // Calculate total price
+         // Calculate total price and prepare order items
+        const items = cart.items.map(item => ({
+            itemId: item.itemId, // Assuming itemId is in the cart item
+            quantity: item.quantity // Capture the quantity from the cart
+        }));
         const totalPrice = cart.items.reduce((total, item) => {
             return total + item.price * item.quantity;
         }, 0);
@@ -59,7 +46,7 @@ exports.checkoutCart = async (req, res) => {
             userId,
             totalPrice,
             address,
-            items: cart.items.map(item => item.itemId),
+            items,
             status: 'pending'
         });
 
