@@ -60,8 +60,19 @@ const getTeamTweets = (req, res) => {
     res.render('teamTweets', { twitterHandle });
 };
 
+// Get Cart Page
+const getCartPage = (req, res) => {
+    try {
+        res.render('cart.ejs');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+};
+
 // exporting functions
 module.exports = {
+    getCartPage,
     getHomePage,
     handleFormSubmission,
     getAboutUs,
