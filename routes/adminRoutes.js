@@ -20,7 +20,6 @@ router.get('/jerseys/add', adminController.getAddJerseyForm);        // Form to 
 router.post('/jerseys/add', upload.single('image'), adminController.addJersey); // Create jersey with file upload
 router.get('/jerseys/edit/:id', adminController.getEditJerseyForm);  // Form to edit jersey
 router.post('/jerseys/edit/:id', upload.single('image'), adminController.editJersey); // Update jersey with file upload
-// router.post('/jerseys/delete/:id', adminController.deleteJersey);    // Delete jersey
 
 // Serve jersey image
 router.get('/jerseys/image/:id', adminController.getJerseyImage);

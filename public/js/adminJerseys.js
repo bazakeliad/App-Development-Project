@@ -8,7 +8,15 @@ async function deleteResource(jerseyId) {
             $(`#jersey_${jerseyId}`).remove();
         },
         error: function(err) {
-            console.log('Error:', err);
+            if (err.status === 401) {
+                // If 401 Unauthorized, redirect to the login page
+                window.location.href = '/login';
+            } else if (err.status === 403) {
+                // If 403 Forbidden, alert the user about access denial
+                alert('Access Denied: Not Enough Permissions');
+            } else {
+                console.log('Error:', err);
+            }
         }
     });
 }

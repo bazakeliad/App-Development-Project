@@ -1,4 +1,5 @@
 const loginService = require("../services/loginServices");
+const userServices = require("../services/userServices");
 
 function isLoggedIn(req, res, next) {
   if (req.session.username != null) {
@@ -7,6 +8,28 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login");
   }
 }
+
+async function isLoggedAsAdmin(req, res, next) {
+  if (req.session.username != null) {
+    try {
+      // Assuming req.session.username is the user ID
+      const isAdmin = await userServices.isLoggedAsAdmin(req.session.username);
+
+      if (isAdmin) {
+        return next();
+      } else {
+        res.status(403).send('Access denied. Admins only.');
+      }
+    } catch (error) {
+      console.error('Error checking admin status:', error);
+      res.status(500).send('Internal server error');
+    }
+  } 
+  else {
+    res.status(401).send('Authentication required. Please log in.'); 
+  }
+}
+
 
 function personalArea(req, res) {
   res.render("personalArea", { username: req.session.username });
@@ -54,6 +77,7 @@ async function register(req, res) {
 
 module.exports = { 
     isLoggedIn, 
+    isLoggedAsAdmin, 
     personalArea, 
     loginForm, 
     registerForm, 
