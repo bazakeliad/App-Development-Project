@@ -10,5 +10,6 @@ router.route("/aboutus").get(generalPagesController.getAboutUs)
 router.get('/myteam', generalPagesController.getTeamSelection);
 router.post('/myteam', generalPagesController.postTeamSelection);
 router.get('/myteam/:twitterHandle', generalPagesController.getTeamTweets);
+router.get('/cart', generalPagesController.getCartPage)
 
 module.exports = router
