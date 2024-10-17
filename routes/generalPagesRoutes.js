@@ -12,4 +12,20 @@ router.post('/myteam', generalPagesController.postTeamSelection);
 router.get('/myteam/:twitterHandle', generalPagesController.getTeamTweets);
 router.get('/cart', generalPagesController.getCartPage)
 
+
+// login routes
+const loginController = require("../controllers/loginController");
+
+router.route("/register")
+    .get(loginController.registerForm)
+    .post(loginController.register)
+
+router.route("/login")
+    .get(loginController.loginForm)
+    .post(loginController.login) 
+
+router.get("/logout", loginController.logout);
+router.get('/personalArea', loginController.isLoggedIn, loginController.personalArea);
+
+
 module.exports = router
