@@ -4,7 +4,7 @@ const express = require("express");
 const server = express();
 
 // For parsing URL-encoded data and JSON
-server.use(express.urlencoded({ extended: true }));
+server.use(express.urlencoded({ extended: false }));
 server.use(express.json());
 
 // Mongoose connection
@@ -16,6 +16,15 @@ mongoose.connect('mongodb://localhost:27017/jerseysAllstarsShop', {
     useUnifiedTopology: true
 });
 
+const session = require('express-session');
+server.use(session({
+    secret: 'bestSiteEver',
+    saveUninitialized: false,
+    resave: false
+}));
+
+server.set("view engine", "ejs");
+
 // Expose public directory resources
 server.use(express.static("public"));
 
@@ -24,17 +33,21 @@ const path = require('path');
 server.set('view engine', 'ejs');
 server.set('views', path.join(__dirname, 'views'));
 
-// Expose jerseys routes
-const jerseysRoutes = require("./routes/jerseysRoutes");
-server.use(jerseysRoutes);
-
 // Expose generalPages routes
 const generalPagesRoutes = require("./routes/generalPagesRoutes");
 server.use(generalPagesRoutes);
 
+// expose jerseys routes
+const jerseysRoutes = require("./routes/jerseysRoutes")
+server.use("/jerseys", jerseysRoutes)
+
 // Expose admin routes
 const adminRoutes = require("./routes/adminRoutes");
 server.use('/admin', adminRoutes);
+
+// expose apis path
+const apis = require('./routes/apisRoutes')
+server.use("/apis", apis)
 
 // Start the server
 server.listen(80, () => {

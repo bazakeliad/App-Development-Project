@@ -6,11 +6,21 @@ const router = express.Router();
 const jerseysController = require("../controllers/jerseysController");
 
 // Jerseys paths
-router.get("/getAllJerseys", jerseysController.getAllJerseys);
-router.get("/getJersey", jerseysController.getJerseyById);
-router.get("/deleteJersey", jerseysController.deleteJerseyById);
+// rest api - /articles in get, get all. in post upload new one.
+router.route("/")
+    .get(jerseysController.getAllJerseys)
+    // .post(articleController.createJersey);
+
+
+// importing login controller for protecting routes that change data
+const loginController = require("../controllers/loginController");
+
+// rest api - /articles/:1 get article with id 1. in delete, delete him
+router.route("/:id")
+    .get(jerseysController.getJerseyById)
+    .delete(loginController.isLoggedAsAdmin, jerseysController.deleteJerseyById)
 
 // Route to serve jersey images
-router.get("/jerseys/image/:id", jerseysController.getJerseyImage);
+router.get("/image/:id", jerseysController.getJerseyImage);
 
 module.exports = router;

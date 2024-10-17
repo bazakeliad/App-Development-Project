@@ -56,7 +56,7 @@ const handleFormSubmission = async(req, res) => {
         // but the user will stay at /submit path
 
         // we want redirect the user to another url(where this page is given), so after refresh we will get the same page he is again and not the operation
-        res.redirect("/getAllJerseys")
+        res.redirect("/jerseys")
     }
 }
 
