@@ -11,6 +11,6 @@ router.post('/updateCart', loginController.isLoggedIn, cartController.updateCart
 router.get('/getCart/:userId', loginController.isLoggedIn, cartController.getCart);
 router.post('/checkoutCart', loginController.isLoggedIn, cartController.checkoutCart);
 router.delete('/deleteItemFromCart', loginController.isLoggedIn, cartController.deleteItemFromCart);
-router.get('/', cartController.getCart)
+router.get('/', loginController.isLoggedIn, cartController.getCart)
 
 module.exports = router;
