@@ -1,5 +1,6 @@
 const jerseysServices = require("../services/jerseysServices")
 const jerseysController = require("../controllers/jerseysController")
+const userServices = require("../services/userServices");
 
 const getAllNews = async (req, res) => {
     require('dotenv').config();
@@ -26,9 +27,21 @@ const getHomePage = async (req, res) => {
         // Limit the number of jerseys to display (e.g., 4 jerseys)
         const featuredJerseys = allFeaturedJerseys.slice(0, 4);
 
+        // Check if the logged-in user is an admin
+        let isAdmin = false
+        if (req.session.username) {
+            try {
+                isAdmin = await userServices.isLoggedAsAdmin(req.session.username);
+            } 
+            catch (error) {
+              console.error('Error checking admin status:', error);
+            }
+        }
+
         // Render the home.ejs template with the jerseys and testimonials
-        res.render('getHomePage.ejs', { featuredJerseys, testimonials });
-    } catch (error) {
+        res.render('getHomePage.ejs', { featuredJerseys, testimonials, isAdmin });
+    } 
+    catch (error) {
         console.error('Error fetching data for homepage:', error);
         res.status(500).send('An error occurred while loading the homepage.');
     }
