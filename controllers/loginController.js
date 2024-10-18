@@ -1,6 +1,14 @@
 const loginService = require("../services/loginServices");
 const userServices = require("../services/userServices");
 
+
+const teams = [
+  { name: 'Manchester United', twitterHandle: 'ManUtd' },
+  { name: 'Liverpool FC', twitterHandle: 'LFC' },
+  { name: 'Chelsea FC', twitterHandle: 'ChelseaFC' },
+  // Add more teams as needed
+];
+
 function isLoggedIn(req, res, next) {
   if (req.session.username != null) {
     return next();
@@ -36,11 +44,7 @@ function personalArea(req, res) {
 }
 
 function loginForm(req, res) {
-  res.render("login", {});
-}
-
-function registerForm(req, res) {
-  res.render("register", {});
+  res.render("login", { teams });
 }
 
 // Log out and destroy the session
@@ -63,15 +67,18 @@ async function login(req, res) {
 }
 
 async function register(req, res) {
-    const { username, password } = req.body;
+    const { name, username, password, email, team } = req.body;
 
     try {
-      await loginService.register(username, password);
+      await loginService.register(name, username, password, email, team);
+
+      // Set the session's username cookie
       req.session.username = username;
       res.redirect('/');
     } 
     catch (error) {
-      res.redirect('/register?error=1');
+      console.error('Error during registration:', error); // Log the error for debugging
+      res.redirect('/login?error=2');
     }
   }
 
@@ -80,7 +87,6 @@ module.exports = {
     isLoggedAsAdmin, 
     personalArea, 
     loginForm, 
-    registerForm, 
     logout,
     login,
     register
