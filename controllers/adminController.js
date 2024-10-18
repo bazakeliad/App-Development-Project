@@ -18,6 +18,16 @@ const getAllJerseysAdmin = async (req, res) => {
     }
 };
 
+// Display admin console
+const getAdminConsole = (req, res) => {
+    try {
+        res.render('adminConsole.ejs'); // Render the admin console page
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
 // Display form to add a new jersey
 const getAddJerseyForm = (req, res) => {
     res.render('addJersey.ejs');
@@ -119,6 +129,7 @@ const getJerseyImage = async (req, res) => {
 };
 
 module.exports = {
+    getAdminConsole,
     getAllJerseysAdmin,
     getAddJerseyForm,
     addJersey,

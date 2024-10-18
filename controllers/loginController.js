@@ -26,7 +26,7 @@ async function isLoggedAsAdmin(req, res, next) {
       if (isAdmin) {
         return next();
       } else {
-        res.status(403).send('Access denied. Admins only.');
+        res.status(403).send('Access denied. Admins only. <a href="/">Return to Home</a>.');
       }
     } catch (error) {
       console.error('Error checking admin status:', error);
@@ -34,7 +34,7 @@ async function isLoggedAsAdmin(req, res, next) {
     }
   } 
   else {
-    res.status(401).send('Authentication required. Please log in.'); 
+    res.status(401).send('Authentication required. Please <a href="/login">log in</a>.');
   }
 }
 
