@@ -48,10 +48,10 @@
             <div class="tab-pane fade show active" id="login" role="tabpanel">
                 <h2 class="text-center">Welcome Back</h2>
                 <form action="/login" method="POST">
-                    <!-- Email Input -->
+                    <!-- Username Input -->
                     <div class="mb-3">
-                        <label for="loginEmail" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="loginEmail" name="email" required>
+                        <label for="loginUsername" class="form-label">Username</label>
+                        <input class="form-control" id="loginUsername" name="username" required>
                     </div>
                     <!-- Password Input -->
                     <div class="mb-3">
@@ -66,7 +66,7 @@
             <!-- Signup Tab -->
             <div class="tab-pane fade" id="signup" role="tabpanel">
                 <h2 class="text-center">Create an Account</h2>
-                <form action="/signup" method="POST">
+                <form action="/register" method="POST">
                     <!-- Name Input -->
                     <div class="mb-3">
                         <label for="signupName" class="form-label">Full Name</label>
@@ -76,6 +76,11 @@
                     <div class="mb-3">
                         <label for="signupEmail" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="signupEmail" name="email" required>
+                    </div>
+                    <!-- Username Input -->
+                    <div class="mb-3">
+                        <label for="signupUsername" class="form-label">Username</label>
+                        <input class="form-control" id="signupUsername" name="username" required>
                     </div>
                     <!-- Password Input -->
                     <div class="mb-3">
@@ -102,5 +107,7 @@
     <!-- Optional: Include the jQuery library -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- Optional: Form Validation Script -->
+
+    <script src="/js/login.js"></script>
 </body>
 </html>
