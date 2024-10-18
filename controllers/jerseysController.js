@@ -64,26 +64,38 @@ const getAllJerseys = async (req, res) => {
     }
 };
 
-// return specific jersey page
+
+// Return specific jersey page
 const getJerseyById = async (req, res) => {
-    // we need to get the id of the jersey, for displaying the specified jersey in the request.
-    const jerseyId = req.params.id
+    try {
+        // Get the id of the jersey from request parameters
+        const jerseyId = req.params.id;
 
-    if (jerseyId == undefined)
-        res.status(404).send()
-    
-    else {
+        // Check if jerseyId is valid
+        if (!jerseyId) {
+            return res.status(400).send({ message: "Invalid Jersey ID" });
+        }
 
-        // get the specified jersey from the model
-        const jersey = await jerseysServices.getJerseyById(jerseyId)
-        
-        // the model always will return undefined if did not find or did not done the operation, as our standard.
-        if (jersey == undefined)
-            res.status(404).send()
-        else
-            res.render("getJersey.ejs", { jersey } )
+        // Get the specified jersey from the service layer
+        const jersey = await jerseysServices.getJerseyById(jerseyId);
+
+        // If jersey is not found, return a 404 response
+        if (!jersey) {
+            return res.status(404).send({ message: "Jersey not found" });
+        }
+
+        // Pass userId (or username) from the session to the view
+        const userId = req.session.username;
+
+        // Render the specified jersey page with the jersey data and userId
+        return res.render("getJersey.ejs", { jersey, userId });
+    } catch (error) {
+        // Log the error and return a 500 response in case of server error
+        console.error(error);
+        return res.status(500).send({ message: "Internal Server Error" });
     }
-}
+};
+
 
 
 
@@ -138,6 +150,7 @@ const apiGetAllJerseys = async (req, res) => {
     const jerseys = await jerseysServices.getAllJerseys();
     res.json(jerseys);
 }
+
 
 // Function to serve jersey images
 const getJerseyImage = async (req, res) => {

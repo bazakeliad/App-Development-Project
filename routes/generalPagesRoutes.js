@@ -11,8 +11,6 @@ router.route("/login").get(generalPagesController.login)
 router.get('/myteam', generalPagesController.getTeamSelection);
 router.post('/myteam', generalPagesController.postTeamSelection);
 router.get('/myteam/:twitterHandle', generalPagesController.getTeamTweets);
-router.get('/cart', generalPagesController.getCartPage)
-
 
 // login routes
 const loginController = require("../controllers/loginController");

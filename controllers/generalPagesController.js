@@ -1,6 +1,15 @@
 const jerseysServices = require("../services/jerseysServices")
 const jerseysController = require("../controllers/jerseysController")
 
+const getAllNews = async (req, res) => {
+    require('dotenv').config();
+    const apiKey = process.env.API_KEY;
+    const answer = await fetch(`https://newsapi.org/v2/everything?q=(football AND (jersey OR jerseys OR kit OR uniform OR "team kit" OR "team uniform")) AND (best OR top OR popular OR iconic OR famous OR "most loved" OR "most iconic" OR ranking OR review OR "fan favorite") AND (team OR club OR player OR "football club")&apiKey=${apiKey}`)
+    const jsonResponse = await answer.json()
+    console.log(jsonResponse)
+    res.send(jsonResponse)
+}
+
 
 const testimonials = [
     { name: 'John Doe', message: 'Great service and amazing jerseys!' },
@@ -82,19 +91,9 @@ const getTeamTweets = (req, res) => {
     res.render('teamTweets', { twitterHandle });
 };
 
-// Get Cart Page
-const getCartPage = (req, res) => {
-    try {
-        res.render('cart.ejs');
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
-    }
-};
-
 // exporting functions
 module.exports = {
-    getCartPage,
+    getAllNews,
     getHomePage,
     handleFormSubmission,
     getAboutUs,

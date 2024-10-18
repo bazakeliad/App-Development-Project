@@ -49,6 +49,14 @@ server.use('/admin', adminRoutes);
 const apis = require('./routes/apisRoutes')
 server.use("/apis", apis)
 
+// Expose order routes
+const ordersRoutes = require("./routes/ordersRoutes");
+server.use('/orders', ordersRoutes);
+
+// Expose cart routes
+const cartRoutes = require('./routes/cartRoutes');
+server.use('/cart', cartRoutes);
+
 // Start the server
 server.listen(80, () => {
     console.log("Server is running on port 80");
