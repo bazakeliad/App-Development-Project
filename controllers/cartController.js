@@ -10,9 +10,6 @@ exports.updateCart = async (req, res) => {
     const userId = req.session.username; // Use session userId
 
     try {
-        if (!userId) {
-            return res.status(401).json({ message: 'User not authenticated' });
-        }
         const cart = await cartServices.updateCart(userId, jerseyId, quantity);
         res.status(200).json(cart);
     } catch (error) {
@@ -24,10 +21,6 @@ exports.updateCart = async (req, res) => {
 exports.getCart = async (req, res) => {
     const userId = req.session.username;
     try {
-        if (!userId) {
-            return res.status(401).json({ message: 'User not authenticated' });
-        }
-
         const cart = await Cart.findOne({ userId });
         if (!cart) return res.render('cart', { cartItems: [], subtotal: 0, userId });
 
@@ -60,19 +53,17 @@ exports.getCart = async (req, res) => {
 
         // Render the cart.ejs template with cart data
         res.render('cart', { cartItems: filteredCartItems, subtotal, userId });
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
 // Convert cart to order (checkout)
 exports.checkoutCart = async (req, res) => {
-    const userId = req.session.userId || req.session.username;
+    const userId = req.session.username;
     const { address } = req.body;
     try {
-        if (!userId) {
-            return res.status(401).json({ message: 'User not authenticated' });
-        }
         const cart = await Cart.findOne({ userId });
         if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
@@ -105,11 +96,8 @@ exports.checkoutCart = async (req, res) => {
 // Delete an item from the cart
 exports.deleteItemFromCart = async (req, res) => {
     const { itemId } = req.body;
-    const userId = req.session.userId || req.session.username;
+    const userId = req.session.username;
     try {
-        if (!userId) {
-            return res.status(401).json({ message: 'User not authenticated' });
-        }
         const cart = await Cart.findOneAndUpdate(
             { userId },
             { $pull: { items: { jerseyId: itemId } } },
