@@ -66,10 +66,10 @@ document.getElementById('inpSearch').onkeyup = search
 // ----------------------------------------------------------------------------------------------------------------
 // shabo added web service
 async function getNews() {
-    const res = await fetch('https://newsapi.org/v2/everything?q=(football AND (jersey OR jerseys OR kit OR uniform OR "team kit" OR "team uniform")) AND (best OR top OR popular OR iconic OR famous OR "most loved" OR "most iconic" OR ranking OR review OR "fan favorite") AND (team OR club OR player OR "football club")&apiKey=...')
-    const jsonResponse = await res.json()
-    console.log(jsonResponse)
-    return jsonResponse
+  const res = await fetch('http://localhost:80/apis/news'); // Calls your backend API
+  const jsonResponse = await res.json();
+  console.log(jsonResponse);
+  return jsonResponse;
 }
 
 // Function to get 3 random articles

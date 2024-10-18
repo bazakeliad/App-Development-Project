@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
+const jersey = require('./jersey');
 const Schema = mongoose.Schema;
 
 const CartSchema = new Schema({
     userId: {
-        type: Number,
+        type: String,
         required: true
     },
     items: [{
-        itemId: { type: String, required: true },
+        jerseyId: { type: String, required: true },
         quantity: { type: Number, required: true, min: 1 },
         price: { type: Number, required: true }
     }]

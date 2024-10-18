@@ -72,28 +72,23 @@
                 <h2 class="text-muted mb-4">$<%= (typeof jersey.price === 'number') ? jersey.price.toFixed(2) : 'N/A' %></h2>
 
                 <!-- Size and Quantity Selection -->
-                <form action="/addToCart" method="GET">
-                    <input type="hidden" name="id" value="<%= jersey._id %>">
-                    <!-- Size Selection -->
-                    <div class="mb-3">
-                        <label for="size" class="form-label">Select Size:</label>
-                        <select name="size" id="size" class="form-select" required>
-                            <option value="" disabled selected>Select a size</option>
-                            <% jersey.sizes.forEach(size => { %>
-                                <option value="<%= size %>"><%= size %></option>
-                            <% }); %>
-                        </select>
-                    </div>
-                    <!-- Quantity Selection -->
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Quantity:</label>
-                        <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1">
-                    </div>
-                    <!-- Add to Cart Button -->
-                    <button type="submit" class="btn btn-primary btn-lg mt-3">
-                        <i class="bi bi-cart-plus"></i> Add to Cart
-                    </button>
-                </form>
+                <div class="mb-3">
+                    <label for="size" class="form-label">Select Size:</label>
+                    <select name="size" id="size" class="form-select" required>
+                        <option value="" disabled selected>Select a size</option>
+                        <% jersey.sizes.forEach(size => { %>
+                            <option value="<%= size %>"><%= size %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity:</label>
+                    <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1">
+                </div>
+                <!-- Add to Cart Button -->
+                <button type="button" class="btn btn-outline-primary add-to-cart-btn" data-item-id="<%= jersey._id %>">
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                </button>
 
                 <!-- Tabs for Additional Information -->
                 <ul class="nav nav-tabs mt-5" id="jerseyTab" role="tablist">
@@ -137,7 +132,36 @@
 
     <!-- Bootstrap JS and Optional jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Optional: Include the jQuery library -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            const userId = '<%= userId %>'; // Replace with actual user ID from session
+
+            // Handle add to cart functionality
+            $('.add-to-cart-btn').on('click', function() {
+                const jerseyId = $(this).data('item-id');
+                const size = $('#size').val();
+                const quantity = $('#quantity').val();
+
+                if (!size) {
+                    alert('Please select a size.');
+                    return;
+                }
+
+                $.ajax({
+                    url: `/cart/updateCart?id=${jerseyId}`,
+                    type: 'POST',
+                    data: { quantity: quantity, size: size },
+                    success: function(response) {
+                        alert('Item added to cart successfully!');
+                    },
+                    error: function(error) {
+                        alert('Error adding item to cart.');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

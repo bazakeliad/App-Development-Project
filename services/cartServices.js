@@ -1,36 +1,35 @@
-const Cart = require("../models/cart");
-const Item = require('../models/jersey');
+const Cart = require('../models/cart');
+const Jersey = require('../models/jersey');
 
-exports.updateCart = async (userId, items) => {
+exports.updateCart = async (userId, jerseyId, quantity) => {
     // Find the existing cart
     let cart = await Cart.findOne({ userId });
     if (!cart) {
         // If no cart exists, create a new one
         cart = new Cart({ userId, items: [] });
     }
-    // Create a map to handle existing items in the cart
-    const itemMap = new Map(cart.items.map(item => [item.itemId, item]));
-    // Loop through new items to add/update quantities
-    for (const { itemId, quantity } of items) {
-        if (quantity <= 0) {
-            return res.status(400).json({ message: 'Quantity must be at least 1' });
-        }
-        const item = await Item.findById(itemId);
-        if (!item) {
-            return res.status(404).json({ message: `Item with ID ${itemId} not found` });
-        }
-        // Check if the item already exists in the cart
-        if (itemMap.has(itemId)) {
-            // Update the quantity if it exists
-            itemMap.get(itemId).quantity = quantity;
-        } else {
-            // Otherwise, add the new item
-            itemMap.set(itemId, { itemId, quantity, price: item.price });
-        }
+
+    // Check if the item exists in the database
+    const jersey = await Jersey.findById(jerseyId);
+    if (!jersey) {
+        throw new Error(`Item with ID ${jerseyId} not found`);
     }
-    // Convert the map back to an array for the cart
-    cart.items = Array.from(itemMap.values());
+
+    // Find the item in the cart
+    const existingItem = cart.items.find(item => item.jerseyId === jerseyId);
+
+    if (existingItem) {
+        // Set the quantity directly to the new value (instead of adding)
+        existingItem.quantity = quantity;
+    } else {
+        // Otherwise, add the new item to the cart
+        cart.items.push({
+            jerseyId: jerseyId,
+            quantity: quantity, // Set quantity directly
+            price: jersey.price
+        });
+    }
+
     // Save the updated cart
     return await cart.save();
 };
-
