@@ -1,14 +1,36 @@
 const jerseysServices = require("../services/jerseysServices")
 const jerseysController = require("../controllers/jerseysController")
 
+// Updated controller to select 2 random articles on the server side
 const getAllNews = async (req, res) => {
     require('dotenv').config();
     const apiKey = process.env.API_KEY;
-    const answer = await fetch(`https://newsapi.org/v2/everything?q=(football AND (jersey OR jerseys OR kit OR uniform OR "team kit" OR "team uniform")) AND (best OR top OR popular OR iconic OR famous OR "most loved" OR "most iconic" OR ranking OR review OR "fan favorite") AND (team OR club OR player OR "football club")&apiKey=${apiKey}`)
-    const jsonResponse = await answer.json()
-    console.log(jsonResponse)
-    res.send(jsonResponse)
-}
+    const answer = await fetch(`https://newsapi.org/v2/everything?q=(Messi+AND+Ronaldo)+-porn+-beach+-Ohtani+-null+-died+-JKS+-Rolex+-Naismith+-celebrities+-Distasteful+-kingdom+-capitalizing+-Fossil+-Lacchesi=&language=en&apiKey=${apiKey}`);
+    const jsonResponse = await answer.json();
+
+    // Select 2 random articles on the server
+    const articles = jsonResponse.articles;
+
+    // Remove articles with null fields
+    const filteredArticles = articles.filter(article => {
+        // Check if any field in the article is null
+        return Object.values(article).every(value => value !== null) && article.author !== "Al Jazeera";
+    });
+
+    const randomArticles = [];
+    const maxArticles = Math.min(3, filteredArticles.length); // Adjust to select 3 random articles
+
+
+    while (randomArticles.length < maxArticles) {
+        const randomIndex = Math.floor(Math.random() * filteredArticles.length);
+        const randomArticle = filteredArticles[randomIndex];
+        if (!randomArticles.includes(randomArticle)) {
+            randomArticles.push(randomArticle);
+        }
+    }
+
+    res.send(randomArticles); // Send only the random articles
+};
 
 
 const testimonials = [
