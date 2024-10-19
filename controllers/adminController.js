@@ -35,14 +35,15 @@ const getAddJerseyForm = (req, res) => {
 
 // Handle adding a new jersey
 const addJersey = async (req, res) => {
-    const { team, kitType, price, sizes } = req.body;
+    const { team, teamTwitterHandle, kitType, price, sizes } = req.body;
     const imageFile = req.file;
 
     // Process sizes input
-    const sizesArray = sizes ? sizes.split(',').map(size => size.trim()) : [];
+    const sizesArray = typeof sizes === 'string' ? sizes.split(',').map(size => size.trim()) : [];
 
     const jerseyData = {
         team,
+        teamTwitterHandle,
         kitType,
         price: parseFloat(price),
         sizes: sizesArray,

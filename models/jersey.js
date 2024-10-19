@@ -6,6 +6,10 @@ const JerseySchema = new Schema({
         type: String,
         required: true
     },
+    teamTwitterHandle: {
+        type: String,
+        required: false
+    },
     kitType: {
         type: String,
         required: true

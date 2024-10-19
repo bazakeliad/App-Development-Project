@@ -7,9 +7,6 @@ const generalPagesController = require("../controllers/generalPagesController")
 router.route("/").get(generalPagesController.getHomePage)
 router.route("/submit").post(generalPagesController.handleFormSubmission)
 router.route("/aboutus").get(generalPagesController.getAboutUs)
-router.get('/myteam', generalPagesController.getTeamSelection);
-router.post('/myteam', generalPagesController.postTeamSelection);
-router.get('/myteam/:twitterHandle', generalPagesController.getTeamTweets);
 
 // login routes
 const loginController = require("../controllers/loginController");

@@ -1,13 +1,6 @@
 const loginService = require("../services/loginServices");
 const userServices = require("../services/userServices");
-
-
-const teams = [
-  { name: 'Manchester United', twitterHandle: 'ManUtd' },
-  { name: 'Liverpool FC', twitterHandle: 'LFC' },
-  { name: 'Chelsea FC', twitterHandle: 'ChelseaFC' },
-  // Add more teams as needed
-];
+const teamService = require('../services/teamServices');
 
 function isLoggedIn(req, res, next) {
   if (req.session.username != null) {
@@ -43,8 +36,14 @@ function personalArea(req, res) {
   res.render("personalArea", { username: req.session.username });
 }
 
-function loginForm(req, res) {
-  res.render("login", { teams });
+async function loginForm(req, res) {
+  try {
+    const teams = await teamService.getAllTeams(); // Fetch the teams
+    res.render("login", { teams }); 
+  } catch (error) {
+    console.error('Error fetching teams:', error);
+    res.status(500).send('Internal server error');
+  }
 }
 
 // Log out and destroy the session
