@@ -1,5 +1,3 @@
-// routes/adminRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
@@ -27,5 +25,10 @@ router.post('/jerseys/edit/:id', loginController.isLoggedAsAdmin, upload.single(
 
 // Serve jersey image
 router.get('/jerseys/image/:id', loginController.isLoggedAsAdmin, adminController.getJerseyImage);
+
+// Orders
+router.get('/orders', loginController.isLoggedAsAdmin, adminController.getAllOrdersAdmin);  // New route to view all orders
+
+router.get('/dashboard', loginController.isLoggedAsAdmin, adminController.getDashboard);
 
 module.exports = router;

@@ -9,6 +9,7 @@ const CartSchema = new Schema({
     },
     items: [{
         jerseyId: { type: String, required: true },
+        size: { type: String, required: true },
         quantity: { type: Number, required: true, min: 1 },
         price: { type: Number, required: true }
     }]
