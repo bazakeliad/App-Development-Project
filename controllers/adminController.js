@@ -133,29 +133,36 @@ const getAddJerseyForm = (req, res) => {
 
 // Handle adding a new jersey
 const addJersey = async (req, res) => {
-    const { team, kitType, price, sizes } = req.body;
+    const { team, kitType, price, allSizes } = req.body;
     const imageFile = req.file;
 
-    // Process sizes input
-    const sizesArray = sizes ? sizes.split(',').map(size => size.trim()) : [];
+    // Check if allSizes is undefined or empty
+    if (!allSizes || (Array.isArray(allSizes) && allSizes.length === 0)) {
+        res.redirect('/admin/jerseys/add?error=1');
+    }
 
-    const jerseyData = {
-        team,
-        kitType,
-        price: parseFloat(price),
-        sizes: sizesArray,
-        image: {
-            data: imageFile.buffer,
-            contentType: imageFile.mimetype
+    else {
+        // Process sizes input
+        const sizesArray = Array.isArray(allSizes) ? allSizes : [allSizes];
+
+        const jerseyData = {
+            team,
+            kitType,
+            price: parseFloat(price),
+            sizes: sizesArray,
+            image: {
+                data: imageFile.buffer,
+                contentType: imageFile.mimetype
+            }
+        };
+
+        try {
+            await jerseysServices.createJersey(jerseyData);
+            res.redirect('/admin/jerseys');
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
         }
-    };
-
-    try {
-        await jerseysServices.createJersey(jerseyData);
-        res.redirect('/admin/jerseys');
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
     }
 };
 
