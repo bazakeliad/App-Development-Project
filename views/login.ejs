@@ -14,10 +14,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/main.css">
 
-    <!-- Optional: Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
-
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -58,6 +54,8 @@
                         <label for="loginPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" id="loginPassword" name="password" required>
                     </div>
+                    <!-- Error message placeholder -->
+                    <div id="loginError" class="text-danger mb-3"></div>
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-primary w-100">Login</button>
                 </form>
@@ -92,6 +90,18 @@
                         <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="signupConfirmPassword" name="confirmPassword" required>
                     </div>
+                    <!-- Favorite Team Selection -->
+                    <div class="mb-3">
+                        <label for="team" class="form-label">Favorite Team</label>
+                        <select class="form-select" id="team" name="team" required>
+                            <option value="" disabled selected>Select a favorite team</option>
+                            <% teams.forEach(function(team) { %>
+                                <option value="<%= team.twitterHandle %>"><%= team.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <!-- Error message placeholder -->
+                    <div id="registerError" class="text-danger mb-3"></div>
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-primary w-100">Sign Up</button>
                 </form>
@@ -107,7 +117,6 @@
     <!-- Optional: Include the jQuery library -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- Optional: Form Validation Script -->
-
     <script src="/js/login.js"></script>
 </body>
 </html>

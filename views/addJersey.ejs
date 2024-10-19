@@ -1,5 +1,3 @@
-<!-- views/addJersey.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +8,7 @@
     <!-- Bootstrap CSS and Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/main.css">
 </head>
@@ -19,147 +17,110 @@
     <!-- Header -->
     <%- include('partials/compactHeader.ejs') %>
 
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar (Optional) -->
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/dashboard">
-                                <i class="bi bi-speedometer2"></i> Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/admin/jerseys">
-                                <i class="bi bi-shirt"></i> Jerseys
-                            </a>
-                        </li>
-                        <!-- Add more sidebar items as needed -->
-                    </ul>
-                </div>
-            </nav>
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Add New Jersey</h1>
+            <a href="/admin/jerseys" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Jerseys
+            </a>
+        </div>
 
-            <!-- Main Content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <!-- Page Title -->
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Add New Jersey</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <a href="/admin/jerseys" class="btn btn-sm btn-outline-secondary">
-                            <i class="bi bi-arrow-left"></i> Back to Jerseys
-                        </a>
+        <div class="card mb-4">
+            <div class="card-body">
+                <form action="/admin/jerseys/add" method="POST" enctype="multipart/form-data">
+                    <!-- Team Name -->
+                    <div class="mb-3">
+                        <label for="team" class="form-label">Team <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="team" name="team" placeholder="Enter team name" required>
                     </div>
-                </div>
 
-                <!-- Form Content -->
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <form action="/admin/jerseys/add" method="POST" enctype="multipart/form-data">
-                            <!-- Team Name -->
-                            <div class="mb-3">
-                                <label for="team" class="form-label">Team <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="team" name="team" placeholder="Enter team name" required>
-                            </div>
-
-                            <!-- Kit Type -->
-                            <div class="mb-3">
-                                <label for="kitType" class="form-label">Kit Type <span class="text-danger">*</span></label>
-                                <select class="form-select" id="kitType" name="kitType" required>
-                                    <option value="" selected disabled>Select kit type</option>
-                                    <option value="Home">Home</option>
-                                    <option value="Away">Away</option>
-                                    <option value="Third">Third</option>
-                                    <!-- Add more kit types if necessary -->
-                                </select>
-                            </div>
-
-                            <!-- Price -->
-                            <div class="mb-3">
-                                <label for="price" class="form-label">Price ($) <span class="text-danger">*</span></label>
-                                <input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="e.g., 79.99" required>
-                            </div>
-
-                            <!-- Sizes -->
-                            <div class="mb-3">
-                                <label for="sizes" class="form-label">Available Sizes <span class="text-danger">*</span></label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="sizeXS" name="sizes[]" value="XS">
-                                    <label class="form-check-label" for="sizeXS">XS</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="sizeS" name="sizes[]" value="S">
-                                    <label class="form-check-label" for="sizeS">S</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="sizeM" name="sizes[]" value="M">
-                                    <label class="form-check-label" for="sizeM">M</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="sizeL" name="sizes[]" value="L">
-                                    <label class="form-check-label" for="sizeL">L</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="sizeXL" name="sizes[]" value="XL">
-                                    <label class="form-check-label" for="sizeXL">XL</label>
-                                </div>
-                                <!-- Add more sizes if necessary -->
-                            </div>
-
-                            <!-- Image Upload -->
-                            <div class="mb-3">
-                                <label for="image" class="form-label">Jersey Image <span class="text-danger">*</span></label>
-                                <input class="form-control" type="file" id="image" name="image" accept="image/*" required>
-                                <div class="form-text">Supported formats: JPG, PNG, GIF</div>
-                            </div>
-
-                            <!-- Category -->
-                            <div class="mb-3">
-                                <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
-                                <select class="form-select" id="category" name="category" required>
-                                    <option value="" selected disabled>Select category</option>
-                                    <option value="Jerseys">Jerseys</option>
-                                    <option value="Training Wear">Training Wear</option>
-                                    <option value="Accessories">Accessories</option>
-                                    <!-- Add more categories if necessary -->
-                                </select>
-                            </div>
-
-                            <!-- Description (Optional) -->
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description (Optional)</label>
-                                <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter a brief description"></textarea>
-                            </div>
-
-                            <!-- Submit Button -->
-                            <button type="submit" class="btn btn-success">
-                                <i class="bi bi-plus-circle"></i> Add Jersey
-                            </button>
-                        </form>
+                    <!-- Team twitter handle -->
+                    <div class="mb-3">
+                        <label for="teamTwitterHandle" class="form-label">Team Twitter Handle<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="teamTwitterHandle" name="teamTwitterHandle" placeholder="Enter the team's twitter handle" >
                     </div>
-                </div>
-            </main>
+                    
+                    <!-- Kit Type -->
+                    <div class="mb-3">
+                        <label for="kitType" class="form-label">Kit Type <span class="text-danger">*</span></label>
+                        <select class="form-select" id="kitType" name="kitType" required>
+                            <option value="" selected disabled>Select kit type</option>
+                            <option value="Home">Home</option>
+                            <option value="Away">Away</option>
+                            <option value="Third">Third</option>
+                        </select>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price ($) <span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="e.g., 79.99" required>
+                    </div>
+
+                    <!-- Sizes -->
+                    <div class="mb-3">
+                        <label for="sizes" class="form-label">Available Sizes <span class="text-danger">*</span></label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sizeXS" name="allSizes[]" value="XS">
+                            <label class="form-check-label" for="sizeXS">XS</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sizeS" name="allSizes[]" value="S">
+                            <label class="form-check-label" for="sizeS">S</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sizeM" name="allSizes[]" value="M">
+                            <label class="form-check-label" for="sizeM">M</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sizeL" name="allSizes[]" value="L">
+                            <label class="form-check-label" for="sizeL">L</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sizeXL" name="allSizes[]" value="XL">
+                            <label class="form-check-label" for="sizeXL">XL</label>
+                        </div>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Jersey Image <span class="text-danger">*</span></label>
+                        <input class="form-control" type="file" id="image" name="image" accept="image/*" required>
+                        <div class="form-text">Supported formats: JPG, PNG, GIF</div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
+                        <select class="form-select" id="category" name="category" required>
+                            <option value="" selected disabled>Select category</option>
+                            <option value="Jerseys">Jerseys</option>
+                            <option value="Training Wear">Training Wear</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
+                    </div>
+
+                    <!-- Description (Optional) -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description (Optional)</label>
+                        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter a brief description"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Add Jersey
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
     <!-- Footer -->
     <%- include('partials/footer.ejs') %>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS and jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Optional: Include the jQuery library -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Optional: Client-side form validation (if needed) -->
-    <script>
-        // Example: Real-time validation for the price field
-        $('#price').on('input', function() {
-            var value = parseFloat($(this).val());
-            if (value < 0) {
-                $(this).addClass('is-invalid');
-            } else {
-                $(this).removeClass('is-invalid');
-            }
-        });
-    </script>
 </body>
 </html>

@@ -37,6 +37,10 @@ server.set('views', path.join(__dirname, 'views'));
 const generalPagesRoutes = require("./routes/generalPagesRoutes");
 server.use(generalPagesRoutes);
 
+// Expose myTeam routes
+const myteamRoutes = require("./routes/myteamRoutes");
+server.use(myteamRoutes);
+
 // expose jerseys routes
 const jerseysRoutes = require("./routes/jerseysRoutes")
 server.use("/jerseys", jerseysRoutes)

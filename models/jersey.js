@@ -6,6 +6,10 @@ const JerseySchema = new Schema({
         type: String,
         required: true
     },
+    teamTwitterHandle: {
+        type: String,
+        required: false
+    },
     kitType: {
         type: String,
         required: true
@@ -24,10 +28,9 @@ const JerseySchema = new Schema({
         data: Buffer,
         contentType: String
     }],
-    // Optional fields
     sizes: {
         type: [String], // Array of sizes
-        default: []
+        required: true
     },
     category: {
         type: String,
