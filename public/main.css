@@ -288,3 +288,32 @@ footer a:hover {
     box-shadow: none;
 }
 
+
+
+#newsList .card {
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+#newsList .card:hover {
+    transform: scale(1.05);
+}
+
+#newsList .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+#newsList .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#newsList .btn-primary {
+    background-color: #0056b3;
+    border: none;
+}
+
+#newsList .btn-primary:hover {
+    background-color: #004494;
+}

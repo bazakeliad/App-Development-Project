@@ -87,39 +87,29 @@
         </div>
     </div>
 
-    <!-- ------------------------------------- -->
-        <!-- shabo added web service example -->
-        <ul id="newsList"></ul>
+    <!-- News Section -->
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Latest News</h2>
+        <div class="row" id="newsList">
+            <!-- News items will be populated dynamically -->
+        </div>
+    </div>
 
-        <!-- HTML template for news items -->
-        <script type="text/html" id="newsTemplate">
-            <li>
-                <h3>{title}</h3>
-                <p><b>Author:</b> {author}</p>
-                <p><b>Source:</b> {source}</p>
-                <p>{description}</p>
-                <a href="{url}" target="_blank">Read more</a>
-                <img src="{urlToImage}" alt="Article image" width="150">
-            </li>
-        </script>
-    <!-- ------------------------------------- -->
-    
-    <!-- ------------------------------------- -->
-        <!-- shabo added autofill example -->
-        <input id="inpSearch" autocomplete="off">
-
-        <div id="autocomplete_list" style="background-color: red;" ></div>
-
-
-        
-        <ul id="ulListUsingTemplate"> </ul>
-
-        <!-- this dont doing nothing, we can put this template in another tags after editing it. -->
-        <script type="text/html" id="jerseyTemplate">
-            <!-- i can also: <li>{team} <b>{kitType}</b>  <b>{price}</b> </li> -->
-            <li>{team} <b>{kitType}</b>  <b>{price}</b> </li>
-        </script>
-    <!-- ------------------------------------- -->
+    <!-- HTML template for news items -->
+    <script type="text/html" id="newsTemplate">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{urlToImage}" class="card-img-top" alt="News Image" onerror="this.src='/images/default-image.jpg';">
+                <div class="card-body">
+                    <h5 class="card-title">{title}</h5>
+                    <p class="card-text"><b>Author:</b> {author}</p>
+                    <p class="card-text"><b>Source:</b> {source}</p>
+                    <p class="card-text">{description}</p>
+                    <a href="{url}" class="btn btn-primary" target="_blank">Read more</a>
+                </div>
+            </div>
+        </div>
+    </script>
 
     <!-- Promotional Banner -->
     <div class="container-fluid promo-banner" style="background-image: url('/images/promo-banner.jpg');">
