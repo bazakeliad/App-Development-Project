@@ -95,33 +95,37 @@
         </div>
     </div>
 
-    <!-- HTML template for news items -->
-    <script type="text/html" id="newsTemplate">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="{urlToImage}" class="card-img-top" alt="News Image" onerror="this.src='/images/default-image.jpg';">
-                <div class="card-body">
-                    <h5 class="card-title">{title}</h5>
-                    <p class="card-text"><b>Author:</b> {author}</p>
-                    <p class="card-text"><b>Source:</b> {source}</p>
-                    <p class="card-text">{description}</p>
-                    <a href="{url}" class="btn btn-primary" target="_blank">Read more</a>
+        <!-- HTML template for news items -->
+        <script type="text/html" id="newsTemplate">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="{urlToImage}" class="card-img-top news-img" alt="{title}" onerror="this.src='/images/default-image.jpg';">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{title}</h5>
+                        <p class="card-text"><b>Author:</b> {author}</p>
+                        <p class="card-text"><b>Source:</b> {source}</p>
+                        <p class="card-text">{description}</p>
+                        <a href="{url}" target="_blank" class="btn btn-primary mt-auto">Read More</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </script>
+        </script>
+    <!-- ------------------------------------- -->
 
     <!-- Promotional Banner -->
-    <div class="container-fluid promo-banner" style="background-image: url('/images/promo-banner.jpg');">
-        <div class="row">
-            <div class="col text-center">
-                <h2>Season Sale: Up to 50% Off!</h2>
-                <p>Get your favorite jerseys at unbeatable prices.</p>
+    <div class="container-fluid promo-banner position-relative" style="background-image: url('/images/promo-banner.jpg');">
+        <!-- Add a dark overlay to improve text visibility -->
+        <div class="promo-overlay"></div>
+        
+        <div class="row position-relative">
+            <div class="col text-center text-white">
+                <h2 class="display-4 text-uppercase text-shadow">Season Sale: Up to 50% Off!</h2>
+                <p class="lead text-shadow">Get your favorite jerseys at unbeatable prices.</p>
                 <a href="/jerseys?sale=true" class="btn btn-light btn-lg">Shop Sale</a>
             </div>
         </div>
     </div>
-
+    
     <!-- Testimonials Section -->
     <div class="container my-5 testimonials">
         <h2 class="text-center mb-4">What Our Customers Say</h2>

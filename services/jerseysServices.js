@@ -18,7 +18,7 @@ const getJerseysByTeamPrefix = async (teamPrefix) => {
     try {
         // Using regex to match the start of the 'team' field with the 'teamprefix'
         const teams = await Jersey.find({
-          team: { $regex: `^${teamPrefix}`, $options: 'i' } // 'i' option for case-insensitive search
+          team: { $regex: `${teamPrefix}`, $options: 'i' } // 'i' option for case-insensitive search
         });
         return teams;
     } 
