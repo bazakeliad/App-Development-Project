@@ -62,7 +62,7 @@ const getAddJerseyForm = (req, res) => {
 
 // Handle adding a new jersey
 const addJersey = async (req, res) => {
-    const { team, kitType, price, allSizes } = req.body;
+    const { team, teamTwitterHandle, kitType, price, allSizes } = req.body;
     const imageFile = req.file;
 
     // Check if allSizes is undefined or empty
@@ -76,6 +76,7 @@ const addJersey = async (req, res) => {
 
         const jerseyData = {
             team,
+            teamTwitterHandle,
             kitType,
             price: parseFloat(price),
             sizes: sizesArray,

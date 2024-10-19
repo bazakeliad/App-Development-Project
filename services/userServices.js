@@ -17,6 +17,12 @@ async function isLoggedAsAdmin(userId) {
     }
   }
   
+// Fetch user details by username (used for session checks)
+const getUserByUsername = async (username) => {
+  return await User.findOne({ _id: username });
+};
+
   module.exports = {
     isLoggedAsAdmin,
+    getUserByUsername
   };

@@ -1,5 +1,6 @@
 const loginService = require("../services/loginServices");
 const userServices = require("../services/userServices");
+const teamService = require('../services/teamServices');
 
 function isLoggedIn(req, res, next) {
   if (req.session.username != null) {
@@ -38,12 +39,14 @@ function personalArea(req, res) {
   res.render("personalArea", { username: req.session.username });
 }
 
-function loginForm(req, res) {
-  res.render("login", {});
-}
-
-function registerForm(req, res) {
-  res.render("register", {});
+async function loginForm(req, res) {
+  try {
+    const teams = await teamService.getAllTeams(); // Fetch the teams
+    res.render("login", { teams }); 
+  } catch (error) {
+    console.error('Error fetching teams:', error);
+    res.status(500).send('Internal server error');
+  }
 }
 
 // Log out and destroy the session
@@ -66,15 +69,18 @@ async function login(req, res) {
 }
 
 async function register(req, res) {
-    const { username, password } = req.body;
+    const { name, username, password, email, team } = req.body;
 
     try {
-      await loginService.register(username, password);
+      await loginService.register(name, username, password, email, team);
+
+      // Set the session's username cookie
       req.session.username = username;
       res.redirect('/');
     } 
     catch (error) {
-      res.redirect('/register?error=1');
+      console.error('Error during registration:', error); // Log the error for debugging
+      res.redirect('/login?error=2');
     }
   }
 
@@ -83,7 +89,6 @@ module.exports = {
     isLoggedAsAdmin, 
     personalArea, 
     loginForm, 
-    registerForm, 
     logout,
     login,
     register
