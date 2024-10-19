@@ -6,6 +6,7 @@ const multer = require('multer');
 // Set up multer for in-memory storage
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+const Order = require('../models/order');
 
 // Display all jerseys in admin panel
 const getAllJerseysAdmin = async (req, res) => {
@@ -118,6 +119,16 @@ const getJerseyImage = async (req, res) => {
     }
 };
 
+// Admin Orders: View all orders
+const getAllOrdersAdmin = async (req, res) => {
+    try {
+        const orders = await Order.find().populate('userId');  // Populate userId with user details if needed
+        res.render('adminOrders', { orders });
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).send('Server error');
+    }
+};
 module.exports = {
     getAllJerseysAdmin,
     getAddJerseyForm,
@@ -125,5 +136,6 @@ module.exports = {
     getEditJerseyForm,
     editJersey,
     // deleteJersey,
+    getAllOrdersAdmin,
     getJerseyImage
 };

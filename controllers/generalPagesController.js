@@ -6,7 +6,6 @@ const getAllNews = async (req, res) => {
     const apiKey = process.env.API_KEY;
     const answer = await fetch(`https://newsapi.org/v2/everything?q=(football AND (jersey OR jerseys OR kit OR uniform OR "team kit" OR "team uniform")) AND (best OR top OR popular OR iconic OR famous OR "most loved" OR "most iconic" OR ranking OR review OR "fan favorite") AND (team OR club OR player OR "football club")&apiKey=${apiKey}`)
     const jsonResponse = await answer.json()
-    console.log(jsonResponse)
     res.send(jsonResponse)
 }
 
