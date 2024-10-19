@@ -288,3 +288,68 @@ footer a:hover {
     box-shadow: none;
 }
 
+
+
+#newsList .card {
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+#newsList .card:hover {
+    transform: scale(1.05);
+}
+
+#newsList .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+#newsList .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#newsList .btn-primary {
+    background-color: #0056b3;
+    border: none;
+}
+
+#newsList .btn-primary:hover {
+    background-color: #004494;
+}
+
+.promo-banner {
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Dark overlay */
+.promo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 50% opacity */
+    z-index: 1;
+}
+
+/* Ensure text is on top of the overlay */
+.promo-banner .row {
+    position: relative;
+    z-index: 2;
+}
+
+/* Add a shadow to make the text more readable */
+.text-shadow {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.promo-banner h2, .promo-banner p {
+    margin-bottom: 1rem;
+}
