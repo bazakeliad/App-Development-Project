@@ -16,48 +16,112 @@
     <!-- Header -->
     <%- include('partials/compactHeader.ejs') %>
 
-    <!-- "All Jerseys" Title -->
-    <%- include('partials/pageTitle.ejs', { title: 'ALL JERSEYS' }) %>
-
-    <!-- Main Content -->
     <div class="container my-5">
-        <h2>Edit Jersey</h2>
-        <form action="/admin/jerseys/edit/<%= jersey._id %>" method="POST">
-            <div class="mb-3">
-                <label for="team" class="form-label">Team</label>
-                <input type="text" class="form-control" id="team" name="team" value="<%= jersey.team %>" required>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Edit Jersey</h1>
+            <a href="/admin/jerseys" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Jerseys
+            </a>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <form action="/admin/jerseys/edit/<%= jersey._id %>" method="POST" enctype="multipart/form-data">
+                    <!-- Team Name -->
+                    <div class="mb-3">
+                        <label for="team" class="form-label">Team <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="team" name="team" value="<%= jersey.team %>" required>
+                    </div>
+
+                    <!-- Kit Type -->
+                    <div class="mb-3">
+                        <label for="kitType" class="form-label">Kit Type <span class="text-danger">*</span></label>
+                        <select class="form-select" id="kitType" name="kitType" required>
+                            <option value="Home" <%= jersey.kitType === 'Home' ? 'selected' : '' %>>Home</option>
+                            <option value="Away" <%= jersey.kitType === 'Away' ? 'selected' : '' %>>Away</option>
+                            <option value="Third" <%= jersey.kitType === 'Third' ? 'selected' : '' %>>Third</option>
+                        </select>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price ($) <span class="text-danger">*</span></label>
+                        <input type="number" step="0.01" class="form-control" id="price" name="price" value="<%= jersey.price %>" required>
+                    </div>
+
+                    <!-- Sizes -->
+                    <div class="mb-3">
+                        <label for="sizes" class="form-label">Available Sizes <span class="text-danger">*</span></label>
+                        <% const sizesArray = jersey.sizes || []; %>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sizeXS" name="allSizes[]" value="XS" <%= sizesArray.includes('XS') ? 'checked' : '' %>>
+                            <label class="form-check-label" for="sizeXS">XS</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sizeS" name="allSizes[]" value="S" <%= sizesArray.includes('S') ? 'checked' : '' %>>
+                            <label class="form-check-label" for="sizeS">S</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sizeM" name="allSizes[]" value="M" <%= sizesArray.includes('M') ? 'checked' : '' %>>
+                            <label class="form-check-label" for="sizeM">M</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sizeL" name="allSizes[]" value="L" <%= sizesArray.includes('L') ? 'checked' : '' %>>
+                            <label class="form-check-label" for="sizeL">L</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sizeXL" name="allSizes[]" value="XL" <%= sizesArray.includes('XL') ? 'checked' : '' %>>
+                            <label class="form-check-label" for="sizeXL">XL</label>
+                        </div>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Jersey Image</label>
+                        <input class="form-control" type="file" id="image" name="image" accept="image/*">
+                        <div class="form-text">Leave blank to keep the current image</div>
+                    </div>
+
+                    <!-- Current Image Preview -->
+                    <% if (jersey.image && jersey.image.data) { %>
+                        <div class="mb-3">
+                            <label for="currentImage" class="form-label">Current Image</label>
+                            <div>
+                                <img src="/admin/jerseys/image/<%= jersey._id %>" alt="<%= jersey.team %>" class="img-thumbnail" style="width: 100px;">
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
+                        <select class="form-select" id="category" name="category" required>
+                            <option value="Jerseys" <%= jersey.category === 'Jerseys' ? 'selected' : '' %>>Jerseys</option>
+                            <option value="Training Wear" <%= jersey.category === 'Training Wear' ? 'selected' : '' %>>Training Wear</option>
+                            <option value="Accessories" <%= jersey.category === 'Accessories' ? 'selected' : '' %>>Accessories</option>
+                        </select>
+                    </div>
+
+                    <!-- Description (Optional) -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description (Optional)</label>
+                        <textarea class="form-control" id="description" name="description" rows="4"><%= jersey.description || '' %></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save"></i> Save Changes
+                    </button>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="kitType" class="form-label">Kit Type</label>
-                <input type="text" class="form-control" id="kitType" name="kitType" value="<%= jersey.kitType %>" required>
-            </div>
-            <div class="mb-3">
-                <label for="price" class="form-label">Price ($)</label>
-                <input type="number" step="0.01" class="form-control" id="price" name="price" value="<%= jersey.price %>" required>
-            </div>
-            <div class="mb-3">
-                <label for="image" class="form-label">Image File Name</label>
-                <input type="text" class="form-control" id="image" name="image" value="<%= jersey.image %>" required>
-                <div class="form-text">Ensure the image file is uploaded to the images directory.</div>
-            </div>
-            <!-- Sizes Input (Optional) -->
-            <div class="mb-3">
-                <label for="sizes" class="form-label">Sizes (comma-separated)</label>
-                <input type="text" class="form-control" id="sizes" name="sizes">
-                <div class="form-text">Example: S, M, L, XL</div>
-            </div>
-            <button type="submit" class="btn btn-primary">Update Jersey</button>
-        </form>
+        </div>
     </div>
 
-
-   <!-- Footer -->
-   <%- include('partials/footer.ejs') %>
+    <!-- Footer -->
+    <%- include('partials/footer.ejs') %>
 
     <!-- Bootstrap JS and jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Optional: Include the jQuery library -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
 </html>
-

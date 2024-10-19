@@ -23,53 +23,42 @@ const getDashboard = async (req, res) => {
         // Orders by Month: Group by year and month and count orders
         const ordersByMonth = await Order.aggregate([
             {
-                $match: { createdAt: { $exists: true, $type: "date" } } // Ensure valid createdAt field
-            },
-            {
                 $group: {
-                    _id: { year: { $year: "$createdAt" }, month: { $month: "$createdAt" } },
+                    _id: { 
+                        year: { $year: { $toDate: "$createdAt" } },  // Ensure $toDate conversion
+                        month: { $month: { $toDate: "$createdAt" } } 
+                    },
                     orders: { $sum: 1 }
                 }
             },
             { $sort: { "_id.year": 1, "_id.month": 1 } }
         ]).exec();
 
-        // Generate an array of months, even if there is no data for a month
-        const ordersByMonthData = [];
-        const currentDate = new Date();
-        for (let month = 1; month <= 12; month++) {
-            const year = currentDate.getFullYear();
-            const foundData = ordersByMonth.find(item => item._id.year === year && item._id.month === month);
-            ordersByMonthData.push({
-                month: `${year}-${month}`,
-                orders: foundData ? foundData.orders : 0  // If no data for that month, default to 0
-            });
-        }
+        // Transform ordersByMonth data into a format that D3 can consume
+        const ordersByMonthData = ordersByMonth.map(item => ({
+            month: `${item._id.year}-${item._id.month}`,
+            orders: item.orders
+        }));
 
         // Revenue Over Time: Group by year and month and sum the totalPrice
         const revenueOverTime = await Order.aggregate([
             {
-                $match: { createdAt: { $exists: true, $type: "date" } } // Ensure valid createdAt field
-            },
-            {
                 $group: {
-                    _id: { year: { $year: "$createdAt" }, month: { $month: "$createdAt" } },
+                    _id: { 
+                        year: { $year: { $toDate: "$createdAt" } },  // Ensure $toDate conversion
+                        month: { $month: { $toDate: "$createdAt" } }
+                    },
                     revenue: { $sum: '$totalPrice' }
                 }
             },
             { $sort: { "_id.year": 1, "_id.month": 1 } }
         ]).exec();
 
-        // Ensure all months are represented in the revenue data
-        const revenueOverTimeData = [];
-        for (let month = 1; month <= 12; month++) {
-            const year = currentDate.getFullYear();
-            const foundData = revenueOverTime.find(item => item._id.year === year && item._id.month === month);
-            revenueOverTimeData.push({
-                month: `${year}-${month}`,
-                revenue: foundData ? foundData.revenue : 0  // Default to 0 if no data
-            });
-        }
+        // Transform revenueOverTime data into a format D3 can consume
+        const revenueOverTimeData = revenueOverTime.map(item => ({
+            month: `${item._id.year}-${item._id.month}`,
+            revenue: item.revenue
+        }));
 
         // Order Status Distribution: Group by order status
         const orderStatusDistribution = await Order.aggregate([
@@ -102,7 +91,6 @@ const getDashboard = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
-
 
 
 // Display all jerseys in admin panel
@@ -181,23 +169,22 @@ const getEditJerseyForm = async (req, res) => {
     }
 };
 
-// Handle editing a jersey
 const editJersey = async (req, res) => {
     const id = req.params.id;
-    const { team, kitType, price, sizes } = req.body;
-    const imageFile = req.file;
-
-    // Process sizes input
-    const sizesArray = sizes ? sizes.split(',').map(size => size.trim()) : [];
+    const { team, kitType, price, category, description } = req.body;
+    const sizesArray = req.body.allSizes || [];  // If no sizes are selected, default to an empty array
+    const imageFile = req.file;  // Check if an image was uploaded
 
     const updateData = {
         team,
         kitType,
         price: parseFloat(price),
         sizes: sizesArray,
+        category,
+        description
     };
 
-    // If a new image is uploaded, include it in the update
+    // Only update the image if a new one was uploaded
     if (imageFile) {
         updateData.image = {
             data: imageFile.buffer,
@@ -207,15 +194,15 @@ const editJersey = async (req, res) => {
 
     try {
         const jersey = await jerseysServices.updateJerseyById(id, updateData);
-        if (!jersey) {
-            return res.status(404).send('Jersey not found');
-        }
+        if (!jersey) return res.status(404).send('Jersey not found');
         res.redirect('/admin/jerseys');
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 };
+
+
 
 // Serve jersey image
 const getJerseyImage = async (req, res) => {
