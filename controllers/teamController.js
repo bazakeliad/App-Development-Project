@@ -33,14 +33,14 @@ const postTeamSelection = (req, res) => {
 };
 
 // Handle tweets for the selected team and display jerseys
-const getTeamTweets = async (req, res) => {
+const getmyteam = async (req, res) => {
     try {
         const twitterHandle = req.params.twitterHandle;
                 
         // Fetch jerseys that match the twitterHandle's team
         const jerseys = await teamServices.getJerseysByTwitterHandle(twitterHandle);
         
-        res.render('teamTweets', { twitterHandle, jerseys });
+        res.render('myteam', { twitterHandle, jerseys });
     } catch (error) {
         console.error('Error fetching jerseys or tweets:', error);
         res.status(500).send('Internal server error');
@@ -50,5 +50,5 @@ const getTeamTweets = async (req, res) => {
 module.exports = {
     getTeamSelection,
     postTeamSelection,
-    getTeamTweets
+    getmyteam
 };
