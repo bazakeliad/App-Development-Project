@@ -72,25 +72,6 @@ async function getNews() {
   return jsonResponse;
 }
 
-// Function to get 3 random articles
-function getRandomArticles(jsonData, count) {
-    const articles = jsonData.articles;
-    const randomArticles = [];
-
-    // Ensure we don't select more articles than available
-    const maxArticles = Math.min(count, articles.length);
-
-    // Get random articles
-    while (randomArticles.length < maxArticles) {
-        const randomIndex = Math.floor(Math.random() * articles.length);
-        const randomArticle = articles[randomIndex];
-        if (!randomArticles.includes(randomArticle)) {
-            randomArticles.push(randomArticle);
-        }
-    }
-    return randomArticles;
-}
-
 // Function to display articles using template
 function displayArticles(articles) {
     const newsList = document.getElementById("newsList");
@@ -115,8 +96,7 @@ function displayArticles(articles) {
 // Get and display 3 random articles
 async function loadNews() {
     const jsonResponse = await getNews()
-    const randomArticles = getRandomArticles(jsonResponse, 2);
-    displayArticles(randomArticles);
+    displayArticles(jsonResponse);
 }
 
 loadNews();

@@ -10,9 +10,6 @@ exports.updateCart = async (req, res) => {
     const userId = req.session.username;
 
     try {
-        if (!userId) {
-            return res.status(401).json({ message: 'User not authenticated' });
-        }
         await cartServices.updateCart(userId, jerseyId, quantity, size); // Pass size to the service layer
         res.status(200).json({ message: 'Cart updated' });
     } catch (error) {
@@ -24,10 +21,6 @@ exports.updateCart = async (req, res) => {
 exports.getCart = async (req, res) => {
     const userId = req.session.username;
     try {
-        if (!userId) {
-            return res.status(401).json({ message: 'User not authenticated' });
-        }
-
         const cart = await Cart.findOne({ userId });
         if (!cart) return res.render('cart', { cartItems: [], subtotal: 0, userId });
 
@@ -55,7 +48,8 @@ exports.getCart = async (req, res) => {
         }, 0);
 
         res.render('cart', { cartItems: filteredCartItems, subtotal, userId });
-    } catch (error) {
+    } 
+    catch (error) {
         console.error('Error retrieving cart:', error);
         res.status(500).json({ message: error.message });
     }
@@ -76,10 +70,6 @@ exports.checkoutCart = async (req, res) => {
     const { fullName, address, city, zip, country, cardNumber, cardExpiry, cardCVC } = req.body;
 
     try {
-        if (!userId) {
-            return res.status(401).json({ message: 'User not authenticated' });
-        }
-
         const cart = await Cart.findOne({ userId });
         if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
@@ -120,9 +110,6 @@ exports.deleteItemFromCart = async (req, res) => {
     const { itemId, size } = req.body; // Include size to ensure correct item removal
     const userId = req.session.username;
     try {
-        if (!userId) {
-            return res.status(401).json({ message: 'User not authenticated' });
-        }
         const cart = await Cart.findOne({ userId });
         if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
