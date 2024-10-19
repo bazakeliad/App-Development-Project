@@ -1,12 +1,11 @@
-// controllers/adminController.js
-
 const jerseysServices = require('../services/jerseysServices');
 const multer = require('multer');
+const Order = require('../models/order');
+const Jersey = require('../models/jersey');  // Import the Jersey model
 
 // Set up multer for in-memory storage
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const Order = require('../models/order');
 
 // Dashboard: View statistics and latest orders
 const getDashboard = async (req, res) => {
@@ -21,18 +20,90 @@ const getDashboard = async (req, res) => {
         // Fetch latest orders (optional: you can limit to a specific number)
         const latestOrders = await Order.find().sort({ createdAt: -1 }).limit(5);
 
+        // Orders by Month: Group by year and month and count orders
+        const ordersByMonth = await Order.aggregate([
+            {
+                $match: { createdAt: { $exists: true, $type: "date" } } // Ensure valid createdAt field
+            },
+            {
+                $group: {
+                    _id: { year: { $year: "$createdAt" }, month: { $month: "$createdAt" } },
+                    orders: { $sum: 1 }
+                }
+            },
+            { $sort: { "_id.year": 1, "_id.month": 1 } }
+        ]).exec();
+
+        // Generate an array of months, even if there is no data for a month
+        const ordersByMonthData = [];
+        const currentDate = new Date();
+        for (let month = 1; month <= 12; month++) {
+            const year = currentDate.getFullYear();
+            const foundData = ordersByMonth.find(item => item._id.year === year && item._id.month === month);
+            ordersByMonthData.push({
+                month: `${year}-${month}`,
+                orders: foundData ? foundData.orders : 0  // If no data for that month, default to 0
+            });
+        }
+
+        // Revenue Over Time: Group by year and month and sum the totalPrice
+        const revenueOverTime = await Order.aggregate([
+            {
+                $match: { createdAt: { $exists: true, $type: "date" } } // Ensure valid createdAt field
+            },
+            {
+                $group: {
+                    _id: { year: { $year: "$createdAt" }, month: { $month: "$createdAt" } },
+                    revenue: { $sum: '$totalPrice' }
+                }
+            },
+            { $sort: { "_id.year": 1, "_id.month": 1 } }
+        ]).exec();
+
+        // Ensure all months are represented in the revenue data
+        const revenueOverTimeData = [];
+        for (let month = 1; month <= 12; month++) {
+            const year = currentDate.getFullYear();
+            const foundData = revenueOverTime.find(item => item._id.year === year && item._id.month === month);
+            revenueOverTimeData.push({
+                month: `${year}-${month}`,
+                revenue: foundData ? foundData.revenue : 0  // Default to 0 if no data
+            });
+        }
+
+        // Order Status Distribution: Group by order status
+        const orderStatusDistribution = await Order.aggregate([
+            {
+                $group: {
+                    _id: "$status",
+                    count: { $sum: 1 }
+                }
+            }
+        ]).exec();
+
+        // Transform orderStatusDistribution data into D3 format
+        const orderStatusDistributionData = orderStatusDistribution.map(item => ({
+            status: item._id,
+            count: item.count
+        }));
+
         // Render the dashboard with the calculated data
         res.render('adminDashboards.ejs', {
             totalOrders,
             totalRevenue: totalRevenue[0]?.total || 0,
             totalJerseys,
-            latestOrders
+            latestOrders,
+            ordersByMonth: ordersByMonthData,
+            revenueOverTime: revenueOverTimeData,
+            orderStatusDistribution: orderStatusDistributionData
         });
     } catch (error) {
         console.error('Error fetching dashboard data:', error);
         res.status(500).send('Internal Server Error');
     }
 };
+
+
 
 // Display all jerseys in admin panel
 const getAllJerseysAdmin = async (req, res) => {
