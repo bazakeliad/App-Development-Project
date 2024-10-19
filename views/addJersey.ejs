@@ -90,23 +90,23 @@
                             <div class="mb-3">
                                 <label for="sizes" class="form-label">Available Sizes <span class="text-danger">*</span></label>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="sizeXS" name="sizes[]" value="XS">
+                                    <input class="form-check-input" type="checkbox" id="sizeXS" name="allSizes" value="XS">
                                     <label class="form-check-label" for="sizeXS">XS</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="sizeS" name="sizes[]" value="S">
+                                    <input class="form-check-input" type="checkbox" id="sizeS" name="allSizes" value="S">
                                     <label class="form-check-label" for="sizeS">S</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="sizeM" name="sizes[]" value="M">
+                                    <input class="form-check-input" type="checkbox" id="sizeM" name="allSizes" value="M">
                                     <label class="form-check-label" for="sizeM">M</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="sizeL" name="sizes[]" value="L">
+                                    <input class="form-check-input" type="checkbox" id="sizeL" name="allSizes" value="L">
                                     <label class="form-check-label" for="sizeL">L</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="sizeXL" name="sizes[]" value="XL">
+                                    <input class="form-check-input" type="checkbox" id="sizeXL" name="allSizes" value="XL">
                                     <label class="form-check-label" for="sizeXL">XL</label>
                                 </div>
                                 <!-- Add more sizes if necessary -->
@@ -137,6 +137,8 @@
                                 <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter a brief description"></textarea>
                             </div>
 
+                            <!-- Error message placeholder -->
+                            <div id="ErrorDiv" class="text-danger mb-3"></div>
                             <!-- Submit Button -->
                             <button type="submit" class="btn btn-success">
                                 <i class="bi bi-plus-circle"></i> Add Jersey
@@ -167,5 +169,6 @@
             }
         });
     </script>
+    <script src="/js/addJersey.js"></script>
 </body>
 </html>

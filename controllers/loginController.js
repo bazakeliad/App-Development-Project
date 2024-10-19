@@ -5,8 +5,9 @@ const teamService = require('../services/teamServices');
 function isLoggedIn(req, res, next) {
   if (req.session.username != null) {
     return next();
-  } else {
-    res.redirect("/login");
+  } 
+  else {
+    res.status(401).send('Authentication required. Please <a href="/login">log in</a>.');
   }
 }
 
@@ -18,10 +19,12 @@ async function isLoggedAsAdmin(req, res, next) {
 
       if (isAdmin) {
         return next();
-      } else {
+      } 
+      else {
         res.status(403).send('Access denied. Admins only. <a href="/">Return to Home</a>.');
       }
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Error checking admin status:', error);
       res.status(500).send('Internal server error');
     }
