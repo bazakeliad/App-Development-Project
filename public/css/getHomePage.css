@@ -1,0 +1,12 @@
+.star-rating {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+.star {
+    font-size: 1.5em; /* Adjust size as needed */
+    color: lightgray; /* Default color for empty stars */
+}
+.star.filled {
+    color: gold; /* Color for filled stars */
+}

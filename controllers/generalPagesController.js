@@ -1,6 +1,7 @@
 const jerseysServices = require("../services/jerseysServices")
 const jerseysController = require("../controllers/jerseysController")
 const userServices = require("../services/userServices");
+const reviewService = require('../services/reviewServices');
 
 // Updated controller to select 2 random articles on the server side
 const getAllNews = async (req, res) => {
@@ -33,13 +34,6 @@ const getAllNews = async (req, res) => {
     res.send(randomArticles); // Send only the random articles
 };
 
-
-const testimonials = [
-    { name: 'John Doe', message: 'Great service and amazing jerseys!' },
-    { name: 'Jane Smith', message: 'Fast shipping and quality products. Highly recommend!' },
-    { name: 'Alex Johnson', message: 'Excellent customer support and fantastic selection.' },
-];
-
 // Return home page to the user
 const getHomePage = async (req, res) => {
     try {
@@ -48,6 +42,14 @@ const getHomePage = async (req, res) => {
 
         // Limit the number of jerseys to display (e.g., 4 jerseys)
         const featuredJerseys = allFeaturedJerseys.slice(0, 4);
+
+        // Fetch all reviews from the database
+        const testimonials = await reviewService.getAllReviews();
+
+        // Get the best six reviews with the highest rating
+        const bestTestimonials = testimonials
+            .sort((a, b) => b.rating - a.rating) // Sort reviews by rating in descending order
+            .slice(0, 6); // Take the top six reviews
 
         // Check if the logged-in user is an admin
         let isAdmin = false
@@ -61,7 +63,7 @@ const getHomePage = async (req, res) => {
         }
 
         // Render the home.ejs template with the jerseys and testimonials
-        res.render('getHomePage.ejs', { featuredJerseys, testimonials, isAdmin });
+        res.render('getHomePage.ejs', { featuredJerseys, bestTestimonials, isAdmin });
     } 
     catch (error) {
         console.error('Error fetching data for homepage:', error);
