@@ -18,6 +18,12 @@ const getAllTeams = async () => {
   }
 };
 
+// Fetch jerseys by the team's twitter handle
+const getJerseysByTwitterHandle = async (teamTwitterHandle) => {
+    return await Jersey.find({ teamTwitterHandle: teamTwitterHandle });
+};
+
 module.exports = {
-    getAllTeams
+    getAllTeams,
+    getJerseysByTwitterHandle
 };
