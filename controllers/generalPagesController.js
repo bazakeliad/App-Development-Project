@@ -46,6 +46,11 @@ const getHomePage = async (req, res) => {
         // Fetch all reviews from the database
         const testimonials = await reviewService.getAllReviews();
 
+        // Get the best six reviews with the highest rating
+        const bestTestimonials = testimonials
+            .sort((a, b) => b.rating - a.rating) // Sort reviews by rating in descending order
+            .slice(0, 6); // Take the top six reviews
+
         // Check if the logged-in user is an admin
         let isAdmin = false
         if (req.session.username) {
@@ -58,7 +63,7 @@ const getHomePage = async (req, res) => {
         }
 
         // Render the home.ejs template with the jerseys and testimonials
-        res.render('getHomePage.ejs', { featuredJerseys, testimonials, isAdmin });
+        res.render('getHomePage.ejs', { featuredJerseys, bestTestimonials, isAdmin });
     } 
     catch (error) {
         console.error('Error fetching data for homepage:', error);

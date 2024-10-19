@@ -131,19 +131,19 @@
     <div class="container my-5 testimonials">
         <h2 class="text-center mb-4">What Our Customers Say</h2>
         <div class="row">
-            <% for (let i = 0; i < testimonials.length; i++) { %>
+            <% for (let i = 0; i < bestTestimonials.length; i++) { %>
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 text-center">
                         <div class="card-body">
-                            <p class="card-text">"<%= testimonials[i].message %>"</p>
+                            <p class="card-text">"<%= bestTestimonials[i].message %>"</p>
                             <div class="star-rating">
                                 <% for (let j = 1; j <= 5; j++) { %>
-                                    <span class="star <%= testimonials[i].rating >= j ? 'filled' : '' %>">★</span>
+                                    <span class="star <%= bestTestimonials[i].rating >= j ? 'filled' : '' %>">★</span>
                                 <% } %>
                             </div>
-                            <h5 class="card-title">- <%= testimonials[i].userId %></h5>
+                            <h5 class="card-title">- <%= bestTestimonials[i].userId %></h5>
                             <p class="text-muted">
-                                Created on: <%= new Date(testimonials[i].createdAt).toLocaleDateString() %>
+                                Created on: <%= new Date(bestTestimonials[i].createdAt).toLocaleDateString() %>
                             </p>
                         </div>
                     </div>
