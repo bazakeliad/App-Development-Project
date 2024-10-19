@@ -24,6 +24,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="/jerseys">B r o w s e</a>
             </li>
+            <% if (typeof isAdmin !== 'undefined' && isAdmin === true) { %>
+              <li class="nav-item">
+                  <a class="nav-link" href="/admin/console">A d m i n  A r e a</a>
+              </li>
+            <% } %>
             <li class="nav-item">
                 <a class="nav-link" href="/personalArea">P e r s o n a l  A r e a</a>
             </li>

@@ -76,6 +76,10 @@ const getFeaturedJerseys = async () => {
     }
 };
 
+const getJerseyCount = async () => {
+    return await Jersey.countDocuments();
+};
+
 module.exports = {
     getJerseyById,
     getAllJerseys,
@@ -85,5 +89,6 @@ module.exports = {
     deleteJerseyById,
     getFeaturedJerseys,
     getJerseysByTeamPrefix,
-    deleteJerseyById
+    deleteJerseyById,
+    getJerseyCount
 };
