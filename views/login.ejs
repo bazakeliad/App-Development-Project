@@ -13,20 +13,18 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/main.css">
-
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f8f9fa;
-        }
-
-    </style>
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
     <!-- Header -->
     <%- include('partials/compactHeader.ejs') %>
 
-    <!-- Authentication Container -->
+    <!-- Welcome Message -->
+    <div class="text-center mb-4">
+        <h1 class="auth-title">Login or create an account to continue</h1>
+    </div>
+
+    <!-- Authentication Container --> 
     <div class="auth-container shadow">
         <!-- Tabs Navigation -->
         <ul class="nav nav-tabs mb-4" id="authTab" role="tablist">

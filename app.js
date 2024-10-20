@@ -23,6 +23,12 @@ server.use(session({
     resave: false
 }));
 
+// Middleware to make `user` available in all views
+server.use((req, res, next) => {
+    res.locals.user = req.session.username || null;
+    next();
+});
+
 server.set("view engine", "ejs");
 
 // Expose public directory resources

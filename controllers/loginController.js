@@ -35,8 +35,18 @@ async function isLoggedAsAdmin(req, res, next) {
 }
 
 
-function personalArea(req, res) {
-  res.render("personalArea", { username: req.session.username });
+async function personalArea(req, res) {
+  // Check if the logged-in user is an admin
+  let isAdmin = false
+  if (req.session.username) {
+      try {
+          isAdmin = await userServices.isLoggedAsAdmin(req.session.username);
+      } 
+      catch (error) {
+        console.error('Error checking admin status:', error);
+      }
+  }
+  res.render("personalArea", { username: req.session.username, isAdmin });
 }
 
 async function loginForm(req, res) {

@@ -37,6 +37,7 @@ const getAllNews = async (req, res) => {
 // Return home page to the user
 const getHomePage = async (req, res) => {
     try {
+
         // Fetch featured jerseys from the database
         const allFeaturedJerseys = await jerseysServices.getFeaturedJerseys();
 
