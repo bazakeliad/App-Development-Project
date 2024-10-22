@@ -21,6 +21,11 @@ const updateOrder = async (orderId, orderData) => {
     return await Order.findByIdAndUpdate(orderId, orderData, { new: true, runValidators: true });
 }
 
+const getOrdersByUser = async (userId) => {
+    return await Order.find({ userId });
+}
+
+
 const deleteOrder = async (orderId) => {
     return await Order.findByIdAndDelete(orderId);
 }
@@ -30,5 +35,6 @@ module.exports = {
     getOrderById,
     getOrdersByStatus,
     updateOrder,
-    deleteOrder
+    deleteOrder,
+    getOrdersByUser
 };

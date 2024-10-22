@@ -31,17 +31,44 @@
                         <div class="card-body text-center">
                             <i class="bi bi-columns-gap display-4 mb-3"></i>
                             <h5 class="card-title">Admin Console</h5>
-                            <p class="card-text">Mange the site to your liking.</p>
+                            <p class="card-text">Mange the site to your liking</p>
                             <a href="/admin/console" class="btn btn-primary"><i class="bi bi-box-arrow-in-right"></i> Go to Admin Console</a>
                         </div>
                     </div>
                 </div>
             <% } %>
+
+            <!-- Orders Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-card-list display-4 mb-3"></i>
+                        <h5 class="card-title">My Orders</h5>
+                        <p class="card-text">See your order history</p>
+                        <a href="/orders/myOrders" class="btn btn-primary"><i class="bi bi-box-arrow-in-right"></i> View Orders</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User settings Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-card-list display-4 mb-3"></i>
+                        <h5 class="card-title">Profile</h5>
+                        <p class="card-text">Modify your Account details</p>
+                        <a href="/" class="btn btn-primary"><i class="bi bi-box-arrow-in-right"></i> Edit Account</a>
+                    </div>
+                </div>
+            </div>
+                    
         </div>
-        <!-- Logout Button -->
-        <a href="/logout" class="btn btn-outline-danger">
-            <i class="bi bi-box-arrow-right"></i> Logout
-        </a>
+        <div class="d-flex justify-content-center mb-4">
+            <!-- Logout Button -->
+            <a href="/logout" class="btn btn-outline-danger btn-lg">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
     </div>
 
     <!-- Footer -->
