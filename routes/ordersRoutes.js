@@ -10,6 +10,5 @@ router.get('/getOrderById/:id', ordersController.getOrderById);
 router.get('/getOrderByStatus', ordersController.getOrdersByStatus);
 router.put('/updateOrderById/:id', ordersController.updateOrder);
 router.delete('/deleteOrderById/:id', ordersController.deleteOrder);
-router.get('/myOrders', loginController.isLoggedIn, ordersController.getOrdersByUser);
 
 module.exports = router;

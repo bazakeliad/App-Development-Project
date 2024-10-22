@@ -15,7 +15,7 @@ const getTeamSelection = async (req, res) => {
                 return res.redirect(`/myteam/${user.team}`);
             } else {
                 // If the user doesn't have a favorite team, redirect to personalArea
-                return res.redirect('/personalArea');
+                return res.redirect('/personalArea/profile');
             }
         } else {
             // If the user is not logged in, redirect to the login page
