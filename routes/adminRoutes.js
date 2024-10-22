@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
+const reviewController  = require('../controllers/reviewController');
+const userController  = require('../controllers/userController');
+
 const multer = require('multer');
 
 // Set up multer for in-memory storage
@@ -30,5 +33,16 @@ router.get('/jerseys/image/:id', loginController.isLoggedAsAdmin, adminControlle
 router.get('/orders', loginController.isLoggedAsAdmin, adminController.getAllOrdersAdmin);  // New route to view all orders
 
 router.get('/dashboard', loginController.isLoggedAsAdmin, adminController.getDashboard);
+
+router.get('/reviews', loginController.isLoggedAsAdmin, adminController.getAllReviewsAdmin);
+
+router.get('/reviews', loginController.isLoggedAsAdmin, adminController.getAllReviewsAdmin);
+router.delete('/reviews/:id', loginController.isLoggedAsAdmin, reviewController.deleteReview); // Review delete route
+
+
+router.get('/users', loginController.isLoggedAsAdmin, userController.getAllUsers);
+router.delete('/users/:id', loginController.isLoggedAsAdmin, userController.deleteUser);
+router.get('/users/edit/:id', loginController.isLoggedAsAdmin, userController.getUserById);
+router.post('/users/edit/:id', loginController.isLoggedAsAdmin, userController.updateUser);
 
 module.exports = router;

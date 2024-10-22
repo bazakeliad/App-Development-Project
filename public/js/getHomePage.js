@@ -1,5 +1,3 @@
-// ----------------------------------------------------------------------------------------------------------------
-// added web service
 async function getNews() {
   const res = await fetch('http://localhost:80/apis/news'); // Calls your backend API
   const jsonResponse = await res.json();

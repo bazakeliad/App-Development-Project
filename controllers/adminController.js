@@ -2,6 +2,7 @@ const jerseysServices = require('../services/jerseysServices');
 const multer = require('multer');
 const Order = require('../models/order');
 const Jersey = require('../models/jersey');  // Import the Jersey model
+const reviewService = require('../services/reviewServices'); // Adjust the path as necessary
 
 // Set up multer for in-memory storage
 const storage = multer.memoryStorage();
@@ -233,6 +234,17 @@ const getAllOrdersAdmin = async (req, res) => {
     }
 };
 
+
+const getAllReviewsAdmin = async (req, res) => {
+    try {
+        const reviews = await reviewService.getAllReviews();
+        res.render('adminReviews.ejs', { reviews, title: 'Manage Reviews' });
+    } catch (error) {
+        console.error('Error fetching reviews:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
 module.exports = {
     getAdminConsole,
     getAllJerseysAdmin,
@@ -242,5 +254,6 @@ module.exports = {
     editJersey,
     getJerseyImage,
     getAllOrdersAdmin,
-    getDashboard
+    getDashboard,
+    getAllReviewsAdmin
 };
