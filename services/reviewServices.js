@@ -30,10 +30,15 @@ const deleteReview = async (id) => {
     return await Review.findByIdAndDelete(id);
 };
 
+const getFilteredReviews = async (filters) => {
+    return await Review.find(filters);
+};
+
 module.exports = {
     createReview,
     getAllReviews,
     getReviewById, 
     updateReview,
-    deleteReview
+    deleteReview,
+    getFilteredReviews
 };

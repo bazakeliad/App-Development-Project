@@ -59,3 +59,56 @@ exports.updateUser = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
+// Get the profile page for the logged-in user
+exports.getUserProfile = async (req, res) => {
+    try {
+        console.log('Session User ID:', req.session.username);  // Debugging
+        const userId = req.session.username;  // Assume userId is stored in session when logged in
+        if (!userId) {
+            return res.status(401).send('Unauthorized access');
+        }
+
+        const user = await userService.getUserById(userId);
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        const teams = await teamService.getAllTeams();  // Fetch the teams from the teamService
+
+        res.render('profile', { user, teams });
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+
+// Update user profile
+exports.updateUserProfile = async (req, res) => {
+    const { name, email, password, team } = req.body;
+    const userId = req.session.username;  // Ensure only the logged-in user can update
+
+    try {
+        const updatedData = {
+            name,
+            email,
+            password: password !== '' ? password : undefined,  // Only update if provided
+            team
+        };
+
+        const updatedUser = await userService.updateUser(userId, updatedData);
+
+        if (!updatedUser) {
+            return res.status(404).send('User not found');
+        }
+
+        // Redirect with success message in the query string
+        res.redirect('/personalArea/profile?message=Profile updated successfully&type=success');
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+        // Redirect with error message in the query string
+        res.redirect('/personalArea/profile?message=Error updating profile&type=error');
+    }
+};

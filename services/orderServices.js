@@ -5,9 +5,11 @@ const createOrder = async (orderData) => {
     return await order.save();
 }
 
-const getAllOrders = async () => {
-    return await Order.find();
+const getAllOrders = async (filter = {}) => {
+    console.log('Applied filter:', filter);  // Debug: Check the filter passed to MongoDB query
+    return await Order.find(filter);
 };
+
 
 const getOrderById = async (id) => {
     return await Order.findById(id);

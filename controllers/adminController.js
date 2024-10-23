@@ -3,6 +3,8 @@ const multer = require('multer');
 const Order = require('../models/order');
 const Jersey = require('../models/jersey');  // Import the Jersey model
 const reviewService = require('../services/reviewServices'); // Adjust the path as necessary
+const userService = require('../services/userServices'); // For user filtering
+const orderService = require('../services/orderServices'); // For user filtering
 
 // Set up multer for in-memory storage
 const storage = multer.memoryStorage();
@@ -223,25 +225,102 @@ const getJerseyImage = async (req, res) => {
     }
 };
 
-// Admin Orders: View all orders
 const getAllOrdersAdmin = async (req, res) => {
     try {
-        const orders = await Order.find().populate('userId');  // Populate userId with user details if needed
-        res.render('adminOrders', { orders, title: 'Manage Orders' });
+        const { username, status, startDate, endDate, minPrice, maxPrice } = req.query;
+
+        // Debugging: Log the received filter values
+        console.log('Filter values:', { username, status, startDate, endDate, minPrice, maxPrice });
+
+        const filter = {};
+
+        // Filter by username
+        if (username) {
+            console.log('Filtering by username:', username);
+            filter.userId = { $in: Array.isArray(username) ? username : [username] };
+        }
+
+        // Filter by status
+        if (status) {
+            console.log('Filtering by status:', status);
+            filter.status = { $in: Array.isArray(status) ? status : [status] };
+        }
+
+        // Filter by date range
+        if (startDate || endDate) {
+            filter.createdAt = {};
+            if (startDate) filter.createdAt.$gte = new Date(startDate);
+            if (endDate) filter.createdAt.$lte = new Date(endDate);
+            console.log('Filtering by date range:', { startDate, endDate });
+        }
+
+        // Filter by price range
+        if (minPrice || maxPrice) {
+            filter.totalPrice = {};
+            if (minPrice) filter.totalPrice.$gte = parseFloat(minPrice);
+            if (maxPrice) filter.totalPrice.$lte = parseFloat(maxPrice);
+            console.log('Filtering by price range:', { minPrice, maxPrice });
+        }
+
+        // Fetch filtered orders
+        const orders = await orderService.getAllOrders(filter);
+        const users = await userService.getAllUsers(); // For the filter options
+
+        // Render the orders view with filter selections
+        res.render('adminOrders', {
+            orders,
+            users,
+            usernames: Array.isArray(username) ? username : (username ? [username] : []),
+            statuses: Array.isArray(status) ? status : (status ? [status] : []),
+            startDate,
+            endDate,
+            minPrice,
+            maxPrice
+        });
     } catch (error) {
         console.error('Error fetching orders:', error);
-        res.status(500).send('Server error');
+        res.status(500).send('Internal Server Error');
     }
 };
 
 
+
 const getAllReviewsAdmin = async (req, res) => {
     try {
-        const reviews = await reviewService.getAllReviews();
-        res.render('adminReviews.ejs', { reviews, title: 'Manage Reviews' });
+        const { userId, itemId, rating, startDate, endDate } = req.query;
+
+        // Fetch all users and items for filter dropdowns
+        const users = await userService.getAllUsers();
+        const items = await jerseysServices.getAllJerseys(); // Assuming items are jerseys
+
+        // Build the filter object based on query parameters
+        const filters = {};
+        if (userId) filters.userId = userId;
+        if (itemId) filters.itemId = itemId;
+        if (rating) filters.rating = { $in: rating }; // Match any of the ratings
+
+        // Filter by date range if provided
+        if (startDate || endDate) {
+            filters.createdAt = {};
+            if (startDate) filters.createdAt.$gte = new Date(startDate);
+            if (endDate) filters.createdAt.$lte = new Date(endDate);
+        }
+
+        const reviews = await reviewService.getFilteredReviews(filters);
+
+        res.render('adminReviews', {
+            reviews,
+            users,
+            items,
+            userIds: Array.isArray(userId) ? userId : [userId],
+            itemIds: Array.isArray(itemId) ? itemId : [itemId],
+            ratings: Array.isArray(rating) ? rating : [rating],
+            startDate,
+            endDate
+        });
     } catch (error) {
         console.error('Error fetching reviews:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Server Error');
     }
 };
 

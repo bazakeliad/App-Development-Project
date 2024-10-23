@@ -1,14 +1,31 @@
 const reviewService = require('../services/reviewServices'); // Adjust the path as necessary
 
+const jerseyService = require('../services/jerseysServices');
+
+exports.renderAddReviewForm = async (req, res) => {
+    try {
+        const jerseys = await jerseyService.getAllJerseys();
+        res.render('addReview', { jerseys });
+    } catch (error) {
+        console.error('Error fetching jerseys:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
 // Create a review
 exports.createReview = async (req, res) => {
-    const { userId, itemId, message, rating } = req.body;
+    const { itemId, message, rating } = req.body;
+    const userId = req.session.username;  // Get the user ID from session
 
     try {
-        const review = await reviewService.createReview(userId, itemId, message, rating);
-        res.status(201).json(review);
+        // Create the review in the service layer
+        await reviewService.createReview(userId, itemId, message, parseInt(rating));
+
+        // Redirect the user back to their profile or a success page
+        res.redirect('/personalArea?message=Review added successfully&type=success');
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        console.error('Error creating review:', error);
+        res.redirect('/personalArea?message=Error adding review&type=error');
     }
 };
 
@@ -30,7 +47,7 @@ exports.updateReview = async (req, res) => {
     try {
         const updateData = {
             message,
-            rating: parseInt(rating, 5)  // Ensure rating is saved as an integer
+            rating: parseInt(rating, 10)  // Ensure rating is saved as an integer
         };
 
         const updatedReview = await reviewService.updateReview(id, updateData);
