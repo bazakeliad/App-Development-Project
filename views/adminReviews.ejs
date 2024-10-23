@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Reviews</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/main.css">
+    <style>
+        /* Custom styles for the filter section */
+        .filter-section {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+        }
+
+        .form-check-input {
+            margin-right: 10px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .apply-filters-btn {
+            width: 100%;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <%- include('partials/compactHeader.ejs') %>
+
+    <!-- Page Title -->
+    <%- include('partials/pageTitle.ejs', { title: 'Manage Reviews' }) %>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Filter Sidebar -->
+            <aside class="col-md-3">
+                <div class="filter-section">
+                    <h5 class="filter-title"><i class="bi bi-funnel"></i> Filter Reviews</h5>
+                    <form action="/admin/reviews" method="GET" id="filter-form">
+                        <!-- User ID Filter -->
+                        <div class="mb-4">
+                            <label class="form-label"><i class="bi bi-person"></i> User ID</label>
+                            <% users.forEach(function(user) { %>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="userId" value="<%= user._id %>" id="user-<%= user._id %>" <%= userIds.includes(user._id) ? 'checked' : '' %>>
+                                    <label class="form-check-label" for="user-<%= user._id %>"><%= user._id %></label>
+                                </div>
+                            <% }); %>
+                        </div>
+
+                        <!-- Item ID Filter -->
+                        <div class="mb-4">
+                            <label class="form-label"><i class="bi bi-tag"></i> Item ID</label>
+                            <% items.forEach(function(item) { %>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="itemId" value="<%= item._id %>" id="item-<%= item._id %>" <%= itemIds.includes(item._id) ? 'checked' : '' %>>
+                                    <label class="form-check-label" for="item-<%= item._id %>"><%= item._id %></label>
+                                </div>
+                            <% }); %>
+                        </div>
+
+                        <!-- Rating Filter -->
+                        <div class="mb-4">
+                            <label class="form-label"><i class="bi bi-star"></i> Rating</label>
+                            <% [1, 2, 3, 4, 5].forEach(function(ratingValue) { %>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="rating" value="<%= ratingValue %>" id="rating-<%= ratingValue %>" <%= ratings.includes(ratingValue) ? 'checked' : '' %>>
+                                    <label class="form-check-label" for="rating-<%= ratingValue %>"><%= ratingValue %> Stars</label>
+                                </div>
+                            <% }); %>
+                        </div>
+
+                        <!-- Date Range Filter -->
+                        <div class="mb-4">
+                            <label class="form-label"><i class="bi bi-calendar"></i> Date Range</label>
+                            <input type="date" name="startDate" class="form-control mb-2" value="<%= startDate %>">
+                            <input type="date" name="endDate" class="form-control" value="<%= endDate %>">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary apply-filters-btn"><i class="bi bi-funnel"></i> Apply Filters</button>
+                    </form>
+                </div>
+            </aside>
+
+            <!-- Reviews Table -->
+            <main class="col-md-9">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <p class="mb-0">Showing <strong><%= reviews.length %></strong> results</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">Review ID</th>
+                                <th scope="col">User ID</th>
+                                <th scope="col">Item ID</th>
+                                <th scope="col">Message</th>
+                                <th scope="col">Rating</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% reviews.forEach(function(review) { %>
+                                <tr id="review_<%= review._id %>">
+                                    <td><%= review._id %></td>
+                                    <td><%= review.userId %></td>
+                                    <td><%= review.itemId %></td>
+                                    <td><%= review.message %></td>
+                                    <td><%= review.rating %></td>
+                                    <td><%= review.createdAt.toDateString() %></td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <a href="/admin/reviews/edit/<%= review._id %>" class="btn btn-warning btn-sm">
+                                                <i class="bi bi-pencil-square"></i> Fake a Review
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-danger deleteBtn" data-id="<%= review._id %>">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include('partials/footer.ejs') %>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/js/adminReviews.js"></script>
+</body>
+</html>

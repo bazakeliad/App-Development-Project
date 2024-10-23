@@ -22,7 +22,47 @@ const getUserByUsername = async (username) => {
   return await User.findOne({ _id: username });
 };
 
-  module.exports = {
-    isLoggedAsAdmin,
-    getUserByUsername
-  };
+// Get all users
+async function getAllUsers() {
+  try {
+      return await User.find();
+  } catch (error) {
+      throw new Error('Failed to retrieve users');
+  }
+}
+
+// Delete a user by ID
+async function deleteUser(id) {
+  try {
+      return await User.findByIdAndDelete(id);
+  } catch (error) {
+      throw new Error('Failed to delete user');
+  }
+}
+
+// Get user by ID
+async function getUserById(id) {
+  try {
+      return await User.findById(id);
+  } catch (error) {
+      throw new Error('Failed to retrieve user');
+  }
+}
+
+// Update user by ID
+async function updateUser(id, updateData) {
+  try {
+      return await User.findByIdAndUpdate(id, updateData, { new: true });
+  } catch (error) {
+      throw new Error('Failed to update user');
+  }
+}
+
+module.exports = {
+  isLoggedAsAdmin,
+  getUserByUsername,
+  getAllUsers,
+  deleteUser,
+  getUserById,
+  updateUser
+};

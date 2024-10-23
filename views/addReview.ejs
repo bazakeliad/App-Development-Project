@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Review</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <%- include('partials/compactHeader.ejs') %>
+
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Add a Review</h1>
+            <a href="/personalArea" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Personal Area
+            </a>
+        </div>
+
+        <!-- Review Form -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <form action="/review/add" method="POST">
+                    <!-- Jersey to Review -->
+                    <div class="mb-3">
+                        <label for="itemId" class="form-label">Jersey</label>
+                        <select name="itemId" id="itemId" class="form-select" required>
+                            <% jerseys.forEach(function(jersey) { %>
+                                <option value="<%= jersey._id %>"><%= jersey.team %> - <%= jersey.kitType %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+
+                    <!-- Rating -->
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating (1 to 5)</label>
+                        <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required>
+                    </div>
+
+                    <!-- Review Message -->
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Review</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-save"></i> Submit Review
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include('partials/footer.ejs') %>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</body>
+</html>

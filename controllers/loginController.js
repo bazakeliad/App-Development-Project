@@ -108,7 +108,6 @@ async function login(req, res) {
 
 async function register(req, res) {
     const { name, username, password, email, team } = req.body;
-
     try {
       await loginService.register(name, username, password, email, team);
 

@@ -11,6 +11,15 @@ const getAllReviews = async () => {
     return await Review.find(); // Add any necessary filters
 };
 
+// Get a review by ID
+const getReviewById = async (id) => {
+    try {
+        return await Review.findById(id);  // Find review by ID
+    } catch (error) {
+        throw new Error('Error retrieving review by ID');
+    }
+};
+
 // Update a review
 const updateReview = async (id, updateData) => {
     return await Review.findByIdAndUpdate(id, updateData, { new: true });
@@ -21,9 +30,15 @@ const deleteReview = async (id) => {
     return await Review.findByIdAndDelete(id);
 };
 
+const getFilteredReviews = async (filters) => {
+    return await Review.find(filters);
+};
+
 module.exports = {
     createReview,
     getAllReviews,
+    getReviewById, 
     updateReview,
-    deleteReview
+    deleteReview,
+    getFilteredReviews
 };
