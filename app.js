@@ -27,6 +27,7 @@ server.use(session({
 // Middleware to make `user` available in all views
 server.use((req, res, next) => {
     res.locals.user = req.session.username || null;
+    res.locals.googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
     next();
 });
 

@@ -2,6 +2,8 @@ const jerseysServices = require("../services/jerseysServices")
 const jerseysController = require("../controllers/jerseysController")
 const userServices = require("../services/userServices");
 const reviewService = require('../services/reviewServices');
+const storeServices = require('../services/storeServices');
+
 
 // Updated controller to select 2 random articles on the server side
 const getAllNews = async (req, res) => {
@@ -72,10 +74,16 @@ const getHomePage = async (req, res) => {
     }
 };
 
-
-const getAboutUs = async(req, res) => {
-    res.render("getAboutUs.ejs")
-}    
+const getAboutUs = async (req, res) => {
+    try {
+        const stores = await storeServices.getAllStores();
+        const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
+        res.render('getAboutUs', { googleMapsApiKey, stores });
+    } catch (error) {
+        console.error('Error loading About Us page:', error);
+        res.status(500).send('Error loading About Us page.');
+    }
+};
 
 const login = async(req, res) => {
     res.render("login.ejs")
