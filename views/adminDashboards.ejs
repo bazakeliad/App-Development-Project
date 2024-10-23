@@ -11,8 +11,10 @@
 <body>
     <%- include('partials/compactHeader.ejs') %>
 
+    <!-- Page Title -->
+    <%- include('partials/pageTitle.ejs', { title: 'Admin Dashboard' }) %>
+
     <div class="container my-5">
-        <h1>Admin Dashboard</h1>
         <div class="container my-3">
             <a href="/admin/console" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i> Back to Admin Console

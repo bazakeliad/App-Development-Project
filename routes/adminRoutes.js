@@ -26,6 +26,17 @@ router.post('/jerseys/edit/:id', loginController.isLoggedAsAdmin, upload.single(
 // Serve jersey image
 router.get('/jerseys/image/:id', loginController.isLoggedAsAdmin, adminController.getJerseyImage);
 
+
+const storeController = require('../controllers/storeController');
+
+// Stores routes
+router.get('/stores', loginController.isLoggedAsAdmin, storeController.getAllStores);
+router.get('/stores/add', loginController.isLoggedAsAdmin, storeController.renderAddStorePage);
+router.post('/stores/add', loginController.isLoggedAsAdmin, storeController.createStore);
+router.get('/stores/edit/:id', loginController.isLoggedAsAdmin, storeController.renderEditStorePage);
+router.post('/stores/edit/:id', loginController.isLoggedAsAdmin, storeController.updateStore);
+router.delete('/stores/delete/:id', loginController.isLoggedAsAdmin, storeController.deleteStore);
+
 // Orders
 router.get('/orders', loginController.isLoggedAsAdmin, adminController.getAllOrdersAdmin);  // New route to view all orders
 
