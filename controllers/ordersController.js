@@ -64,9 +64,9 @@ exports.updateOrder = async (req, res) => {
 // Delete an order by ID
 exports.deleteOrder = async (req, res) => {
     try {
-        const order = await orderServices.deleteOrder(req.params.id); // Added await
+        const order = await orderServices.deleteOrder(req.params.id);
         if (!order) return res.status(404).json({ message: 'Order not found' });
-        res.status(200).json({ message: 'Order deleted successfully' }); // Respond with success message
+        res.status(200).json({ message: 'Order deleted successfully' }); 
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -99,3 +99,17 @@ exports.updateOrderStatus = async (req, res) => {
     }
 };
 
+
+// Get all orders for the logged-in user
+exports.getOrdersByUser = async (req, res) => {
+    try {
+        const userId = req.session.username;
+        const orders = await orderServices.getOrdersByUser(userId);
+        if (orders.length === 0) {
+            return res.render('userOrders', { orders, title: 'My Orders' });
+        }
+        res.render('userOrders', { orders, title: 'My Orders' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

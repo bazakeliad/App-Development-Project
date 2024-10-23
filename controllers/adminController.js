@@ -162,12 +162,12 @@ const getEditJerseyForm = async (req, res) => {
     try {
         const jersey = await jerseysServices.getJerseyById(id);
         if (!jersey) {
-            return res.status(404).send('Jersey not found');
+            return res.status(404).redirect('/pageNotFound');
         }
         res.render('editJersey.ejs', { jersey, title: 'Edit Jersey' });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).redirect('/pageNotFound');
     }
 };
 

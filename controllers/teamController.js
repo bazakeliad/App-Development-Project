@@ -15,7 +15,7 @@ const getTeamSelection = async (req, res) => {
                 return res.redirect(`/myteam/${user.team}`);
             } else {
                 // If the user doesn't have a favorite team, redirect to personalArea
-                return res.redirect('/personalArea');
+                return res.redirect('/personalArea/profile');
             }
         } else {
             // If the user is not logged in, redirect to the login page
@@ -36,7 +36,18 @@ const postTeamSelection = (req, res) => {
 const getmyteam = async (req, res) => {
     try {
         const twitterHandle = req.params.twitterHandle;
-                
+        
+        // Fetch all teams
+        const teams = await teamServices.getAllTeams();
+
+        // Check if the provided twitterHandle exists in the teams list
+        const teamExists = teams.some(team => team.twitterHandle === twitterHandle);
+        
+        if (!teamExists) {
+            // Redirect to pageNotFound if the team doesn't exist
+            return res.redirect('/pageNotFound');
+        }
+
         // Fetch jerseys that match the twitterHandle's team
         const jerseys = await teamServices.getJerseysByTwitterHandle(twitterHandle);
         

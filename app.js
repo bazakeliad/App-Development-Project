@@ -17,11 +17,18 @@ mongoose.connect('mongodb://localhost:27017/jerseysAllstarsShop', {
 });
 
 const session = require('express-session');
+require('dotenv').config(); // Load environment variables
 server.use(session({
-    secret: 'bestSiteEver',
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false
 }));
+
+// Middleware to make `user` available in all views
+server.use((req, res, next) => {
+    res.locals.user = req.session.username || null;
+    next();
+});
 
 server.set("view engine", "ejs");
 
@@ -36,6 +43,10 @@ server.set('views', path.join(__dirname, 'views'));
 // Expose generalPages routes
 const generalPagesRoutes = require("./routes/generalPagesRoutes");
 server.use(generalPagesRoutes);
+
+// Expose generalPages routes
+const personalareaRoutes = require("./routes/personalareaRoutes");
+server.use(personalareaRoutes);
 
 // Expose myTeam routes
 const myteamRoutes = require("./routes/myteamRoutes");
@@ -64,6 +75,12 @@ server.use('/cart', cartRoutes);
 // Expose cart routes
 const reviewRoutes = require('./routes/reviewRoutes');
 server.use('/review', reviewRoutes);
+
+// Catch-all route for 404 errors (Page Not Found)
+server.use(async(req, res, next) => {
+    res.status(404);
+    res.redirect('/pageNotFound');
+});
 
 // Start the server
 server.listen(80, () => {

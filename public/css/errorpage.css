@@ -1,0 +1,26 @@
+body, html {
+  height: 100%;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  padding-top: 70px; /* Push content higher on the screen */
+  padding-bottom: 70px; /* Push content lower on the screen */
+  text-align: center;
+}
+
+.error-container h1 {
+  margin-bottom: 30px; /* Adjusts the spacing between title and message */
+}
+
+.error-container p {
+  margin-bottom: 40px; /* Spacing between message and button */
+}
+
+.error-container a {
+  padding: 10px 20px;
+}

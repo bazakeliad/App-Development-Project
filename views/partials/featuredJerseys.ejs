@@ -1,0 +1,90 @@
+    <!-- Featured Products Section -->
+    <div class="container my-5 featured-products">
+      <h2 class="text-center mb-4">Featured Jerseys</h2>
+      <div class="row">
+          <% for (let i = 0; i < Math.min(featuredJerseys.length, 4); i++) { %>
+              <div class="col-6 col-md-3 mb-4">
+                  <div class="card h-100">
+                      <a href="/jerseys/<%= featuredJerseys[i]._id %>" class="card-link">
+                          <% if (featuredJerseys[i].image && featuredJerseys[i].image.data) { %>
+                              <img src="/jerseys/image/<%= featuredJerseys[i]._id %>" class="card-img-top" alt="<%= featuredJerseys[i].team %>">
+                          <% } else { %>
+                              <img src="/images/default-image.jpg" class="card-img-top" alt="Default Image">
+                          <% } %>
+                          <div class="card-body text-center">
+                              <h5 class="card-title"><%= featuredJerseys[i].team %> <%= featuredJerseys[i].kitType %></h5>
+                              <p class="card-text fw-bold">$<%= (typeof featuredJerseys[i].price === 'number') ? featuredJerseys[i].price.toFixed(2) : 'N/A' %></p>
+                          </div>
+                      </a>
+                      <div class="card-footer text-center">
+                          <button type="button" class="btn btn-outline-primary add-to-cart-btn" data-item-id="<%= featuredJerseys[i]._id %>" data-jersey-index="<%= i %>">
+                              <i class="bi bi-cart-plus"></i> Add to Cart
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          <% } %>
+      </div>
+  </div>
+
+<!-- Add to Cart pop up -->
+<%- include('addToCartModal.ejs') %>
+<%- include('toastAddToCart.ejs') %> 
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        let selectedJerseyId = null;
+
+        // Add to Cart Button Click Event
+        $('.add-to-cart-btn').click(function(e) {
+            e.preventDefault();
+            selectedJerseyId = $(this).data('item-id');
+            const jerseyIndex = $(this).data('jersey-index');
+            
+            // Populate sizes based on selected jersey
+            const sizes = <%- JSON.stringify(featuredJerseys.map(j => j.sizes)) %>;
+            const sizeOptions = sizes[jerseyIndex].map(size => `<option value="${size}">${size}</option>`).join('');
+            $('#size').html(sizeOptions);
+            
+            $('#addToCartModal').modal('show');
+        });
+
+        // Confirm Add to Cart
+        $('#confirmAddToCartBtn').click(function() {
+            // Check if user is logged in using res.locals.user passed from the server
+            const user = <%= user ? 'true' : 'false' %>;
+
+            // If the user is not logged in, redirect to login page
+            if (!user) {
+                window.location.href = '/login';
+                return; // Stop further execution
+            }
+
+            // Continue with adding to the cart if user is logged in
+            const size = $('#size').val();
+            const quantity = $('#quantity').val();
+
+            if (!size) {
+                alert('Please select a size.');
+                return;
+            }
+
+            $.ajax({
+                url: `/cart/updateCart?id=${selectedJerseyId}`,
+                type: 'POST',
+                data: JSON.stringify({ size, quantity: parseInt(quantity) }),
+                contentType: 'application/json',
+                success: function(response) {
+                    $('#addToCartModal').modal('hide');
+                    const toast = new bootstrap.Toast($('#addToCartToast'));
+                    toast.show();
+                },
+                error: function(error) {
+                    alert('Error adding item to cart.');
+                }
+            });
+        });
+    });
+</script>

@@ -15,7 +15,6 @@ router.route("/")
 // importing login controller for protecting routes that change data
 const loginController = require("../controllers/loginController");
 
-// rest api - /articles/:1 get article with id 1. in delete, delete him
 router.route("/:id")
     .get(jerseysController.getJerseyById)
     .delete(loginController.isLoggedAsAdmin, jerseysController.deleteJerseyById)

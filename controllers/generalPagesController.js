@@ -37,6 +37,7 @@ const getAllNews = async (req, res) => {
 // Return home page to the user
 const getHomePage = async (req, res) => {
     try {
+
         // Fetch featured jerseys from the database
         const allFeaturedJerseys = await jerseysServices.getFeaturedJerseys();
 
@@ -80,6 +81,30 @@ const login = async(req, res) => {
     res.render("login.ejs")
 }    
 
+// Return home page to the user
+const getPageNotFound = async (req, res) => {
+    try {
+
+        // Fetch featured jerseys from the database
+        const allFeaturedJerseys = await jerseysServices.getFeaturedJerseys();
+
+        // Limit the number of jerseys to display (e.g., 4 jerseys)
+        const featuredJerseys = allFeaturedJerseys.slice(0, 4);
+
+        res.render('pageNotFound', {
+            featuredJerseys,
+            title: 'Page Not Found',
+            message: 'It looks like the page you are looking for does not exist.',
+            actionUrl: '/jerseys', // Redirect to Browse Jerseys page
+            actionText: 'Browse All Jerseys'
+        });
+    } 
+    catch (error) {
+        console.error('Error fetching data for page:', error);
+        res.status(500).send('An error occurred while loading the page.');
+    }
+};
+
 
 // handle user input operation in home page
 const handleFormSubmission = async(req, res) => {
@@ -112,5 +137,6 @@ module.exports = {
     getHomePage,
     handleFormSubmission,
     getAboutUs,
+    getPageNotFound,
     login
 }
