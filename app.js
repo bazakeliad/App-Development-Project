@@ -75,6 +75,12 @@ server.use('/cart', cartRoutes);
 const reviewRoutes = require('./routes/reviewRoutes');
 server.use('/review', reviewRoutes);
 
+// Catch-all route for 404 errors (Page Not Found)
+server.use(async(req, res, next) => {
+    res.status(404);
+    res.redirect('/pageNotFound');
+});
+
 // Start the server
 server.listen(80, () => {
     console.log("Server is running on port 80");

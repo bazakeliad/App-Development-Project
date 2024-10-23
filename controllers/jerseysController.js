@@ -73,7 +73,7 @@ const getJerseyById = async (req, res) => {
 
         // Check if jerseyId is valid
         if (!jerseyId) {
-            return res.status(400).send({ message: "Invalid Jersey ID" });
+            return res.status(400).redirect('/pageNotFound');
         }
 
         // Get the specified jersey from the service layer
@@ -81,7 +81,7 @@ const getJerseyById = async (req, res) => {
 
         // If jersey is not found, return a 404 response
         if (!jersey) {
-            return res.status(404).send({ message: "Jersey not found" });
+            return res.status(404).redirect('/pageNotFound');
         }
 
         // Pass userId (or username) from the session to the view

@@ -36,7 +36,18 @@ const postTeamSelection = (req, res) => {
 const getmyteam = async (req, res) => {
     try {
         const twitterHandle = req.params.twitterHandle;
-                
+        
+        // Fetch all teams
+        const teams = await teamServices.getAllTeams();
+
+        // Check if the provided twitterHandle exists in the teams list
+        const teamExists = teams.some(team => team.twitterHandle === twitterHandle);
+        
+        if (!teamExists) {
+            // Redirect to pageNotFound if the team doesn't exist
+            return res.redirect('/pageNotFound');
+        }
+
         // Fetch jerseys that match the twitterHandle's team
         const jerseys = await teamServices.getJerseysByTwitterHandle(twitterHandle);
         
