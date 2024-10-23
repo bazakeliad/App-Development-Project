@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
+const reviewController  = require('../controllers/reviewController');
+const userController  = require('../controllers/userController');
+const orderController = require('../controllers/ordersController');
+
 const multer = require('multer');
 
 // Set up multer for in-memory storage
@@ -39,7 +43,24 @@ router.delete('/stores/delete/:id', loginController.isLoggedAsAdmin, storeContro
 
 // Orders
 router.get('/orders', loginController.isLoggedAsAdmin, adminController.getAllOrdersAdmin);  // New route to view all orders
+router.post('/orders/updateStatus/:id', loginController.isLoggedAsAdmin, orderController.updateOrderStatus);
 
 router.get('/dashboard', loginController.isLoggedAsAdmin, adminController.getDashboard);
+
+router.get('/reviews', loginController.isLoggedAsAdmin, adminController.getAllReviewsAdmin);
+
+router.delete('/reviews/:id', loginController.isLoggedAsAdmin, reviewController.deleteReview); // Review delete route
+// Fetch the review to edit
+router.get('/reviews/edit/:id', loginController.isLoggedAsAdmin, reviewController.getReviewById);
+
+// Handle review update (should be POST or PUT)
+router.post('/reviews/edit/:id', loginController.isLoggedAsAdmin, reviewController.updateReview);
+
+
+
+router.get('/users', loginController.isLoggedAsAdmin, userController.getAllUsers);
+router.delete('/users/:id', loginController.isLoggedAsAdmin, userController.deleteUser);
+router.get('/users/edit/:id', loginController.isLoggedAsAdmin, userController.getUserById);
+router.post('/users/edit/:id', loginController.isLoggedAsAdmin, userController.updateUser);
 
 module.exports = router;

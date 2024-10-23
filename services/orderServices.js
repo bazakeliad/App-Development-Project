@@ -5,9 +5,11 @@ const createOrder = async (orderData) => {
     return await order.save();
 }
 
-const getAllOrders = async () => {
-    return await Order.find();
+const getAllOrders = async (filter = {}) => {
+    console.log('Applied filter:', filter);  // Debug: Check the filter passed to MongoDB query
+    return await Order.find(filter);
 };
+
 
 const getOrderById = async (id) => {
     return await Order.findById(id);
@@ -18,8 +20,11 @@ const getOrdersByStatus = async (status) => {
 };
 
 const updateOrder = async (orderId, orderData) => {
-    return await Order.findByIdAndUpdate(orderId, orderData, { new: true, runValidators: true });
-}
+    return await Order.findByIdAndUpdate(orderId, orderData, { 
+        new: true,  // Return the updated document
+        runValidators: true  // Ensure the validators (like enum) run on update
+    });
+};
 
 const getOrdersByUser = async (userId) => {
     return await Order.find({ userId });
