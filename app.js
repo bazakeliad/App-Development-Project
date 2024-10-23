@@ -17,8 +17,9 @@ mongoose.connect('mongodb://localhost:27017/jerseysAllstarsShop', {
 });
 
 const session = require('express-session');
+require('dotenv').config(); // Load environment variables
 server.use(session({
-    secret: 'bestSiteEver',
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false
 }));
