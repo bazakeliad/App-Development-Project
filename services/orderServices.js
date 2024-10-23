@@ -18,8 +18,11 @@ const getOrdersByStatus = async (status) => {
 };
 
 const updateOrder = async (orderId, orderData) => {
-    return await Order.findByIdAndUpdate(orderId, orderData, { new: true, runValidators: true });
-}
+    return await Order.findByIdAndUpdate(orderId, orderData, { 
+        new: true,  // Return the updated document
+        runValidators: true  // Ensure the validators (like enum) run on update
+    });
+};
 
 const deleteOrder = async (orderId) => {
     return await Order.findByIdAndDelete(orderId);

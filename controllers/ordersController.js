@@ -71,3 +71,31 @@ exports.deleteOrder = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+exports.updateOrderStatus = async (req, res) => {
+    const { id } = req.params;  // Order ID from URL
+    const { status } = req.body;  // New status from AJAX request
+
+    console.log(`Received request to update Order ID ${id} to Status: ${status}`);  // Debugging
+
+    if (!status) {
+        return res.status(400).json({ message: 'Status is required' });
+    }
+
+    try {
+        // Update the order with the new status
+        const updatedOrder = await orderServices.updateOrder(id, { status });
+        
+        if (!updatedOrder) {
+            console.log(`Order ID ${id} not found`);  // Debugging
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        console.log(`Order ID ${id} updated successfully to Status: ${status}`);  // Debugging
+        return res.status(200).json({ message: 'Order status updated successfully', updatedOrder });
+    } catch (error) {
+        console.error(`Error updating order ${id}:`, error);  // Log the error
+        return res.status(500).json({ message: 'Internal server error', error });
+    }
+};
+

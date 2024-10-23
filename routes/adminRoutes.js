@@ -3,6 +3,7 @@ const router = express.Router();
 const adminController = require('../controllers/adminController');
 const reviewController  = require('../controllers/reviewController');
 const userController  = require('../controllers/userController');
+const orderController = require('../controllers/ordersController');
 
 const multer = require('multer');
 
@@ -31,13 +32,19 @@ router.get('/jerseys/image/:id', loginController.isLoggedAsAdmin, adminControlle
 
 // Orders
 router.get('/orders', loginController.isLoggedAsAdmin, adminController.getAllOrdersAdmin);  // New route to view all orders
+router.post('/orders/updateStatus/:id', loginController.isLoggedAsAdmin, orderController.updateOrderStatus);
 
 router.get('/dashboard', loginController.isLoggedAsAdmin, adminController.getDashboard);
 
 router.get('/reviews', loginController.isLoggedAsAdmin, adminController.getAllReviewsAdmin);
 
-router.get('/reviews', loginController.isLoggedAsAdmin, adminController.getAllReviewsAdmin);
 router.delete('/reviews/:id', loginController.isLoggedAsAdmin, reviewController.deleteReview); // Review delete route
+// Fetch the review to edit
+router.get('/reviews/edit/:id', loginController.isLoggedAsAdmin, reviewController.getReviewById);
+
+// Handle review update (should be POST or PUT)
+router.post('/reviews/edit/:id', loginController.isLoggedAsAdmin, reviewController.updateReview);
+
 
 
 router.get('/users', loginController.isLoggedAsAdmin, userController.getAllUsers);

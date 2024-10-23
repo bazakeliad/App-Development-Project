@@ -25,16 +25,49 @@ exports.getAllReviews = async (req, res) => {
 // Update a review
 exports.updateReview = async (req, res) => {
     const { id } = req.params;
-    const { message, rating } = req.body;
+    const { message, rating } = req.body;  // Extract the updated fields
 
     try {
-        const updatedReview = await reviewService.updateReview(id, { message, rating });
+        const updateData = {
+            message,
+            rating: parseInt(rating, 5)  // Ensure rating is saved as an integer
+        };
+
+        const updatedReview = await reviewService.updateReview(id, updateData);
         if (!updatedReview) {
             return res.status(404).json({ message: 'Review not found' });
         }
-        res.status(200).json(updatedReview);
+
+        res.redirect('/admin/reviews');  // Redirect back to the reviews page
     } catch (error) {
         res.status(400).json({ message: error.message });
+    }
+};
+
+
+exports.getReviewById = async (req, res) => {
+    console.log('Fetching review by ID:', req.params.id);  // Check if this log is printed
+    try {
+        const review = await reviewService.getReviewById(req.params.id);
+        if (!review) {
+            return res.status(404).json({ message: 'Review not found' });
+        }
+        res.render('editReview', { review });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+exports.getReviewById = async (req, res) => {
+    console.log('Fetching review by ID:', req.params.id);  // Check if this log is printed
+    try {
+        const review = await reviewService.getReviewById(req.params.id);
+        if (!review) {
+            return res.status(404).json({ message: 'Review not found' });
+        }
+        res.render('editReview', { review });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 };
 

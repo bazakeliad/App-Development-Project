@@ -48,6 +48,9 @@
                             <td><%= review.createdAt.toDateString() %></td>
                             <td class="text-center">
                                 <div class="btn-group" role="group">
+                                    <a href="/admin/reviews/edit/<%= review._id %>" class="btn btn-warning btn-sm">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
                                     <button type="button" class="btn btn-sm btn-danger deleteBtn" data-id="<%= review._id %>">
                                         <i class="bi bi-trash"></i> Delete
                                     </button>

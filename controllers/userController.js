@@ -1,4 +1,5 @@
 const userService = require('../services/userServices'); // Adjust the path as necessary
+const teamService = require('../services/teamServices');
 
 // Get all users
 exports.getAllUsers = async (req, res) => {
@@ -30,7 +31,8 @@ exports.getUserById = async (req, res) => {
     try {
         const user = await userService.getUserById(req.params.id);
         if (!user) return res.status(404).json({ message: 'User not found' });
-        res.render('editUser', { user }); // Create a separate `editUser.ejs` file
+        const teams = await teamService.getAllTeams(); // Fetch the teams
+        res.render('editUser', { user, teams }); // Create a separate `editUser.ejs` file
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

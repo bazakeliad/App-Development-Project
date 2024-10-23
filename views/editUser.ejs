@@ -42,7 +42,12 @@
                     <!-- Team -->
                     <div class="mb-3">
                         <label for="team" class="form-label">Team</label>
-                        <input type="text" class="form-control" id="team" name="team" value="<%= user.team %>">
+                        <select class="form-select" id="team" name="team" required>
+                            <option value="" disabled selected>Select a favorite team</option>
+                            <% teams.forEach(function(team) { %>
+                                <option value="<%= team.twitterHandle %>"><%= team.name %></option>
+                            <% }); %>
+                        </select>
                     </div>
                 
                     <!-- Admin Status -->

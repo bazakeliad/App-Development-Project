@@ -35,3 +35,29 @@ $(document).on('click', '.deleteBtn', function() {
         deleteOrder(orderId); // Call the delete function only if confirmed
     }
 });
+
+
+$(document).ready(function() {
+    // Handle the status change via AJAX
+    $('.order-status').on('change', function() {
+        const orderId = $(this).data('id');
+        const newStatus = $(this).val();
+
+        console.log(`Updating Order ID: ${orderId} to Status: ${newStatus}`); // Debugging
+
+        $.ajax({
+            url: `/admin/orders/updateStatus/${orderId}`,
+            type: 'POST',
+            data: { status: newStatus },
+            contentType: 'application/x-www-form-urlencoded',  // Proper content type
+            processData: true,
+            success: function(response) {
+                console.log('Status updated successfully:', response);
+            },
+            error: function(err) {
+                console.error('Error updating status:', err.responseText);  // Log the exact error response
+                alert('Failed to update the order status.');
+            }
+        });
+    });
+});
