@@ -58,3 +58,12 @@ header .account-links a:hover {
   color: var(--primary-color);
 }
 
+/* Adjust icon spacing and positioning */
+.account-links i {
+  font-size: 1.5rem;
+}
+
+/* Autocomplete Dropdown Style */
+.position-relative {
+  position: relative;
+}

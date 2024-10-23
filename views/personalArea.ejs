@@ -1,15 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jersey Shop</title>
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Presonal Area</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/main.css">
 </head>
-
 <body>
-    Secret/private stuff for <%= username %> 
-    <a href="/logout">logout</a>
+
+    <!-- Header -->
+    <%- include('partials/compactHeader.ejs') %>
+
+    <!-- Page Title -->
+    <%- include('partials/pageTitle.ejs', { title: 'Personal Area' }) %>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="text-center mb-5">
+            <p class="lead">Manage your Account, orders, and settings from here.</p>
+        </div>
+
+        <div class="row">
+
+            <!-- Admin Console Card -->
+            <% if (typeof isAdmin !== 'undefined' && isAdmin === true) { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-columns-gap display-4 mb-3"></i>
+                            <h5 class="card-title">Admin Console</h5>
+                            <p class="card-text">Mange the site to your liking</p>
+                            <a href="/admin/console" class="btn btn-primary"><i class="bi bi-box-arrow-in-right"></i> Go to Admin Console</a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+
+            <!-- Orders Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-card-list display-4 mb-3"></i>
+                        <h5 class="card-title">My Orders</h5>
+                        <p class="card-text">See your order history</p>
+                        <a href="/personalArea/orders" class="btn btn-primary"><i class="bi bi-box-arrow-in-right"></i> View Orders</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User settings Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-card-list display-4 mb-3"></i>
+                        <h5 class="card-title">Profile</h5>
+                        <p class="card-text">Modify your Account details</p>
+                        <a href="/personalArea/profile" class="btn btn-primary"><i class="bi bi-box-arrow-in-right"></i> Edit Account</a>
+                    </div>
+                </div>
+            </div>
+                    
+        </div>
+        <div class="d-flex justify-content-center mb-4">
+            <!-- Logout Button -->
+            <a href="/logout" class="btn btn-outline-danger btn-lg">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include('partials/footer.ejs') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

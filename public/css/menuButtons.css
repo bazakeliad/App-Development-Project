@@ -1,0 +1,51 @@
+/* Adjust icon spacing and positioning */
+.account-links i {
+  font-size: 1.5rem;
+}
+
+/* Autocomplete Dropdown Style */
+.position-relative {
+  position: relative;
+}
+
+/* Search input hidden by default */
+.search-input {
+  width: 0;
+  opacity: 0;
+  transition: width 0.4s ease, opacity 0.4s ease;
+  padding: 0; /* Hide padding until visible */
+}
+
+/* Show search input when active */
+.search-input.active {
+  width: 200px;
+  opacity: 1;
+  padding: 0.375rem 0.75rem; /* Restore padding */
+}
+
+/* Autocomplete list styles */
+#autocomplete_list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#autocomplete_list div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+#autocomplete_list div:hover {
+  background-color: #f1f1f1;
+}
+
+/* Remove the hover background color */
+.dropdown-menu .dropdown-item:hover {
+  background-color: transparent; 
+}

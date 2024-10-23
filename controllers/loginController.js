@@ -1,13 +1,27 @@
 const loginService = require("../services/loginServices");
 const userServices = require("../services/userServices");
 const teamService = require('../services/teamServices');
+const jerseysServices = require('../services/jerseysServices');
 
-function isLoggedIn(req, res, next) {
+async function isLoggedIn(req, res, next) {
   if (req.session.username != null) {
     return next();
   } 
   else {
-    res.status(401).send('Authentication required. Please <a href="/login">log in</a>.');
+    // Fetch featured jerseys from the database
+    const allFeaturedJerseys = await jerseysServices.getFeaturedJerseys();
+
+    // Limit the number of jerseys to display (e.g., 4 jerseys)
+    const featuredJerseys = allFeaturedJerseys.slice(0, 4);
+
+    res.status(401);
+    res.render('notLoggedIn', { 
+      featuredJerseys,
+      title: 'A member only feature', 
+      message: 'You need to log in to access this page.',
+      actionUrl: '/login',
+      actionText: 'Log in'
+    });
   }
 }
 
@@ -17,11 +31,24 @@ async function isLoggedAsAdmin(req, res, next) {
       // Assuming req.session.username is the user ID
       const isAdmin = await userServices.isLoggedAsAdmin(req.session.username);
 
+      // Fetch featured jerseys from the database
+      const allFeaturedJerseys = await jerseysServices.getFeaturedJerseys();
+
+      // Limit the number of jerseys to display (e.g., 4 jerseys)
+      const featuredJerseys = allFeaturedJerseys.slice(0, 4);
+
       if (isAdmin) {
         return next();
       } 
       else {
-        res.status(403).send('Access denied. Admins only. <a href="/">Return to Home</a>.');
+        res.status(403);
+        res.render('restrictedPage', { 
+          featuredJerseys,
+          title: 'Restricted Access', 
+          message: 'You do not have the required permissions to access this page.',
+          actionUrl: '/', // Redirect to homepage or any other appropriate page
+          actionText: 'Go to Home'
+        });
       }
     } 
     catch (error) {
@@ -30,13 +57,24 @@ async function isLoggedAsAdmin(req, res, next) {
     }
   } 
   else {
-    res.status(401).send('Authentication required. Please <a href="/login">log in</a>.');
+      // Execute the isLoggedIn function if the user is not logged in
+      return isLoggedIn(req, res, next);
   }
 }
 
 
-function personalArea(req, res) {
-  res.render("personalArea", { username: req.session.username });
+async function personalArea(req, res) {
+  // Check if the logged-in user is an admin
+  let isAdmin = false
+  if (req.session.username) {
+      try {
+          isAdmin = await userServices.isLoggedAsAdmin(req.session.username);
+      } 
+      catch (error) {
+        console.error('Error checking admin status:', error);
+      }
+  }
+  res.render("personalArea", { username: req.session.username, isAdmin });
 }
 
 async function loginForm(req, res) {

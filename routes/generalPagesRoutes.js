@@ -7,6 +7,8 @@ const generalPagesController = require("../controllers/generalPagesController")
 router.route("/").get(generalPagesController.getHomePage)
 router.route("/submit").post(generalPagesController.handleFormSubmission)
 router.route("/aboutus").get(generalPagesController.getAboutUs)
+router.route("/pageNotFound").get(generalPagesController.getPageNotFound)
+
 
 // login routes
 const loginController = require("../controllers/loginController");

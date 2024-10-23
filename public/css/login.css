@@ -1,0 +1,16 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* Adjust spacing for Authentication Page Title */
+.text-center.mb-4 {
+  margin-top: 100px;
+}
+
+/* Styles for Authentication Page Title */
+.auth-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}

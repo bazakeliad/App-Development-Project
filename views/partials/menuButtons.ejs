@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="/css/menuButtons.css">
+
+<div class="account-links d-flex align-items-center">
+  <!-- Search Button -->
+  <button class="text-decoration-none me-3" id="searchButton" style="background-color: transparent; border: none;">
+      <i class="bi bi-search"></i>
+  </button>
+
+  <!-- Search Input with Autocomplete -->
+  <div class="position-relative search-wrapper">
+      <input id="inpSearch" class="form-control search-input" autocomplete="off" placeholder="Search Team...">
+      <div id="autocomplete_list" class="autocomplete-dropdown"></div>
+  </div>
+
+  <!-- User Button -->
+  <div class="d-inline-block">
+    <a href="<%= user ? '/personalArea' : '/login' %>" class="text-decoration-none me-3" style="background-color: transparent; border: none;">
+        <i class="bi bi-person"></i>
+    </a>
+  </div>
+
+  <!-- Cart Button -->
+  <a href="/cart" class="text-decoration-none me-3"><i class="bi bi-cart"></i></a>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="/js/search.js"></script>
