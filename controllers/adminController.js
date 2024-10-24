@@ -5,6 +5,7 @@ const Jersey = require('../models/jersey');  // Import the Jersey model
 const reviewService = require('../services/reviewServices'); // Adjust the path as necessary
 const userService = require('../services/userServices'); // For user filtering
 const orderService = require('../services/orderServices'); // For user filtering
+const axios = require('axios');
 
 // Set up multer for in-memory storage
 const storage = multer.memoryStorage();
@@ -122,39 +123,49 @@ const getAddJerseyForm = (req, res) => {
     res.render('addJersey.ejs', { title: 'Add New Jersey' });
 };
 
-// Handle adding a new jersey
 const addJersey = async (req, res) => {
     const { team, teamTwitterHandle, kitType, price, allSizes } = req.body;
     const imageFile = req.file;
 
     // Check if allSizes is undefined or empty
     if (!allSizes || (Array.isArray(allSizes) && allSizes.length === 0)) {
-        res.redirect('/admin/jerseys/add?error=1');
+        return res.redirect('/admin/jerseys/add?error=1');
     }
 
-    else {
-        // Process sizes input
-        const sizesArray = Array.isArray(allSizes) ? allSizes : [allSizes];
-
-        const jerseyData = {
-            team,
-            teamTwitterHandle,
-            kitType,
-            price: parseFloat(price),
-            sizes: sizesArray,
-            image: {
-                data: imageFile.buffer,
-                contentType: imageFile.mimetype
-            }
-        };
-
-        try {
-            await jerseysServices.createJersey(jerseyData);
-            res.redirect('/admin/jerseys');
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Internal Server Error');
+    const sizesArray = Array.isArray(allSizes) ? allSizes : [allSizes];
+    const jerseyData = {
+        team,
+        teamTwitterHandle,
+        kitType,
+        price: parseFloat(price),
+        sizes: sizesArray,
+        image: {
+            data: imageFile.buffer,
+            contentType: imageFile.mimetype
         }
+    };
+
+    try {
+        // Save the jersey to the database
+        await jerseysServices.createJersey(jerseyData);
+        require('dotenv').config(); // Load environment variables
+        // Facebook API Post
+        const pageAccessToken = process.env.FACEBOOK_TOKEN;  // Add your Facebook Page Access Token here
+        const facebookPageId = process.env.FACEBOOK_PAGE_ID;  // Add your Facebook Page ID here
+        
+        const message = `New Jersey Added: ${team} (${kitType} Kit) now available for $${price}. Sizes: ${sizesArray.join(', ')}.`;
+        
+        const fbResponse = await axios.post(`https://graph.facebook.com/${facebookPageId}/feed`, {
+            message,
+            access_token: pageAccessToken
+        });
+
+        console.log('Facebook Post ID:', fbResponse.data.id);
+
+        res.redirect('/admin/jerseys');
+    } catch (error) {
+        console.error('Error adding jersey or posting to Facebook:', error);
+        res.status(500).send('Internal Server Error');
     }
 };
 
