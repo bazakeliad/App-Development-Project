@@ -15,19 +15,22 @@ exports.renderAddReviewForm = async (req, res) => {
 // Create a review
 exports.createReview = async (req, res) => {
     const { itemId, message, rating } = req.body;
-    const userId = req.session.username;  // Get the user ID from session
+    const userId = req.session.username;
 
     try {
-        // Create the review in the service layer
         await reviewService.createReview(userId, itemId, message, parseInt(rating));
 
-        // Redirect the user back to their profile or a success page
-        res.redirect('/personalArea?message=Review added successfully&type=success');
+        // Redirect to personalArea with success message
+        res.redirect('/personalArea/review?message=Review added successfully&type=success');
     } catch (error) {
         console.error('Error creating review:', error);
-        res.redirect('/personalArea?message=Error adding review&type=error');
+        // Redirect to personalArea with error message
+        res.redirect('/personalArea/review?message=Error adding review&type=error');
     }
 };
+
+
+
 
 // Get all reviews
 exports.getAllReviews = async (req, res) => {
@@ -42,24 +45,28 @@ exports.getAllReviews = async (req, res) => {
 // Update a review
 exports.updateReview = async (req, res) => {
     const { id } = req.params;
-    const { message, rating } = req.body;  // Extract the updated fields
+    const { message, rating } = req.body;
 
     try {
         const updateData = {
             message,
-            rating: parseInt(rating, 10)  // Ensure rating is saved as an integer
+            rating: parseInt(rating, 10)
         };
 
         const updatedReview = await reviewService.updateReview(id, updateData);
         if (!updatedReview) {
-            return res.status(404).json({ message: 'Review not found' });
+            return res.redirect('/admin/reviews?message=Review not found&type=error');
         }
 
-        res.redirect('/admin/reviews');  // Redirect back to the reviews page
+        // Redirect with success message
+        res.redirect('/admin/reviews?message=Review updated successfully&type=success');
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        console.error('Error updating review:', error);
+        // Redirect with error message
+        res.redirect('/admin/reviews?message=Error updating review&type=error');
     }
 };
+
 
 
 exports.getReviewById = async (req, res) => {
@@ -75,18 +82,6 @@ exports.getReviewById = async (req, res) => {
     }
 };
 
-exports.getReviewById = async (req, res) => {
-    console.log('Fetching review by ID:', req.params.id);  // Check if this log is printed
-    try {
-        const review = await reviewService.getReviewById(req.params.id);
-        if (!review) {
-            return res.status(404).json({ message: 'Review not found' });
-        }
-        res.render('editReview', { review });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
 
 // Delete a review
 exports.deleteReview = async (req, res) => {

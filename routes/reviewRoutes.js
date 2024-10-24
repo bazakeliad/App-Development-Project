@@ -18,9 +18,9 @@ router.put('/:id', updateReview);
 // Delete a review by ID
 router.delete('/:id', deleteReview);
 
-router.post('/add', loginController.isLoggedIn, createReview);
+// router.post('/add', loginController.isLoggedIn, createReview);
 
-router.get('/add', loginController.isLoggedIn, renderAddReviewForm);
+// router.get('/add', loginController.isLoggedIn, renderAddReviewForm);
 
 module.exports = router;
 
