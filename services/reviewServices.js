@@ -33,12 +33,41 @@ const deleteReview = async (id) => {
 const getFilteredReviews = async (filters) => {
     return await Review.find(filters);
 };
+ const getReviewsGroupedByRating = async () => {
+    try {
+        const groupedReviews = await Review.aggregate([
+            {
+                $group: {
+                    _id: "$rating", // Group by the `rating` field
+                    count: { $sum: 1 } // Count how many reviews there are for each rating
+                }
+            },
+            {
+                $sort: { _id: 1 } // Sort by rating (ascending order)
+            }
+        ]);
+        return groupedReviews;
+    } catch (error) {
+        console.error('Error fetching grouped reviews:', error);
+        throw new Error('Error fetching grouped reviews');
+    }
+};
 
+const getReviewsByJerseyId = async (jerseyId) => {
+    try {
+        return await Review.find({ itemId: jerseyId }).exec();
+    } catch (error) {
+        console.error('Error fetching reviews for jersey:', error);
+        return [];
+    }
+};
 module.exports = {
     createReview,
     getAllReviews,
     getReviewById, 
     updateReview,
     deleteReview,
-    getFilteredReviews
+    getFilteredReviews,
+    getReviewsGroupedByRating,
+    getReviewsByJerseyId
 };

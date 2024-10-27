@@ -44,6 +44,23 @@
                 </div>
             </div>
         </div>
+        <h2>Reviews Grouped by Rating</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Rating</th>
+                    <th>Number of Reviews</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% reviewsGroupedByRating.forEach(function(group) { %>
+                    <tr>
+                        <td><%= group._id %> Stars</td>
+                        <td><%= group.count %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
 
         <h2>Latest Orders</h2>
         <table class="table table-striped">

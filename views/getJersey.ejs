@@ -106,8 +106,17 @@
                     </div>
                     <!-- Reviews Tab -->
                     <div class="tab-pane fade p-3" id="reviews" role="tabpanel">
-                        <!-- Placeholder for reviews -->
-                        <p>No reviews yet.</p>
+                        <% if (reviews && reviews.length > 0) { %>
+                            <% reviews.forEach(review => { %>
+                                <div class="mb-3">
+                                    <h5><%= review.userId %> - <%= review.rating %> / 5</h5>
+                                    <p><%= review.message %></p>
+                                </div>
+                                <hr>
+                            <% }) %>
+                        <% } else { %>
+                            <p>No reviews yet. Be the first to review this jersey!</p>
+                        <% } %>
                     </div>
                     <!-- Shipping Info Tab -->
                     <div class="tab-pane fade p-3" id="shipping" role="tabpanel">
