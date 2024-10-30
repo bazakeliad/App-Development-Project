@@ -148,6 +148,15 @@
     <script>
         $(document).ready(function() {
             $('.add-to-cart-btn').on('click', function() {
+                // Check if user is logged in using res.locals.user passed from the server
+                const user = <%= user ? 'true' : 'false' %>;
+
+                // If the user is not logged in, redirect to login page
+                if (!user) {
+                    window.location.href = '/login';
+                    return; // Stop further execution
+                }
+
                 const jerseyId = $(this).data('item-id');
                 const size = $('#size').val();
                 const quantity = $('#quantity').val();

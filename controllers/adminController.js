@@ -158,8 +158,8 @@ const addJersey = async (req, res) => {
         const pageAccessToken = process.env.FACEBOOK_TOKEN;  // Add your Facebook Page Access Token here
         const facebookPageId = process.env.FACEBOOK_PAGE_ID;  // Add your Facebook Page ID here
         
-        // const message = `New Jersey Added: ${team} (${kitType} Kit) now available for $${price}. Sizes: ${sizesArray.join(', ')}.`;
-       const message = 'Hi, test project API' 
+        const message = `New Jersey Added: ${team} (${kitType} Kit) now available for $${price}. Sizes: ${sizesArray.join(', ')}.`;
+        // const message = 'Hi, test project API' 
         const fbResponse = await axios.post(`https://graph.facebook.com/${facebookPageId}/feed`, {
             message,
             access_token: pageAccessToken
