@@ -10,3 +10,9 @@
 .star.filled {
     color: gold; /* Color for filled stars */
 }
+/* Carousel Image Styling */
+.carousel-item img {
+    width: 100%;
+    object-fit: cover;
+    max-height: 100vh; /* Sets a max height to prevent oversized images */
+}

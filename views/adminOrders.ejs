@@ -51,60 +51,59 @@
 
     <!-- Main Content -->
     <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="/admin/console" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Admin Console
+            </a>
+        </div>
         <div class="row">
-    <!-- Filter Sidebar -->
-    <aside class="col-md-3">
-        <h5>Filter By</h5>
-        <form action="/admin/orders" method="GET" id="filter-form">
-            <!-- Username Filter -->
-            <div class="mb-3">
-                <label class="form-label"><i class="bi bi-person"></i> Username</label>
-                <% users.forEach(function(user) { %>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="username" value="<%= user._id %>" id="user-<%= user._id %>" <%= usernames.includes(user._id) ? 'checked' : '' %>>
-                        <label class="form-check-label" for="user-<%= user._id %>"><%= user.name %></label>
-                    </div>
-                <% }); %>
-            </div>
-        
-            <!-- Status Filter -->
-            <div class="mb-3">
-                <label class="form-label"><i class="bi bi-flag"></i> Status</label>
-                <% ['pending', 'shipped', 'delivered', 'canceled'].forEach(function(status) { %>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="status" value="<%= status %>" id="status-<%= status %>" <%= statuses.includes(status) ? 'checked' : '' %>>
-                        <label class="form-check-label" for="status-<%= status %>"><%= status %></label>
-                    </div>
-                <% }); %>
-            </div>
-        
-            <!-- Date Range Filter -->
-            <div class="mb-3">
-                <label class="form-label"><i class="bi bi-calendar"></i> Date Range</label>
-                <input type="date" name="startDate" class="form-control mb-2" value="<%= startDate %>">
-                <input type="date" name="endDate" class="form-control" value="<%= endDate %>">
-            </div>
-        
-            <!-- Price Filter -->
-            <div class="mb-3">
-                <label class="form-label"><i class="bi bi-cash"></i> Price Range</label>
-                <input type="number" name="minPrice" class="form-control mb-2" placeholder="Min Price" value="<%= minPrice %>">
-                <input type="number" name="maxPrice" class="form-control" placeholder="Max Price" value="<%= maxPrice %>">
-            </div>
-        
-            <button type="submit" class="btn btn-primary">Apply Filters</button>
-        </form>        
-    </aside>
+        <!-- Filter Sidebar -->
+        <aside class="col-md-3">
+            <h5>Filter By</h5>
+            <form action="/admin/orders" method="GET" id="filter-form">
+                <!-- Username Filter -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-person"></i> Username</label>
+                    <% users.forEach(function(user) { %>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="username" value="<%= user._id %>" id="user-<%= user._id %>" <%= usernames.includes(user._id) ? 'checked' : '' %>>
+                            <label class="form-check-label" for="user-<%= user._id %>"><%= user.name %></label>
+                        </div>
+                    <% }); %>
+                </div>
+            
+                <!-- Status Filter -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-flag"></i> Status</label>
+                    <% ['pending', 'shipped', 'delivered', 'canceled'].forEach(function(status) { %>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="status" value="<%= status %>" id="status-<%= status %>" <%= statuses.includes(status) ? 'checked' : '' %>>
+                            <label class="form-check-label" for="status-<%= status %>"><%= status %></label>
+                        </div>
+                    <% }); %>
+                </div>
+            
+                <!-- Date Range Filter -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-calendar"></i> Date Range</label>
+                    <input type="date" name="startDate" class="form-control mb-2" value="<%= startDate %>">
+                    <input type="date" name="endDate" class="form-control" value="<%= endDate %>">
+                </div>
+            
+                <!-- Price Filter -->
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-cash"></i> Price Range</label>
+                    <input type="number" name="minPrice" class="form-control mb-2" placeholder="Min Price" value="<%= minPrice %>">
+                    <input type="number" name="maxPrice" class="form-control" placeholder="Max Price" value="<%= maxPrice %>">
+                </div>
+            
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+            </form>        
+        </aside>
 
 
             <!-- Orders Table -->
             <main class="col-md-9">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div>
-                        <p class="mb-0">Showing <strong><%= orders.length %></strong> results</p>
-                    </div>
-                </div>
-
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover align-middle">
                         <thead class="table-dark">
