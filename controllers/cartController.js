@@ -72,7 +72,6 @@ exports.checkoutCart = async (req, res) => {
     try {
         const cart = await Cart.findOne({ userId });
         if (!cart) return res.status(404).json({ message: 'Cart not found' });
-
         const items = cart.items.map(item => ({
             itemId: item.jerseyId,
             quantity: item.quantity,

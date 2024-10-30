@@ -1,4 +1,6 @@
 const orderServices = require("../services/orderServices"); // Adjust the path as necessary
+const jerseyServices = require("../services/jerseysServices"); // Adjust the path as necessary
+
 
 // Create a new order
 exports.createOrder = async (req, res) => {
@@ -100,16 +102,31 @@ exports.updateOrderStatus = async (req, res) => {
 };
 
 
-// Get all orders for the logged-in user
 exports.getOrdersByUser = async (req, res) => {
     try {
         const userId = req.session.username;
-        const orders = await orderServices.getOrdersByUser(userId);
-        if (orders.length === 0) {
-            return res.render('userOrders', { orders, title: 'My Orders' });
-        }
+        let orders = await orderServices.getOrdersByUser(userId);
+        console.log("Orders fetched:", orders); // Log orders to verify data
+        orders = await getOrdersWithJerseyDetails(orders); // Add jersey details
         res.render('userOrders', { orders, title: 'My Orders' });
     } catch (error) {
+        console.error("Error getting user orders:", error); // Log the error
         res.status(500).json({ message: error.message });
     }
+};
+
+const getOrdersWithJerseyDetails = async (orders) => {
+    for (let order of orders) {
+        for (let item of order.items) {
+            const jersey = await jerseyServices.getJerseyById(item.itemId);
+            if (jersey) {
+                item.jerseyDetails = {
+                    team: jersey.team,
+                    kitType: jersey.kitType,
+                    image: jersey.image
+                };
+            }
+        }
+    }
+    return orders;
 };

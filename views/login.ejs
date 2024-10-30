@@ -62,7 +62,7 @@
             <!-- Signup Tab -->
             <div class="tab-pane fade" id="signup" role="tabpanel">
                 <h2 class="text-center">Create an Account</h2>
-                <form action="/register" method="POST">
+                <form action="/register" method="POST" id="signupForm">
                     <!-- Name Input -->
                     <div class="mb-3">
                         <label for="signupName" class="form-label">Full Name</label>
@@ -87,6 +87,7 @@
                     <div class="mb-3">
                         <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="signupConfirmPassword" name="confirmPassword" required>
+                        <div id="passwordError" class="text-danger mt-2"></div>
                     </div>
                     <!-- Favorite Team Selection -->
                     <div class="mb-3">
@@ -114,7 +115,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Optional: Include the jQuery library -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <!-- Optional: Form Validation Script -->
+    
     <script src="/js/login.js"></script>
+    <!-- Password Confirmation Script -->
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            const passwordError = document.getElementById('passwordError');
+            
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                passwordError.textContent = "Passwords do not match. Please re-enter.";
+            } else {
+                passwordError.textContent = ""; // Clear any previous error messages
+            }
+        });
+    </script>
 </body>
 </html>

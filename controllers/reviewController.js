@@ -97,3 +97,13 @@ exports.deleteReview = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+exports.getGroupedReviews = async (req, res) => {
+    try {
+        const groupedReviews = await reviewService.getReviewsGroupedByRating();
+        res.render('groupedReviews', { groupedReviews });
+    } catch (error) {
+        console.error('Error fetching grouped reviews:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
