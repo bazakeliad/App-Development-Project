@@ -7,9 +7,29 @@ const createOrder = async (orderData) => {
 
 const getAllOrders = async (filter = {}) => {
     console.log('Applied filter:', filter);  // Debug: Check the filter passed to MongoDB query
-    return await Order.find(filter);
-};
+    const orders = await Order.find(filter);
 
+    // Fetch jersey details for each order item
+    for (let order of orders) {
+        for (let item of order.items) {
+            try {
+                const jersey = await Jersey.findById(item.itemId);
+                if (jersey) {
+                    item.jerseyDetails = {
+                        team: jersey.team,
+                        kitType: jersey.kitType,
+                        image: jersey.image, // Ensure the image is fetched
+                        size: item.size // Add size if it's part of the order item
+                    };
+                }
+            } catch (error) {
+                console.error(`Error fetching jersey details for ID ${item.itemId}:`, error);
+            }
+        }
+    }
+
+    return orders;
+};
 
 const getOrderById = async (id) => {
     return await Order.findById(id);

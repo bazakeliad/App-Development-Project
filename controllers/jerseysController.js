@@ -1,4 +1,6 @@
 const jerseysServices = require("../services/jerseysServices")
+const reviewServices = require("../services/reviewServices")
+
 
 const getAllJerseys = async (req, res) => {
     // Extract filters and sorting options from the query parameters
@@ -68,34 +70,30 @@ const getAllJerseys = async (req, res) => {
 // Return specific jersey page
 const getJerseyById = async (req, res) => {
     try {
-        // Get the id of the jersey from request parameters
         const jerseyId = req.params.id;
 
-        // Check if jerseyId is valid
         if (!jerseyId) {
             return res.status(400).redirect('/pageNotFound');
         }
 
-        // Get the specified jersey from the service layer
+        // Get the jersey details
         const jersey = await jerseysServices.getJerseyById(jerseyId);
 
-        // If jersey is not found, return a 404 response
         if (!jersey) {
             return res.status(404).redirect('/pageNotFound');
         }
 
-        // Pass userId (or username) from the session to the view
-        const userId = req.session.username;
+        // Fetch reviews for this specific jersey
+        const reviews = await reviewServices.getReviewsByJerseyId(jerseyId);
 
-        // Render the specified jersey page with the jersey data and userId
-        return res.render("getJersey.ejs", { jersey, userId });
+        // Pass jersey data and reviews to the view
+        const userId = req.session.username;
+        return res.render("getJersey.ejs", { jersey, reviews, userId });
     } catch (error) {
-        // Log the error and return a 500 response in case of server error
-        console.error(error);
+        console.error('Error fetching jersey or reviews:', error);
         return res.status(500).send({ message: "Internal Server Error" });
     }
 };
-
 
 
 

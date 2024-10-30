@@ -5,6 +5,7 @@ const Jersey = require('../models/jersey');  // Import the Jersey model
 const reviewService = require('../services/reviewServices'); // Adjust the path as necessary
 const userService = require('../services/userServices'); // For user filtering
 const orderService = require('../services/orderServices'); // For user filtering
+const axios = require('axios');
 
 // Set up multer for in-memory storage
 const storage = multer.memoryStorage();
@@ -56,6 +57,9 @@ const getDashboard = async (req, res) => {
             },
             { $sort: { "_id.year": 1, "_id.month": 1 } }
         ]).exec();
+        
+        // New: Fetch grouped reviews by rating
+        const reviewsGroupedByRating = await reviewService.getReviewsGroupedByRating();
 
         // Transform revenueOverTime data into a format D3 can consume
         const revenueOverTimeData = revenueOverTime.map(item => ({
@@ -87,7 +91,8 @@ const getDashboard = async (req, res) => {
             latestOrders,
             ordersByMonth: ordersByMonthData,
             revenueOverTime: revenueOverTimeData,
-            orderStatusDistribution: orderStatusDistributionData
+            orderStatusDistribution: orderStatusDistributionData,
+            reviewsGroupedByRating
         });
     } catch (error) {
         console.error('Error fetching dashboard data:', error);
@@ -122,39 +127,50 @@ const getAddJerseyForm = (req, res) => {
     res.render('addJersey.ejs', { title: 'Add New Jersey' });
 };
 
-// Handle adding a new jersey
 const addJersey = async (req, res) => {
-    const { team, teamTwitterHandle, kitType, price, allSizes } = req.body;
+    const { team, teamTwitterHandle, kitType, price, allSizes, description } = req.body;
     const imageFile = req.file;
 
     // Check if allSizes is undefined or empty
     if (!allSizes || (Array.isArray(allSizes) && allSizes.length === 0)) {
-        res.redirect('/admin/jerseys/add?error=1');
+        return res.redirect('/admin/jerseys/add?error=1');
     }
 
-    else {
-        // Process sizes input
-        const sizesArray = Array.isArray(allSizes) ? allSizes : [allSizes];
+    const sizesArray = Array.isArray(allSizes) ? allSizes : [allSizes];
+    const jerseyData = {
+        team,
+        teamTwitterHandle,
+        kitType,
+        price: parseFloat(price),
+        sizes: sizesArray,
+        image: {
+            data: imageFile.buffer,
+            contentType: imageFile.mimetype
+        },
+        description
+    };
 
-        const jerseyData = {
-            team,
-            teamTwitterHandle,
-            kitType,
-            price: parseFloat(price),
-            sizes: sizesArray,
-            image: {
-                data: imageFile.buffer,
-                contentType: imageFile.mimetype
-            }
-        };
+    try {
+        // Save the jersey to the database
+        await jerseysServices.createJersey(jerseyData);
+        require('dotenv').config(); // Load environment variables
+        // Facebook API Post
+        const pageAccessToken = process.env.FACEBOOK_TOKEN;  // Add your Facebook Page Access Token here
+        const facebookPageId = process.env.FACEBOOK_PAGE_ID;  // Add your Facebook Page ID here
+        
+        const message = `New Jersey Added: ${team} (${kitType} Kit) now available for $${price}. Sizes: ${sizesArray.join(', ')}.`;
+        // const message = 'Hi, test project API' 
+        const fbResponse = await axios.post(`https://graph.facebook.com/${facebookPageId}/feed`, {
+            message,
+            access_token: pageAccessToken
+        });
 
-        try {
-            await jerseysServices.createJersey(jerseyData);
-            res.redirect('/admin/jerseys');
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Internal Server Error');
-        }
+        console.log('Facebook Post ID:', fbResponse.data.id);
+
+        res.redirect('/admin/jerseys');
+    } catch (error) {
+        console.error('Error adding jersey or posting to Facebook:', error);
+        res.status(500).send('Internal Server Error');
     }
 };
 
@@ -224,7 +240,6 @@ const getJerseyImage = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
-
 const getAllOrdersAdmin = async (req, res) => {
     try {
         const { username, status, startDate, endDate, minPrice, maxPrice } = req.query;
@@ -263,8 +278,11 @@ const getAllOrdersAdmin = async (req, res) => {
         }
 
         // Fetch filtered orders
-        const orders = await orderService.getAllOrders(filter);
+        let orders = await orderService.getAllOrders(filter);
         const users = await userService.getAllUsers(); // For the filter options
+
+        // Fetch jersey details for each order
+        orders = await getOrdersWithJerseyDetails(orders);
 
         // Render the orders view with filter selections
         res.render('adminOrders', {
@@ -283,6 +301,31 @@ const getAllOrdersAdmin = async (req, res) => {
     }
 };
 
+// Helper function to fetch jersey details for each item in an order
+const getOrdersWithJerseyDetails = async (orders) => {
+    const jerseysServices = require("../services/jerseysServices"); // Adjust path as necessary
+
+    for (let order of orders) {
+        for (let item of order.items) {
+            try {
+                const jersey = await jerseysServices.getJerseyById(item.itemId);
+                if (jersey) {
+                    item.jerseyDetails = {
+                        team: jersey.team,
+                        kitType: jersey.kitType,
+                        image: jersey.image, // Assuming image is an object with data and contentType
+                        size: item.size // Assuming size is part of the item information
+                    };
+                } else {
+                    console.warn(`Jersey with ID ${item.itemId} not found`);
+                }
+            } catch (error) {
+                console.error(`Error fetching jersey details for ID ${item.itemId}:`, error);
+            }
+        }
+    }
+    return orders;
+};
 
 
 const getAllReviewsAdmin = async (req, res) => {

@@ -126,11 +126,32 @@
                                     <td><%= order.userId %></td>
                                     <td>$<%= order.totalPrice.toFixed(2) %></td>
                                     <td><%= order.address %></td>
-                                    <td>
-                                        <% order.items.forEach(item => { %>
-                                            <div>Jersey ID: <%= item.itemId %> | Quantity: <%= item.quantity %></div>
-                                        <% }); %>
-                                    </td>
+                                    <!-- Inside the <td> where you are displaying items -->
+                                        <td>
+                                            <% order.items.forEach(item => { %>
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <% if (item.jerseyDetails && item.jerseyDetails.team && item.jerseyDetails.kitType) { %>
+                                                        <% if (item.jerseyDetails.image && item.jerseyDetails.image.data) { %>
+                                                            <img src="data:<%= item.jerseyDetails.image.contentType %>;base64,<%= item.jerseyDetails.image.data.toString('base64') %>" 
+                                                                 class="rounded me-2" 
+                                                                 style="width: 50px; height: 50px;" 
+                                                                 alt="Jersey Image">
+                                                        <% } else { %>
+                                                            <img src="/images/default-image.jpg" class="rounded me-2" style="width: 50px; height: 50px;" alt="Default Image">
+                                                        <% } %>
+                                                        <div>
+                                                            <strong><%= item.jerseyDetails.team %> - <%= item.jerseyDetails.kitType %></strong><br>
+                                                            Size: <%= item.size %> | Quantity: <%= item.quantity %>
+                                                        </div>
+                                                    <% } else { %>
+                                                        <div>
+                                                            <strong>Jersey details not available</strong><br>
+                                                            Size: <%= item.size %> | Quantity: <%= item.quantity %>
+                                                        </div>
+                                                    <% } %>
+                                                </div>
+                                            <% }); %>
+                                        </td>                                        
                                     <!-- Status with dropdown -->
                                     <td>
                                         <select name="status" class="form-select order-status" data-id="<%= order._id %>" style="width: 120px;">
