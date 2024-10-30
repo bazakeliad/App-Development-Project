@@ -17,15 +17,20 @@
     <!-- Header -->
     <%- include('partials/compactHeader.ejs') %>
 
+    <!-- Page Title -->
+    <%- include('partials/pageTitle.ejs', { title: 'Manage Jerseys' }) %>
+
     <!-- Main Content -->
     <div class="container my-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Manage Jerseys</h1>
-            <a href="/admin/jerseys/add" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Add New Jersey</a>
-        </div>
-        <div class="container my-3">
+            <!-- Back to Admin Console button on the left -->
             <a href="/admin/console" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i> Back to Admin Console
+            </a>
+            
+            <!-- Add New Store button on the right -->
+            <a href="/admin/jerseys/add" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Add New Jersey
             </a>
         </div>
         <!-- Jerseys Table -->
