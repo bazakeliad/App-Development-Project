@@ -30,9 +30,9 @@ exports.deleteUser = async (req, res) => {
 exports.getUserById = async (req, res) => {
     try {
         const user = await userService.getUserById(req.params.id);
-        if (!user) return res.status(404).json({ message: 'User not found' });
-        const teams = await teamService.getAllTeams(); // Fetch the teams
-        res.render('editUser', { user, teams }); // Create a separate `editUser.ejs` file
+        if (!user) return res.status(404).redirect('/pageNotFound');
+        const teams = await teamService.getAllTeams(); 
+        res.render('editUser', { user, teams }); 
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

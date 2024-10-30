@@ -4,17 +4,13 @@ const adminController = require('../controllers/adminController');
 const reviewController  = require('../controllers/reviewController');
 const userController  = require('../controllers/userController');
 const orderController = require('../controllers/ordersController');
+const jerseyController = require('../controllers/jerseysController');
 
 const multer = require('multer');
 
 // Set up multer for in-memory storage
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-
-// const isAdmin = require('../middleware/isAdmin'); // Uncomment if you have isAdmin middleware
-
-// Apply isAdmin middleware to all admin routes (if using authentication)
-// router.use(isAdmin);
 
 // importing login controller for protecting admin routes
 const loginController = require("../controllers/loginController");
@@ -28,7 +24,7 @@ router.get('/jerseys/edit/:id', loginController.isLoggedAsAdmin, adminController
 router.post('/jerseys/edit/:id', loginController.isLoggedAsAdmin, upload.single('image'), adminController.editJersey); // Update jersey with file upload
 
 // Serve jersey image
-router.get('/jerseys/image/:id', loginController.isLoggedAsAdmin, adminController.getJerseyImage);
+router.get('/jerseys/image/:id', loginController.isLoggedAsAdmin, jerseyController.getJerseyImage);
 
 
 const storeController = require('../controllers/storeController');
@@ -48,15 +44,9 @@ router.post('/orders/updateStatus/:id', loginController.isLoggedAsAdmin, orderCo
 router.get('/dashboard', loginController.isLoggedAsAdmin, adminController.getDashboard);
 
 router.get('/reviews', loginController.isLoggedAsAdmin, adminController.getAllReviewsAdmin);
-
 router.delete('/reviews/:id', loginController.isLoggedAsAdmin, reviewController.deleteReview); // Review delete route
-// Fetch the review to edit
 router.get('/reviews/edit/:id', loginController.isLoggedAsAdmin, reviewController.getReviewById);
-
-// Handle review update (should be POST or PUT)
 router.post('/reviews/edit/:id', loginController.isLoggedAsAdmin, reviewController.updateReview);
-
-
 
 router.get('/users', loginController.isLoggedAsAdmin, userController.getAllUsers);
 router.delete('/users/:id', loginController.isLoggedAsAdmin, userController.deleteUser);

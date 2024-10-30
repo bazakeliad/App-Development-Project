@@ -43,7 +43,7 @@ const renderEditStorePage = async (req, res) => {
         res.render('editStore', { store });
     } catch (error) {
         console.error('Error fetching store:', error);
-        res.status(500).send('Internal server error');
+        res.status(500).redirect('/pageNotFound');
     }
 };
 

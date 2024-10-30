@@ -91,7 +91,7 @@ const getJerseyById = async (req, res) => {
         return res.render("getJersey.ejs", { jersey, reviews, userId });
     } catch (error) {
         console.error('Error fetching jersey or reviews:', error);
-        return res.status(500).send({ message: "Internal Server Error" });
+        return res.status(500).redirect('/pageNotFound');
     }
 };
 
@@ -162,28 +162,9 @@ const getJerseyImage = async (req, res) => {
         res.send(jersey.image.data);
     } catch (error) {
         console.error('Error fetching image:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500)
     }
 };
-
-
-
-// const updateJersey = async (req, res) => {
-//     if (!req.body.title) {
-//         res.status(404).json({
-//             message: "title is required", });
-//     }
-
-//     const article = await articleService.updateArticle (req.params.id, req.body.title);
-//     if (!article) {
-//         return res.status(404).json({ errors: ['Article not found'] });
-//     }
-
-//     res.json(article);    
-// };
-
-
-
 
 module.exports = {
     getAllJerseys,

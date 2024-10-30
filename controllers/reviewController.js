@@ -78,7 +78,7 @@ exports.getReviewById = async (req, res) => {
         }
         res.render('editReview', { review });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).redirect('/pageNotFound');
     }
 };
 

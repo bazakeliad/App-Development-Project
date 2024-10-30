@@ -6,13 +6,10 @@ const router = express.Router();
 const jerseysController = require("../controllers/jerseysController");
 
 // Jerseys paths
-// rest api - /articles in get, get all. in post upload new one.
 router.route("/")
     .get(jerseysController.getAllJerseys)
-    // .post(articleController.createJersey);
 
 
-// importing login controller for protecting routes that change data
 const loginController = require("../controllers/loginController");
 
 router.route("/:id")
@@ -22,4 +19,4 @@ router.route("/:id")
 // Route to serve jersey images
 router.get("/image/:id", jerseysController.getJerseyImage);
 
-module.exports = router;
+module.exports = router

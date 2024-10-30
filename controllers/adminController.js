@@ -223,23 +223,6 @@ const editJersey = async (req, res) => {
     }
 };
 
-
-
-// Serve jersey image
-const getJerseyImage = async (req, res) => {
-    const id = req.params.id;
-    try {
-        const jersey = await jerseysServices.getJerseyById(id);
-        if (!jersey || !jersey.image || !jersey.image.data) {
-            return res.status(404).send('Image not found');
-        }
-        res.contentType(jersey.image.contentType);
-        res.send(jersey.image.data);
-    } catch (error) {
-        console.error('Error fetching image:', error);
-        res.status(500).send('Internal Server Error');
-    }
-};
 const getAllOrdersAdmin = async (req, res) => {
     try {
         const { username, status, startDate, endDate, minPrice, maxPrice } = req.query;
@@ -374,7 +357,6 @@ module.exports = {
     addJersey,
     getEditJerseyForm,
     editJersey,
-    getJerseyImage,
     getAllOrdersAdmin,
     getDashboard,
     getAllReviewsAdmin
