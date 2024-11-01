@@ -94,6 +94,15 @@
                 event.preventDefault();
                 return;
             }
+            // Check if the card expiry date is in the future
+            const [month, year] = cardExpiry.split('/').map(Number);
+            const currentYear = new Date().getFullYear() % 100; // Last two digits of the current year
+            const currentMonth = new Date().getMonth() + 1; // getMonth() returns 0-based month
+
+            if (year < currentYear || (year === currentYear && month < currentMonth)) {
+                alert("The card expiration date has already passed.");
+                event.preventDefault();
+            }
             if (!/^\d{3}$/.test(cardCVC)) {
                 alert("Please enter a valid 3-digit CVC.");
                 event.preventDefault();

@@ -1,7 +1,7 @@
 const Cart = require('../models/cart');
 const Jersey = require('../models/jersey');
 
-exports.updateCart = async (userId, jerseyId, quantity, size) => {
+const updateCart = async (userId, jerseyId, quantity, size) => {
     // Find the existing cart
     let cart = await Cart.findOne({ userId });
     if (!cart) {
@@ -33,4 +33,49 @@ exports.updateCart = async (userId, jerseyId, quantity, size) => {
 
     // Save the updated cart
     return await cart.save();
+};
+
+// This function checks if the user has followed the correct route sequence
+function validateCheckoutSequence(session, currentRoute) {
+    if (currentRoute === '/cart') {
+        session.cartVisited = true;
+        session.checkoutVisited = false;
+        session.checkoutSuccessVisited = false;
+        return true;
+    }
+
+    if (currentRoute === '/cart/checkout') {
+        if (!session.cartVisited) return false;
+        session.checkoutVisited = true;
+        session.checkoutSuccessVisited = false;
+        return true;
+    }
+
+    if (currentRoute === '/cart/checkoutSuccess') {
+        if (!session.checkoutVisited) return false;
+        session.checkoutSuccessVisited = true;
+        return true;
+    }
+
+    return false;
+}
+
+function markCheckoutSuccess(session) {
+    session.checkoutSuccess = true;
+}
+
+function validateCheckoutSuccess(session) {
+    return session.checkoutSuccess === true;
+}
+
+function resetCheckoutSuccess(session) {
+    session.checkoutSuccess = false;
+}
+
+module.exports = { 
+    updateCart,
+    validateCheckoutSequence,
+    markCheckoutSuccess,
+    validateCheckoutSuccess,
+    resetCheckoutSuccess
 };

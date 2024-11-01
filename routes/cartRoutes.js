@@ -7,8 +7,8 @@ const loginController = require("../controllers/loginController");
 router.post('/updateCart', loginController.isLoggedIn, cartController.updateCart);
 router.post('/checkoutCart', loginController.isLoggedIn, cartController.checkoutCart);
 router.delete('/deleteItemFromCart', loginController.isLoggedIn, cartController.deleteItemFromCart);
-router.get('/', loginController.isLoggedIn, cartController.getCart);
-router.get('/checkoutSuccess', loginController.isLoggedIn, cartController.checkoutSuccess);
-router.get('/checkout', loginController.isLoggedIn, cartController.checkoutPage);
+router.get('/', loginController.isLoggedIn, cartController.checkCheckoutSequence, cartController.getCart);
+router.get('/checkoutSuccess', loginController.isLoggedIn, cartController.checkCheckoutSequence, cartController.checkoutSuccess);
+router.get('/checkout', loginController.isLoggedIn, cartController.checkCheckoutSequence, cartController.checkCartNotEmpty, cartController.checkoutPage);
 
 module.exports = router;

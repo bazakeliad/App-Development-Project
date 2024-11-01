@@ -70,6 +70,7 @@
             </div>
         </div>
     </div>
+    
 
     <%- include('partials/footer.ejs') %>
 
@@ -128,6 +129,15 @@
     
                 if (quantityDelta !== 0) {
                     updateCartItem(itemId, size, quantityDelta); // Update cart with new quantity and size
+                }
+            });
+            // Check if the cart is empty before proceeding to checkout
+            $('#checkout-btn').click(function(event) {
+                if (<%= cartItems && cartItems.length === 0 %>) {
+                    event.preventDefault(); // Prevent the default action
+                    alert("Your cart is empty. Please add items to proceed to checkout.");
+                } else {
+                    window.location.href = '/cart/checkout';
                 }
             });
         });

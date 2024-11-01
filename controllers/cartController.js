@@ -92,6 +92,9 @@ const checkoutCart = async (req, res) => {
         await order.save();
         await Cart.findOneAndDelete({ userId });
 
+        // If successful, mark the checkout as successful
+        cartServices.markCheckoutSuccess(req.session);
+
         res.redirect('/cart/checkoutSuccess');
     } catch (error) {
         console.error('Error during checkout:', error);
@@ -101,6 +104,10 @@ const checkoutCart = async (req, res) => {
 
 // Render the checkout success page
 const checkoutSuccess = (req, res) => {
+
+    // If successful, mark the checkout as successful
+    cartServices.resetCheckoutSuccess(req.session);
+
     res.render('checkoutSuccess');
 };
 
@@ -122,11 +129,46 @@ const deleteItemFromCart = async (req, res) => {
     }
 };
 
+// Middleware to check if the checkout sequence is valid
+function checkCheckoutSequence(req, res, next) {
+    const currentRoute = req.originalUrl;
+
+    if (currentRoute === '/cart') {
+        cartServices.resetCheckoutSuccess(req.session);
+        return next();
+    }
+
+    if (currentRoute === '/cart/checkout') {
+        return next();
+    }
+
+    if (currentRoute === '/cart/checkoutSuccess') {
+        if (cartServices.validateCheckoutSuccess(req.session)) {
+            return next();
+        }
+        return res.redirect('/cart/checkout');
+    }
+
+    next();
+}
+
+// Check if the cart is empty before proceeding to checkout
+function checkCartNotEmpty(req, res, next) {
+    const cart = req.session.cart || [];
+    if (cart.length === 0) {
+        // Redirect to /cart with an error message if the cart is empty
+        return res.redirect('/cart?error=empty');
+    }
+    next();
+}
+
 module.exports = {
     updateCart,
     getCart,
     checkoutPage,
     checkoutCart,
     checkoutSuccess,
-    deleteItemFromCart
+    deleteItemFromCart,
+    checkCheckoutSequence,
+    checkCartNotEmpty
 };
