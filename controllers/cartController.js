@@ -3,7 +3,7 @@ const Order = require('../models/order');
 const Jersey = require('../models/jersey');
 const cartServices = require('../services/cartServices');
 
-exports.updateCart = async (req, res) => {
+const updateCart = async (req, res) => {
     const jerseyId = req.query.id;
     const quantity = parseInt(req.body.quantity) || 1;
     const size = req.body.size || 'N/A'; // Add size handling
@@ -18,7 +18,7 @@ exports.updateCart = async (req, res) => {
     }
 };
 
-exports.getCart = async (req, res) => {
+const getCart = async (req, res) => {
     const userId = req.session.username;
     try {
         const cart = await Cart.findOne({ userId });
@@ -56,7 +56,7 @@ exports.getCart = async (req, res) => {
 };
 
 // Render the checkout page where users enter their details
-exports.checkoutPage = (req, res) => {
+const checkoutPage = (req, res) => {
     const userId = req.session.username;
     if (!userId) {
         return res.status(401).json({ message: 'User not authenticated' });
@@ -65,7 +65,7 @@ exports.checkoutPage = (req, res) => {
 };
 
 // Convert cart to order (checkout)
-exports.checkoutCart = async (req, res) => {
+const checkoutCart = async (req, res) => {
     const userId = req.session.username;
     const { fullName, address, city, zip, country, cardNumber, cardExpiry, cardCVC } = req.body;
 
@@ -100,12 +100,12 @@ exports.checkoutCart = async (req, res) => {
 };
 
 // Render the checkout success page
-exports.checkoutSuccess = (req, res) => {
+const checkoutSuccess = (req, res) => {
     res.render('checkoutSuccess');
 };
 
 // Delete an item from the cart
-exports.deleteItemFromCart = async (req, res) => {
+const deleteItemFromCart = async (req, res) => {
     const { itemId, size } = req.body; // Include size to ensure correct item removal
     const userId = req.session.username;
     try {
@@ -120,4 +120,13 @@ exports.deleteItemFromCart = async (req, res) => {
         console.error('Error removing item from cart:', error);
         res.status(500).json({ message: error.message });
     }
+};
+
+module.exports = {
+    updateCart,
+    getCart,
+    checkoutPage,
+    checkoutCart,
+    checkoutSuccess,
+    deleteItemFromCart
 };

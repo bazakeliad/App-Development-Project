@@ -1,8 +1,8 @@
-const reviewService = require('../services/reviewServices'); // Adjust the path as necessary
-
+const reviewService = require('../services/reviewServices'); 
 const jerseyService = require('../services/jerseysServices');
+const userService = require('../services/userServices');
 
-exports.renderAddReviewForm = async (req, res) => {
+const renderAddReviewForm = async (req, res) => {
     try {
         const jerseys = await jerseyService.getAllJerseys();
         res.render('addReview', { jerseys });
@@ -13,7 +13,7 @@ exports.renderAddReviewForm = async (req, res) => {
 };
 
 // Create a review
-exports.createReview = async (req, res) => {
+const createReview = async (req, res) => {
     const { itemId, message, rating } = req.body;
     const userId = req.session.username;
 
@@ -29,11 +29,8 @@ exports.createReview = async (req, res) => {
     }
 };
 
-
-
-
 // Get all reviews
-exports.getAllReviews = async (req, res) => {
+const getAllReviews = async (req, res) => {
     try {
         const reviews = await reviewService.getAllReviews();
         res.status(200).json(reviews);
@@ -43,7 +40,7 @@ exports.getAllReviews = async (req, res) => {
 };
 
 // Update a review
-exports.updateReview = async (req, res) => {
+const updateReview = async (req, res) => {
     const { id } = req.params;
     const { message, rating } = req.body;
 
@@ -67,9 +64,7 @@ exports.updateReview = async (req, res) => {
     }
 };
 
-
-
-exports.getReviewById = async (req, res) => {
+const getReviewById = async (req, res) => {
     console.log('Fetching review by ID:', req.params.id);  // Check if this log is printed
     try {
         const review = await reviewService.getReviewById(req.params.id);
@@ -82,9 +77,8 @@ exports.getReviewById = async (req, res) => {
     }
 };
 
-
 // Delete a review
-exports.deleteReview = async (req, res) => {
+const deleteReview = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -98,7 +92,7 @@ exports.deleteReview = async (req, res) => {
     }
 };
 
-exports.getGroupedReviews = async (req, res) => {
+const getGroupedReviews = async (req, res) => {
     try {
         const groupedReviews = await reviewService.getReviewsGroupedByRating();
         res.render('groupedReviews', { groupedReviews });
@@ -106,4 +100,54 @@ exports.getGroupedReviews = async (req, res) => {
         console.error('Error fetching grouped reviews:', error);
         res.status(500).send('Internal Server Error');
     }
+};
+
+const getAllReviewsAdmin = async (req, res) => {
+    try {
+        const { userId, itemId, rating, startDate, endDate } = req.query;
+
+        // Fetch all users and items for filter dropdowns
+        const users = await userService.getAllUsers();
+        const items = await jerseyService.getAllJerseys(); // Assuming items are jerseys
+
+        // Build the filter object based on query parameters
+        const filters = {};
+        if (userId) filters.userId = userId;
+        if (itemId) filters.itemId = itemId;
+        if (rating) filters.rating = { $in: rating }; // Match any of the ratings
+
+        // Filter by date range if provided
+        if (startDate || endDate) {
+            filters.createdAt = {};
+            if (startDate) filters.createdAt.$gte = new Date(startDate);
+            if (endDate) filters.createdAt.$lte = new Date(endDate);
+        }
+
+        const reviews = await reviewService.getFilteredReviews(filters);
+
+        res.render('adminReviews', {
+            reviews,
+            users,
+            items,
+            userIds: Array.isArray(userId) ? userId : [userId],
+            itemIds: Array.isArray(itemId) ? itemId : [itemId],
+            ratings: Array.isArray(rating) ? rating : [rating],
+            startDate,
+            endDate
+        });
+    } catch (error) {
+        console.error('Error fetching reviews:', error);
+        res.status(500).send('Server Error');
+    }
+};
+
+module.exports = {
+    renderAddReviewForm,
+    createReview,
+    getAllReviews,
+    updateReview,
+    getReviewById,
+    deleteReview,
+    getGroupedReviews,
+    getAllReviewsAdmin
 };

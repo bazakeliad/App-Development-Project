@@ -1,8 +1,8 @@
-const userService = require('../services/userServices'); // Adjust the path as necessary
+const userService = require('../services/userServices');
 const teamService = require('../services/teamServices');
 
 // Get all users
-exports.getAllUsers = async (req, res) => {
+const getAllUsers = async (req, res) => {
     try {
         const users = await userService.getAllUsers();
         res.render('adminUsers', { users });
@@ -12,7 +12,7 @@ exports.getAllUsers = async (req, res) => {
 };
 
 // Delete a user
-exports.deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -26,8 +26,8 @@ exports.deleteUser = async (req, res) => {
     }
 };
 
-// Get user by ID and update user (for future edit functionality)
-exports.getUserById = async (req, res) => {
+// Get user by ID and update user
+const getUserById = async (req, res) => {
     try {
         const user = await userService.getUserById(req.params.id);
         if (!user) return res.status(404).redirect('/pageNotFound');
@@ -38,7 +38,7 @@ exports.getUserById = async (req, res) => {
     }
 };
 
-exports.updateUser = async (req, res) => {
+const updateUser = async (req, res) => {
     const { id } = req.params;
     const { name, email, team, is_admin } = req.body;  // Match with model fields
 
@@ -54,17 +54,16 @@ exports.updateUser = async (req, res) => {
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found' });
         }
-        res.redirect('/admin/users'); // Redirect back to the users page
+        res.redirect('/admin/users');
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
 
 // Get the profile page for the logged-in user
-exports.getUserProfile = async (req, res) => {
+const getUserProfile = async (req, res) => {
     try {
-        console.log('Session User ID:', req.session.username);  // Debugging
-        const userId = req.session.username;  // Assume userId is stored in session when logged in
+        const userId = req.session.username;  
         if (!userId) {
             return res.status(401).send('Unauthorized access');
         }
@@ -86,7 +85,7 @@ exports.getUserProfile = async (req, res) => {
 
 
 // Update user profile
-exports.updateUserProfile = async (req, res) => {
+const updateUserProfile = async (req, res) => {
     const { name, email, password, team } = req.body;
     const userId = req.session.username;  // Ensure only the logged-in user can update
 
@@ -111,4 +110,13 @@ exports.updateUserProfile = async (req, res) => {
         // Redirect with error message in the query string
         res.redirect('/personalArea/profile?message=Error updating profile&type=error');
     }
+};
+
+module.exports = {
+    getAllUsers,
+    deleteUser,
+    getUserById,
+    updateUser,
+    getUserProfile,
+    updateUserProfile
 };
