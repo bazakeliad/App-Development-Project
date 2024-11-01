@@ -14,3 +14,8 @@ body {
   font-weight: 700;
   color: var(--primary-color);
 }
+
+.auth-container {
+  max-width: 400px;  /* Fixed width */
+  width: 70%;       /* Full width within the container */
+}

@@ -115,22 +115,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Optional: Include the jQuery library -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    
+    <!-- Custom JS -->
     <script src="/js/login.js"></script>
-    <!-- Password Confirmation Script -->
-    <script>
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('signupConfirmPassword').value;
-            const passwordError = document.getElementById('passwordError');
-            
-            if (password !== confirmPassword) {
-                event.preventDefault();
-                passwordError.textContent = "Passwords do not match. Please re-enter.";
-            } else {
-                passwordError.textContent = ""; // Clear any previous error messages
-            }
-        });
-    </script>
 </body>
 </html>
