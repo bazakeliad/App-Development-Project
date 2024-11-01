@@ -22,8 +22,11 @@ const getCart = async (req, res) => {
     const userId = req.session.username;
     try {
         const cart = await Cart.findOne({ userId });
-        if (!cart) return res.render('cart', { cartItems: [], subtotal: 0, userId });
-
+        // If no cart is found in the database, initialize an empty cart
+        if (!cart) {
+            req.session.cart = []; // Initialize the cart in the session
+            return res.render('cart', { cartItems: [], subtotal: 0, userId });
+        }
         const cartItems = await Promise.all(
             cart.items.map(async (item) => {
                 const jersey = await Jersey.findById(item.jerseyId);
@@ -47,7 +50,11 @@ const getCart = async (req, res) => {
             return total + item.price * item.quantity;
         }, 0);
 
+        // Store the cart items in the session
+        req.session.cart = filteredCartItems; // Sync the session cart
+
         res.render('cart', { cartItems: filteredCartItems, subtotal, userId });
+
     } 
     catch (error) {
         console.error('Error retrieving cart:', error);
