@@ -1,5 +1,4 @@
 const jerseysServices = require("../services/jerseysServices")
-const jerseysController = require("../controllers/jerseysController")
 const userServices = require("../services/userServices");
 const reviewService = require('../services/reviewServices');
 const storeServices = require('../services/storeServices');
@@ -103,7 +102,7 @@ const getPageNotFound = async (req, res) => {
             featuredJerseys,
             title: 'Page Not Found',
             message: 'It looks like the page you are looking for does not exist.',
-            actionUrl: '/jerseys', // Redirect to Browse Jerseys page
+            actionUrl: '/jerseys/browse', // Redirect to Browse Jerseys page
             actionText: 'Browse All Jerseys'
         });
     } 

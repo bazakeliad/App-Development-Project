@@ -1,9 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const ordersController = require('../controllers/ordersController');
+
+// Import controllers
+const orderController = require('../controllers/ordersController');
+const adminController = require('../controllers/adminController');
 const loginController = require('../controllers/loginController');
 
-// Define routes
-router.delete('/deleteOrderById/:id', ordersController.deleteOrder);
+// Orders routes
+router.get('/', loginController.isLoggedAsAdmin, adminController.getAllOrdersAdmin);
+router.post('/updateStatus/:id', loginController.isLoggedAsAdmin, orderController.updateOrderStatus);
+router.delete('/deleteOrderById/:id', loginController.isLoggedAsAdmin, orderController.deleteOrder);
 
 module.exports = router;
