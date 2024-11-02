@@ -1,7 +1,8 @@
 const loginService = require("../services/loginServices");
 const userServices = require("../services/userServices");
 const teamService = require('../services/teamServices');
-const jerseysServices = require('../services/jerseysServices');
+const jerseysService = require('../services/jerseysServices');
+const emailService = require('../services/emailServices');
 
 async function isLoggedIn(req, res, next) {
   if (req.session.username != null) {
@@ -9,7 +10,7 @@ async function isLoggedIn(req, res, next) {
   } 
   else {
     // Fetch featured jerseys from the database
-    const allFeaturedJerseys = await jerseysServices.getFeaturedJerseys();
+    const allFeaturedJerseys = await jerseysService.getFeaturedJerseys();
 
     // Limit the number of jerseys to display (e.g., 4 jerseys)
     const featuredJerseys = allFeaturedJerseys.slice(0, 4);
@@ -32,7 +33,7 @@ async function isLoggedAsAdmin(req, res, next) {
       const isAdmin = await userServices.isLoggedAsAdmin(req.session.username);
 
       // Fetch featured jerseys from the database
-      const allFeaturedJerseys = await jerseysServices.getFeaturedJerseys();
+      const allFeaturedJerseys = await jerseysService.getFeaturedJerseys();
 
       // Limit the number of jerseys to display (e.g., 4 jerseys)
       const featuredJerseys = allFeaturedJerseys.slice(0, 4);
@@ -107,19 +108,22 @@ async function login(req, res) {
 }
 
 async function register(req, res) {
-    const { name, username, password, email, team } = req.body;
-    try {
+  const { name, username, password, email, team } = req.body;
+  try {
       await loginService.register(name, username, password, email, team);
 
       // Set the session's username cookie
       req.session.username = username;
+
+      // Send the welcome email
+      await emailService.sendWelcomeEmail(email, name);
+
       res.redirect('/');
-    } 
-    catch (error) {
+  } catch (error) {
       console.error('Error during registration:', error); // Log the error for debugging
       res.redirect('/login?error=2');
-    }
   }
+}
 
 module.exports = { 
     isLoggedIn, 

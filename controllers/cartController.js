@@ -2,6 +2,10 @@ const Cart = require('../models/cart');
 const Order = require('../models/order');
 const Jersey = require('../models/jersey');
 const cartServices = require('../services/cartServices');
+const jerseyService = require('../services/jerseysServices');
+const emailService = require('../services/emailServices');
+const userService = require('../services/userServices'); // Import user services to fetch user details
+
 
 const deleteCart = async (req, res) => {
     try {
@@ -89,25 +93,49 @@ const checkoutCart = async (req, res) => {
     try {
         const cart = await Cart.findOne({ userId });
         if (!cart) return res.status(404).json({ message: 'Cart not found' });
-        const items = cart.items.map(item => ({
-            itemId: item.jerseyId,
-            quantity: item.quantity,
-            size: item.size
-        }));
-        const totalPrice = cart.items.reduce((total, item) => {
-            return total + item.price * item.quantity;
-        }, 0);
 
+        // Fetch user email and name
+        const user = await userService.getUserById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Retrieve jersey details for each item in the cart
+        const itemsWithDetails = await Promise.all(
+            cart.items.map(async (item) => {
+                const jersey = await jerseyService.getJerseyById(item.jerseyId);
+                return {
+                    itemId: item.jerseyId,
+                    quantity: item.quantity,
+                    size: item.size,
+                    price: item.price,
+                    team: jersey.team,  
+                    kitType:jersey.kitType
+                };
+            })
+        );
+
+        // Calculate the total price
+        const totalPrice = itemsWithDetails.reduce((total, item) => total + item.price * item.quantity, 0);
+
+        // Save the order
         const order = new Order({
             userId,
             totalPrice,
             address: `${address}, ${city}, ${zip}, ${country}`,
-            items,
+            items: itemsWithDetails,
             status: 'pending'
         });
 
         await order.save();
         await Cart.findOneAndDelete({ userId });
+
+        // Send confirmation email
+        await emailService.sendOrderConfirmationEmail(user.email, user.name, {
+            items: itemsWithDetails,
+            totalPrice,
+            address: `${address}, ${city}, ${zip}, ${country}`
+        });
 
         // If successful, mark the checkout as successful
         cartServices.markCheckoutSuccess(req.session);
@@ -121,12 +149,12 @@ const checkoutCart = async (req, res) => {
 
 // Render the checkout success page
 const checkoutSuccess = (req, res) => {
-
     // If successful, mark the checkout as successful
     cartServices.resetCheckoutSuccess(req.session);
 
     res.render('checkoutSuccess');
 };
+
 
 // Delete an item from the cart
 const deleteItemFromCart = async (req, res) => {

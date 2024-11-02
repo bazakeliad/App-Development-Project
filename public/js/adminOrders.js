@@ -12,7 +12,7 @@ $(document).ready(function() {
     $('#confirmDeleteBtn').on('click', function() {
         if (deleteOrderId) {
             $.ajax({
-                url: `/orders/deleteOrderById/${deleteOrderId}`,
+                url: `/admin/orders/deleteOrderById/${deleteOrderId}`,
                 type: 'DELETE',
                 success: function() {
                     $(`#order_${deleteOrderId}`).remove();
