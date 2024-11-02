@@ -1,6 +1,15 @@
 const Cart = require('../models/cart');
 const Jersey = require('../models/jersey');
 
+const deleteCart = async (cartId) => {
+    return await Cart.findByIdAndDelete(cartId);
+};
+
+const deleteCartByUserId = async (userId) => {
+    return await Cart.findOneAndDelete({ userId });
+};
+
+
 const updateCart = async (userId, jerseyId, quantity, size) => {
     // Find the existing cart
     let cart = await Cart.findOne({ userId });
@@ -73,6 +82,8 @@ function resetCheckoutSuccess(session) {
 }
 
 module.exports = { 
+    deleteCart,
+    deleteCartByUserId,
     updateCart,
     validateCheckoutSequence,
     markCheckoutSuccess,

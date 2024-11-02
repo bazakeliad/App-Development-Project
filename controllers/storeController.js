@@ -28,11 +28,12 @@ const createStore = async (req, res) => {
           }
       };
       await storeServices.createStore(storeData);
-      res.redirect('/admin/stores');
-  } catch (error) {
-      console.error('Error creating store:', error);
-      res.status(400).send('Error creating store');
-  }
+      res.redirect('/admin/stores?message=Store added successfully&type=success');
+    } catch (error) {
+        console.error('Error adding store:', error);
+        // Redirect with error message
+        res.redirect('/admin/stores?message=Error adding store&type=error');
+    }
 };
 
 // Render the Edit Store page
@@ -60,11 +61,13 @@ const updateStore = async (req, res) => {
       };
 
       await storeServices.updateStore(req.params.id, storeData);
-      res.redirect('/admin/stores');
-  } catch (error) {
-      console.error('Error updating store:', error);
-      res.status(400).send('Error updating store');
-  }
+        // Redirect with success message
+        res.redirect('/admin/stores?message=Store updated successfully&type=success');
+    } catch (error) {
+        console.error('Error updating store:', error);
+        // Redirect with error message
+        res.redirect('/admin/stores?message=Error updating store&type=error');
+    }
 };
 
 // Delete a store
