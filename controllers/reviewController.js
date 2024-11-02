@@ -112,9 +112,17 @@ const getAllReviewsAdmin = async (req, res) => {
 
         // Build the filter object based on query parameters
         const filters = {};
-        if (userId) filters.userId = userId;
-        if (itemId) filters.itemId = itemId;
-        if (rating) filters.rating = { $in: rating }; // Match any of the ratings
+        if (userId) {
+            filters.userId = Array.isArray(userId) ? { $in: userId } : userId;
+        }
+        if (itemId) {
+            filters.itemId = Array.isArray(itemId) ? { $in: itemId } : itemId;
+        }
+        if (rating) {
+            // Convert ratings to an array of numbers and use $in for filtering
+            const ratingsArray = Array.isArray(rating) ? rating.map(Number) : [Number(rating)];
+            filters.rating = { $in: ratingsArray };
+        }
 
         // Filter by date range if provided
         if (startDate || endDate) {
@@ -123,15 +131,17 @@ const getAllReviewsAdmin = async (req, res) => {
             if (endDate) filters.createdAt.$lte = new Date(endDate);
         }
 
+        // Fetch the filtered reviews from the database
         const reviews = await reviewService.getFilteredReviews(filters);
 
+        // Render the adminReviews EJS template with the provided data
         res.render('adminReviews', {
             reviews,
             users,
             items,
-            userIds: Array.isArray(userId) ? userId : [userId],
-            itemIds: Array.isArray(itemId) ? itemId : [itemId],
-            ratings: Array.isArray(rating) ? rating : [rating],
+            userIds: Array.isArray(userId) ? userId : userId ? [userId] : [],
+            itemIds: Array.isArray(itemId) ? itemId : itemId ? [itemId] : [],
+            ratings: Array.isArray(rating) ? rating.map(Number) : rating ? [Number(rating)] : [],
             startDate,
             endDate
         });

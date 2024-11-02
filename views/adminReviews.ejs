@@ -44,7 +44,8 @@
                             <label class="form-label"><i class="bi bi-person"></i> User ID</label>
                             <% users.forEach(function(user) { %>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="userId" value="<%= user._id %>" id="user-<%= user._id %>" <%= userIds.includes(user._id) ? 'checked' : '' %>>
+                                    <input type="checkbox" class="form-check-input" name="userId" value="<%= user._id %>" id="user-<%= user._id %>" 
+                                           <%= userIds && userIds.includes(user._id.toString()) ? 'checked' : '' %>>
                                     <label class="form-check-label" for="user-<%= user._id %>"><%= user._id %></label>
                                 </div>
                             <% }); %>
@@ -55,7 +56,8 @@
                             <label class="form-label"><i class="bi bi-tag"></i> Item ID</label>
                             <% items.forEach(function(item) { %>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="itemId" value="<%= item._id %>" id="item-<%= item._id %>" <%= itemIds.includes(item._id) ? 'checked' : '' %>>
+                                    <input type="checkbox" class="form-check-input" name="itemId" value="<%= item._id %>" id="item-<%= item._id %>" 
+                                           <%= itemIds && itemIds.includes(item._id.toString()) ? 'checked' : '' %>>
                                     <label class="form-check-label" for="item-<%= item._id %>"><%= item._id %></label>
                                 </div>
                             <% }); %>
@@ -66,7 +68,8 @@
                             <label class="form-label"><i class="bi bi-star"></i> Rating</label>
                             <% [1, 2, 3, 4, 5].forEach(function(ratingValue) { %>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="rating" value="<%= ratingValue %>" id="rating-<%= ratingValue %>" <%= ratings.includes(ratingValue) ? 'checked' : '' %>>
+                                    <input type="checkbox" class="form-check-input" name="rating" value="<%= ratingValue %>" id="rating-<%= ratingValue %>" 
+                                           <%= ratings && ratings.includes(ratingValue) ? 'checked' : '' %>>
                                     <label class="form-check-label" for="rating-<%= ratingValue %>"><%= ratingValue %> Stars</label>
                                 </div>
                             <% }); %>
