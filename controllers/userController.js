@@ -1,5 +1,6 @@
 const userService = require('../services/userServices');
 const teamService = require('../services/teamServices');
+const cartService = require('../services/cartServices');
 
 // Get all users
 const getAllUsers = async (req, res) => {
@@ -11,17 +12,27 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-// Delete a user
 const deleteUser = async (req, res) => {
     const { id } = req.params;
 
     try {
+        // Delete the user
         const deletedUser = await userService.deleteUser(id);
         if (!deletedUser) {
             return res.status(404).json({ message: 'User not found' });
         }
+
+        // Delete the user's cart
+        const deletedCart = await cartService.deleteCartByUserId(id);
+        if (deletedCart) {
+            console.log(`Cart for user ${id} deleted successfully`);
+        } else {
+            console.log(`No cart found for user ${id}`);
+        }
+
         res.status(204).send(); // No content
     } catch (error) {
+        console.error('Error deleting user and associated cart:', error);
         res.status(500).json({ message: error.message });
     }
 };

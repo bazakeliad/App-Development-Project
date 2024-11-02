@@ -3,6 +3,16 @@ const Order = require('../models/order');
 const Jersey = require('../models/jersey');
 const cartServices = require('../services/cartServices');
 
+const deleteCart = async (req, res) => {
+    try {
+        const cart = await cartServices.deleteCart(req.params.id);
+        if (!cart) return res.status(404).json({ message: 'Cart not found' });
+        res.status(200).json({ message: 'Cart deleted successfully' }); 
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 const updateCart = async (req, res) => {
     const jerseyId = req.query.id;
     const quantity = parseInt(req.body.quantity) || 1;
@@ -170,6 +180,7 @@ function checkCartNotEmpty(req, res, next) {
 }
 
 module.exports = {
+    deleteCart,
     updateCart,
     getCart,
     checkoutPage,
