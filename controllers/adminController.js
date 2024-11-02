@@ -216,10 +216,10 @@ const editJersey = async (req, res) => {
     try {
         const jersey = await jerseysServices.updateJerseyById(id, updateData);
         if (!jersey) return res.status(404).send('Jersey not found');
-        res.redirect('/admin/jerseys');
+        res.redirect(`/admin/jerseys?message=Jersey updated successfully&type=success`);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error('Error updating jersey:', error);
+        res.redirect(`/admin/jerseys?message=Error updating jersey&type=error`);
     }
 };
 

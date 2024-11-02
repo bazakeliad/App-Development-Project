@@ -1,32 +1,59 @@
-// Function to send DELETE request using Ajax by JQUERY
-async function deleteResource(jerseyId) {
-    $.ajax({
-        url: `/jerseys/${jerseyId}`,
-        type: 'DELETE',
-        success: function(result) {
-            // On success, remove the item from the DOM
-            $(`#jersey_${jerseyId}`).remove();
-        },
-        error: function(err) {
-            if (err.status === 401) {
-                // If 401 Unauthorized, redirect to the login page
-                window.location.href = '/login';
-            } else if (err.status === 403) {
-                // If 403 Forbidden, alert the user about access denial
-                alert('Access Denied: Not Enough Permissions');
-            } else {
-                console.log('Error:', err);
-            }
+let deleteJerseyId = null;
+
+$(document).ready(function() {
+    // Event listener for the delete button
+    $(document).on('click', '.deleteBtn', function() {
+        deleteJerseyId = $(this).data('id'); // Store jersey ID
+        const modal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
+        modal.show();
+    });
+
+    // Confirm delete button in modal
+    $('#confirmDeleteBtn').on('click', function() {
+        if (deleteJerseyId) {
+            $.ajax({
+                url: `/jerseys/${deleteJerseyId}`,
+                type: 'DELETE',
+                success: function() {
+                    $(`#jersey_${deleteJerseyId}`).remove();
+                    showToast('Jersey deleted successfully!', 'success');
+                },
+                error: function(err) {
+                    if (err.status === 401) {
+                        window.location.href = '/login';
+                    } else if (err.status === 403) {
+                        showToast('Access Denied: Not Enough Permissions', 'error');
+                    } else if (err.status === 404) {
+                        showToast('Jersey not found', 'error');
+                    } else {
+                        showToast('Error deleting jersey. Please try again.', 'error');
+                    }
+                }
+            });
+            const modal = bootstrap.Modal.getInstance(document.getElementById('deleteConfirmationModal'));
+            modal.hide();
         }
     });
-}
 
-// Event listener for the delete button
-$('.deleteBtn').on('click', function() {
-    const jerseyId = this.getAttribute('data-id'); // Get the jersey ID from the data attribute
-    
-    // Ask for confirmation
-    if (confirm('Are you sure you want to delete this jersey?')) {
-        deleteResource(jerseyId); // Call the delete function only if confirmed
+    // Check URL parameters for message and type to show a toast notification on page load
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+    const type = urlParams.get('type');
+
+    if (message) {
+        showToast(message, type === 'success' ? 'success' : 'error');
     }
 });
+
+// Function to display toast notifications
+function showToast(message, type) {
+    const toastEl = document.getElementById('statusToast');
+    const toastBody = document.getElementById('toastBody');
+    toastBody.textContent = message;
+
+    toastEl.classList.remove('text-bg-success', 'text-bg-danger');
+    toastEl.classList.add(type === 'success' ? 'text-bg-success' : 'text-bg-danger');
+    
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
+}
