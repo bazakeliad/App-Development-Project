@@ -1,5 +1,3 @@
-// app.js
-
 const express = require("express");
 const server = express();
 
@@ -47,11 +45,11 @@ server.use(generalPagesRoutes);
 
 // Expose generalPages routes
 const personalareaRoutes = require("./routes/personalareaRoutes");
-server.use(personalareaRoutes);
+server.use("/personalArea", personalareaRoutes);
 
 // Expose myTeam routes
 const myteamRoutes = require("./routes/myteamRoutes");
-server.use(myteamRoutes);
+server.use("/myteam", myteamRoutes);
 
 // expose jerseys routes
 const jerseysRoutes = require("./routes/jerseysRoutes")
@@ -59,23 +57,24 @@ server.use("/jerseys", jerseysRoutes)
 
 // Expose admin routes
 const adminRoutes = require("./routes/adminRoutes");
+const storeRoutes = require("./routes/storeRoutes");
+const orderRoutes = require("./routes/ordersRoutes");
+const reviewRoutes = require('./routes/reviewRoutes');
+const userRoutes = require('./routes/userRoutes');
 server.use('/admin', adminRoutes);
+server.use("/admin/jerseys", jerseysRoutes);
+server.use("/admin/stores", storeRoutes);
+server.use("/admin/orders", orderRoutes);
+server.use("/admin/reviews", reviewRoutes);
+server.use("/admin/users", userRoutes);
 
 // expose apis path
 const apis = require('./routes/apisRoutes')
-server.use("/apis", apis)
-
-// Expose order routes
-const ordersRoutes = require("./routes/ordersRoutes");
-server.use('/orders', ordersRoutes);
+server.use("/apis", apis);
 
 // Expose cart routes
 const cartRoutes = require('./routes/cartRoutes');
 server.use('/cart', cartRoutes);
-
-// Expose cart routes
-const reviewRoutes = require('./routes/reviewRoutes');
-server.use('/review', reviewRoutes);
 
 // Catch-all route for 404 errors (Page Not Found)
 server.use(async(req, res, next) => {

@@ -64,12 +64,12 @@
                             <span class="total-amount">$<%= subtotal.toFixed(2) %></span>
                         </div>
                         <button class="btn btn-primary w-100 mt-3" id="checkout-btn" onclick="window.location.href='/cart/checkout'">Proceed to Checkout</button>
-                        <a href="/jerseys" class="btn btn-outline-secondary w-100 mt-2">Continue Shopping</a>
+                        <a href="/jerseys/browse" class="btn btn-outline-secondary w-100 mt-2">Continue Shopping</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 
     <%- include('partials/footer.ejs') %>
 
@@ -128,6 +128,15 @@
     
                 if (quantityDelta !== 0) {
                     updateCartItem(itemId, size, quantityDelta); // Update cart with new quantity and size
+                }
+            });
+            // Check if the cart is empty before proceeding to checkout
+            $('#checkout-btn').click(function(event) {
+                if (<%= cartItems && cartItems.length === 0 %>) {
+                    event.preventDefault(); // Prevent the default action
+                    alert("Your cart is empty. Please add items to proceed to checkout.");
+                } else {
+                    window.location.href = '/cart/checkout';
                 }
             });
         });

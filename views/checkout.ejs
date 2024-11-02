@@ -22,6 +22,9 @@
     
     <div class="container my-5">
         <h1 class="mb-4 text-center">Checkout</h1>
+        <a href="/cart" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Cart
+        </a>
 
         <form action="/cart/checkoutCart" method="POST" id="checkoutForm">
             <!-- Shipping Details -->
@@ -93,6 +96,15 @@
                 alert("Please enter a valid expiration date in MM/YY format.");
                 event.preventDefault();
                 return;
+            }
+            // Check if the card expiry date is in the future
+            const [month, year] = cardExpiry.split('/').map(Number);
+            const currentYear = new Date().getFullYear() % 100; // Last two digits of the current year
+            const currentMonth = new Date().getMonth() + 1; // getMonth() returns 0-based month
+
+            if (year < currentYear || (year === currentYear && month < currentMonth)) {
+                alert("The card expiration date has already passed.");
+                event.preventDefault();
             }
             if (!/^\d{3}$/.test(cardCVC)) {
                 alert("Please enter a valid 3-digit CVC.");
