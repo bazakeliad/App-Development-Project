@@ -118,10 +118,23 @@
                         </select>
                     </div>
 
-                    <!-- Description (Optional) -->
+                    <!-- Description -->
                     <div class="mb-3">
                         <label for="description" class="form-label">Description (Optional)</label>
                         <textarea class="form-control" id="description" name="description" rows="4"><%= jersey.description || '' %></textarea>
+                    </div>
+
+                    <!-- Featured Status -->
+                    <div class="mb-3">
+                        <label class="form-label">Featured on Homepage</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="isFeatured" id="isFeaturedYes" value="true" <%= jersey.isFeatured ? 'checked' : '' %>>
+                            <label class="form-check-label" for="isFeaturedYes">Yes</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="isFeatured" id="isFeaturedNo" value="false" <%= !jersey.isFeatured ? 'checked' : '' %>>
+                            <label class="form-check-label" for="isFeaturedNo">No</label>
+                        </div>
                     </div>
 
                     <!-- Submit Button -->

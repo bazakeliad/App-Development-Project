@@ -69,7 +69,8 @@ const deleteJerseyById = async (id) => {
 
 const getFeaturedJerseys = async () => {
     try {
-        return await Jersey.find().limit(6);
+        // Fetch only jerseys where isFeatured is true and limit to 6
+        return await Jersey.find({ isFeatured: true }).limit(6);
     } catch (error) {
         console.error("Error fetching featured jerseys:", error);
         throw error;

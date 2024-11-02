@@ -71,6 +71,7 @@
                         <th scope="col">Kit Type</th>
                         <th scope="col">Price</th>
                         <th scope="col">Sizes</th>
+                        <th scope="col">Featured</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -88,6 +89,13 @@
                             <td><%= jersey.kitType %></td>
                             <td>$<%= jersey.price.toFixed(2) %></td>
                             <td><%= jersey.sizes.join(', ') %></td>
+                            <td>
+                                <% if (jersey.isFeatured) { %>
+                                    <span class="badge bg-success fs-5 px-3 py-2">Yes</span>
+                                <% } else { %>
+                                    <span class="badge bg-secondary fs-5 px-3 py-2">No</span>
+                                <% } %>
+                            </td>
                             <td class="text-center">
                                 <div class="btn-group" role="group">
                                     <a href="/admin/jerseys/edit/<%= jersey._id %>" class="btn btn-warning btn-sm">

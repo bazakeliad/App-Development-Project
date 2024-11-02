@@ -9,35 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="/main.css">
-    <style>
-        /* Custom styles for the filter section */
-        .filter-section {
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .filter-title {
-            font-weight: 600;
-            font-size: 1.25rem;
-            margin-bottom: 15px;
-        }
-
-        .form-check-input {
-            margin-right: 10px;
-        }
-
-        .form-label {
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .apply-filters-btn {
-            width: 100%;
-            padding: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/filter.css">
 </head>
 <body>
 
@@ -65,7 +37,7 @@
                                 </div>
                             <% }); %>
                         </div>
-
+            
                         <!-- Kit Type Filter -->
                         <div class="mb-4">
                             <label class="form-label"><i class="bi bi-tag"></i> Kit Type</label>
@@ -76,15 +48,21 @@
                                 </div>
                             <% }); %>
                         </div>
-
+            
                         <!-- Price Range Filter -->
                         <div class="mb-4">
                             <label class="form-label"><i class="bi bi-currency-dollar"></i> Price Range</label>
                             <input type="number" name="minPrice" class="form-control mb-2" placeholder="Min Price" value="<%= minPrice %>">
                             <input type="number" name="maxPrice" class="form-control" placeholder="Max Price" value="<%= maxPrice %>">
                         </div>
-
-                        <button type="submit" class="btn btn-primary apply-filters-btn"><i class="bi bi-funnel"></i> Apply Filters</button>
+            
+                        <div class="d-grid gap-2">
+                            <!-- Apply Filters Button -->
+                            <button type="submit" class="btn btn-primary apply-filters-btn"><i class="bi bi-funnel"></i> Apply Filters</button>
+            
+                            <!-- Clear Filters Button -->
+                            <a href="/jerseys/browse" class="btn btn-secondary">Clear Filters</a>
+                        </div>
                     </form>
                 </div>
             </aside>
@@ -102,8 +80,7 @@
                             <% }); %>
                             <input type="hidden" name="minPrice" value="<%= minPrice %>">
                             <input type="hidden" name="maxPrice" value="<%= maxPrice %>">
-                            <label for="orderBy" class="form-label me-2 mb-0">Sort by:</label>
-                            <select id="orderBy" name="orderBy" class="form-select me-2">
+                            <label for="orderBy" class="form-label mb-0" style="white-space: nowrap; padding: 4px;">Sort by:</label>                            <select id="orderBy" name="orderBy" class="form-select me-2">
                                 <option value="featured" <%= orderBy === 'featured' ? 'selected' : '' %>>Featured</option>
                                 <option value="priceAsc" <%= orderBy === 'priceAsc' ? 'selected' : '' %>>Price: Low to High</option>
                                 <option value="priceDesc" <%= orderBy === 'priceDesc' ? 'selected' : '' %>>Price: High to Low</option>
