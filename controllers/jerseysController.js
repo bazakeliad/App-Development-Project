@@ -186,7 +186,7 @@ const getAddJerseyForm = (req, res) => {
 };
 
 const addJersey = async (req, res) => {
-    const { team, teamTwitterHandle, kitType, price, allSizes, description } = req.body;
+    const { team, teamTwitterHandle, kitType, price, allSizes, description, is_featured } = req.body;
     const imageFile = req.file;
 
     // Check if allSizes is undefined or empty
@@ -205,19 +205,20 @@ const addJersey = async (req, res) => {
             data: imageFile.buffer,
             contentType: imageFile.mimetype
         },
-        description
+        description,
+        isFeatured: is_featured === 'true' // Convert the string to a boolean
     };
 
     try {
         // Save the jersey to the database
         await jerseysServices.createJersey(jerseyData);
-        require('dotenv').config(); // Load environment variables
+
         // Facebook API Post
-        const pageAccessToken = process.env.FACEBOOK_TOKEN;  // Add your Facebook Page Access Token here
-        const facebookPageId = process.env.FACEBOOK_PAGE_ID;  // Add your Facebook Page ID here
-        
+        require('dotenv').config(); // Load environment variables
+        const pageAccessToken = process.env.FACEBOOK_TOKEN; // Facebook Page Access Token
+        const facebookPageId = process.env.FACEBOOK_PAGE_ID; // Facebook Page ID
+
         const message = `New Jersey Added: ${team} (${kitType} Kit) now available for $${price}. Sizes: ${sizesArray.join(', ')}.`;
-        // const message = 'Hi, test project API' 
         const fbResponse = await axios.post(`https://graph.facebook.com/${facebookPageId}/feed`, {
             message,
             access_token: pageAccessToken
@@ -249,9 +250,9 @@ const getEditJerseyForm = async (req, res) => {
 
 const editJersey = async (req, res) => {
     const id = req.params.id;
-    const { team, teamTwitterHandle, kitType, price, category, description } = req.body;
-    const sizesArray = req.body.allSizes || [];  // If no sizes are selected, default to an empty array
-    const imageFile = req.file;  // Check if an image was uploaded
+    const { team, teamTwitterHandle, kitType, price, category, description, isFeatured } = req.body;
+    const sizesArray = req.body.allSizes || [];
+    const imageFile = req.file;
 
     const updateData = {
         team,
@@ -260,10 +261,10 @@ const editJersey = async (req, res) => {
         price: parseFloat(price),
         sizes: sizesArray,
         category,
-        description
+        description,
+        isFeatured: isFeatured === 'true'  // Convert to Boolean
     };
 
-    // Only update the image if a new one was uploaded
     if (imageFile) {
         updateData.image = {
             data: imageFile.buffer,
@@ -272,12 +273,11 @@ const editJersey = async (req, res) => {
     }
 
     try {
-        const jersey = await jerseysServices.updateJerseyById(id, updateData);
-        if (!jersey) return res.status(404).send('Jersey not found');
-        res.redirect(`/admin/jerseys?message=Jersey updated successfully&type=success`);
+        await jerseysServices.updateJerseyById(id, updateData);
+        res.redirect('/admin/jerseys');
     } catch (error) {
         console.error('Error updating jersey:', error);
-        res.redirect(`/admin/jerseys?message=Error updating jersey&type=error`);
+        res.status(500).send('Internal Server Error');
     }
 };
 
