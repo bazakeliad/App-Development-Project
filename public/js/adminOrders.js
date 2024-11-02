@@ -3,7 +3,7 @@ async function deleteOrder(orderId) {
     console.log('Deleting order with ID:', orderId); // Debugging log
 
     $.ajax({
-        url: `/orders/deleteOrderById/${orderId}`, // Adjusted for orders, not jerseys
+        url: `/admin/orders/deleteOrderById/${orderId}`, // Adjusted for orders, not jerseys
         type: 'DELETE',
         success: function(result) {
             console.log('Order deleted successfully:', result); // Debugging log

@@ -3,7 +3,7 @@ const Order = require('../models/order');
 const Jersey = require('../models/jersey');
 const cartServices = require('../services/cartServices');
 
-exports.updateCart = async (req, res) => {
+const updateCart = async (req, res) => {
     const jerseyId = req.query.id;
     const quantity = parseInt(req.body.quantity) || 1;
     const size = req.body.size || 'N/A'; // Add size handling
@@ -18,12 +18,15 @@ exports.updateCart = async (req, res) => {
     }
 };
 
-exports.getCart = async (req, res) => {
+const getCart = async (req, res) => {
     const userId = req.session.username;
     try {
         const cart = await Cart.findOne({ userId });
-        if (!cart) return res.render('cart', { cartItems: [], subtotal: 0, userId });
-
+        // If no cart is found in the database, initialize an empty cart
+        if (!cart) {
+            req.session.cart = []; // Initialize the cart in the session
+            return res.render('cart', { cartItems: [], subtotal: 0, userId });
+        }
         const cartItems = await Promise.all(
             cart.items.map(async (item) => {
                 const jersey = await Jersey.findById(item.jerseyId);
@@ -47,7 +50,11 @@ exports.getCart = async (req, res) => {
             return total + item.price * item.quantity;
         }, 0);
 
+        // Store the cart items in the session
+        req.session.cart = filteredCartItems; // Sync the session cart
+
         res.render('cart', { cartItems: filteredCartItems, subtotal, userId });
+
     } 
     catch (error) {
         console.error('Error retrieving cart:', error);
@@ -56,7 +63,7 @@ exports.getCart = async (req, res) => {
 };
 
 // Render the checkout page where users enter their details
-exports.checkoutPage = (req, res) => {
+const checkoutPage = (req, res) => {
     const userId = req.session.username;
     if (!userId) {
         return res.status(401).json({ message: 'User not authenticated' });
@@ -65,7 +72,7 @@ exports.checkoutPage = (req, res) => {
 };
 
 // Convert cart to order (checkout)
-exports.checkoutCart = async (req, res) => {
+const checkoutCart = async (req, res) => {
     const userId = req.session.username;
     const { fullName, address, city, zip, country, cardNumber, cardExpiry, cardCVC } = req.body;
 
@@ -92,6 +99,9 @@ exports.checkoutCart = async (req, res) => {
         await order.save();
         await Cart.findOneAndDelete({ userId });
 
+        // If successful, mark the checkout as successful
+        cartServices.markCheckoutSuccess(req.session);
+
         res.redirect('/cart/checkoutSuccess');
     } catch (error) {
         console.error('Error during checkout:', error);
@@ -100,12 +110,16 @@ exports.checkoutCart = async (req, res) => {
 };
 
 // Render the checkout success page
-exports.checkoutSuccess = (req, res) => {
+const checkoutSuccess = (req, res) => {
+
+    // If successful, mark the checkout as successful
+    cartServices.resetCheckoutSuccess(req.session);
+
     res.render('checkoutSuccess');
 };
 
 // Delete an item from the cart
-exports.deleteItemFromCart = async (req, res) => {
+const deleteItemFromCart = async (req, res) => {
     const { itemId, size } = req.body; // Include size to ensure correct item removal
     const userId = req.session.username;
     try {
@@ -120,4 +134,48 @@ exports.deleteItemFromCart = async (req, res) => {
         console.error('Error removing item from cart:', error);
         res.status(500).json({ message: error.message });
     }
+};
+
+// Middleware to check if the checkout sequence is valid
+function checkCheckoutSequence(req, res, next) {
+    const currentRoute = req.originalUrl;
+
+    if (currentRoute === '/cart') {
+        cartServices.resetCheckoutSuccess(req.session);
+        return next();
+    }
+
+    if (currentRoute === '/cart/checkout') {
+        return next();
+    }
+
+    if (currentRoute === '/cart/checkoutSuccess') {
+        if (cartServices.validateCheckoutSuccess(req.session)) {
+            return next();
+        }
+        return res.redirect('/cart/checkout');
+    }
+
+    next();
+}
+
+// Check if the cart is empty before proceeding to checkout
+function checkCartNotEmpty(req, res, next) {
+    const cart = req.session.cart || [];
+    if (cart.length === 0) {
+        // Redirect to /cart with an error message if the cart is empty
+        return res.redirect('/cart?error=empty');
+    }
+    next();
+}
+
+module.exports = {
+    updateCart,
+    getCart,
+    checkoutPage,
+    checkoutCart,
+    checkoutSuccess,
+    deleteItemFromCart,
+    checkCheckoutSequence,
+    checkCartNotEmpty
 };

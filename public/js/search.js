@@ -14,7 +14,7 @@ document.getElementById('searchButton').addEventListener('click', function() {
         const [team, kitType] = searchQuery.split(',').map(s => s.trim());
 
         // Construct the URL, encodeURIComponent ensures proper URL encoding
-        const url = `/jerseys?team=${encodeURIComponent(team)}&kitType=${encodeURIComponent(kitType)}`;
+        const url = `/jerseys/browse?team=${encodeURIComponent(team)}&kitType=${encodeURIComponent(kitType)}`;
 
         // Redirect the browser to the constructed URL
         window.location.href = url;
@@ -73,7 +73,7 @@ $(document).ready(function() {
             const searchQuery = document.getElementById('inpSearch').value;
             if (searchQuery) {
                 const [team, kitType] = searchQuery.split(',').map(s => s.trim());
-                const url = `/jerseys?team=${encodeURIComponent(team)}&kitType=${encodeURIComponent(kitType)}`;
+                const url = `/jerseys/browse?team=${encodeURIComponent(team)}&kitType=${encodeURIComponent(kitType)}`;
                 window.location.href = url;
             }
         } else {

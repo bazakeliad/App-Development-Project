@@ -41,11 +41,11 @@
                 
                     <!-- Team -->
                     <div class="mb-3">
-                        <label for="team" class="form-label">Team</label>
-                        <select class="form-select" id="team" name="team" required>
-                            <option value="" disabled selected>Select a favorite team</option>
+                        <label for="team" class="form-label">Favorite Team</label>
+                        <select name="team" class="form-select">
+                            <option value="" <%= !user.team ? 'selected' : '' %>>None</option>
                             <% teams.forEach(function(team) { %>
-                                <option value="<%= team.twitterHandle %>"><%= team.name %></option>
+                                <option value="<%= team.twitterHandle %>" <%= user.team === team.twitterHandle ? 'selected' : '' %>><%= team.name %></option>
                             <% }); %>
                         </select>
                     </div>

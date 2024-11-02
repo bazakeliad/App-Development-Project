@@ -1,26 +1,15 @@
 const express = require('express');
-const { renderAddReviewForm, createReview, getAllReviews, updateReview, deleteReview } = require('../controllers/reviewController');
-
 const router = express.Router();
 
-// importing login controller for protecting admin routes
-const loginController = require("../controllers/loginController");
+// Import controllers
+const reviewController = require('../controllers/reviewController');
+const loginController = require('../controllers/loginController');
 
-// Create a new review
-router.post('/', createReview);
-
-// Get all reviews
-router.get('/', getAllReviews);
-
-// Update a review by ID
-router.put('/:id', updateReview);
-
-// Delete a review by ID
-router.delete('/:id', deleteReview);
-
-// router.post('/add', loginController.isLoggedIn, createReview);
-
-// router.get('/add', loginController.isLoggedIn, renderAddReviewForm);
+// Reviews routes
+router.get('/', loginController.isLoggedAsAdmin, reviewController.getAllReviewsAdmin);
+router.delete('/:id', loginController.isLoggedAsAdmin, reviewController.deleteReview);
+router.get('/edit/:id', loginController.isLoggedAsAdmin, reviewController.getReviewById);
+router.post('/edit/:id', loginController.isLoggedAsAdmin, reviewController.updateReview);
 
 module.exports = router;
 

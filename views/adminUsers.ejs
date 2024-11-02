@@ -13,11 +13,11 @@
     <!-- Header -->
     <%- include('partials/compactHeader.ejs') %>
 
+    <!-- Page Title -->
+    <%- include('partials/pageTitle.ejs', { title: 'Manage Users' }) %>
+
     <!-- Main Content -->
     <div class="container my-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Manage Users</h1>
-        </div>
         <div class="container my-3">
             <a href="/admin/console" class="btn btn-secondary">
                 <i class="bi bi-arrow-left"></i> Back to Admin Console

@@ -1,9 +1,8 @@
-const orderServices = require("../services/orderServices"); // Adjust the path as necessary
-const jerseyServices = require("../services/jerseysServices"); // Adjust the path as necessary
-
+const orderServices = require("../services/orderServices"); 
+const userServices = require("../services/userServices"); 
 
 // Create a new order
-exports.createOrder = async (req, res) => {
+const createOrder = async (req, res) => {
     try {
         const order = await orderServices.createOrder(res.body);
         res.status(201).json(order);
@@ -13,7 +12,7 @@ exports.createOrder = async (req, res) => {
 };
 
 // Get all orders
-exports.getAllOrders = async (req, res) => {
+const getAllOrders = async (req, res) => {
     try {
         const orders = await orderServices.getAllOrders();
         res.status(200).json(orders);
@@ -23,7 +22,7 @@ exports.getAllOrders = async (req, res) => {
 };
 
 // Get an order by ID
-exports.getOrderById = async (req, res) => {
+const getOrderById = async (req, res) => {
     try {
         const order = await orderServices.getOrderById(req.params.id);
         if (!order) return res.status(404).json({ message: 'Order not found' });
@@ -34,7 +33,7 @@ exports.getOrderById = async (req, res) => {
 };
 
 // Get all orders by status
-exports.getOrdersByStatus = async (req, res) => {
+const getOrdersByStatus = async (req, res) => {
     const { status } = req.body // Get status from query parameters
 
     try {
@@ -53,7 +52,7 @@ exports.getOrdersByStatus = async (req, res) => {
 
 
 // Update an order by ID
-exports.updateOrder = async (req, res) => {
+const updateOrder = async (req, res) => {
     try {
         const order = await orderServices.updateOrder(req.params.id, req.body)
         if (!order) return res.status(404).json({ message: 'Order not found' });
@@ -64,7 +63,7 @@ exports.updateOrder = async (req, res) => {
 };
 
 // Delete an order by ID
-exports.deleteOrder = async (req, res) => {
+const deleteOrder = async (req, res) => {
     try {
         const order = await orderServices.deleteOrder(req.params.id);
         if (!order) return res.status(404).json({ message: 'Order not found' });
@@ -74,7 +73,7 @@ exports.deleteOrder = async (req, res) => {
     }
 };
 
-exports.updateOrderStatus = async (req, res) => {
+const updateOrderStatus = async (req, res) => {
     const { id } = req.params;  // Order ID from URL
     const { status } = req.body;  // New status from AJAX request
 
@@ -102,7 +101,7 @@ exports.updateOrderStatus = async (req, res) => {
 };
 
 
-exports.getOrdersByUser = async (req, res) => {
+const getOrdersByUser = async (req, res) => {
     try {
         const userId = req.session.username;
         let orders = await orderServices.getOrdersByUser(userId);
@@ -115,18 +114,102 @@ exports.getOrdersByUser = async (req, res) => {
     }
 };
 
+// Fetch all orders
+const getAllOrdersAdmin = async (req, res) => {
+    try {
+        const { username, status, startDate, endDate, minPrice, maxPrice } = req.query;
+
+        // Debugging: Log the received filter values
+        console.log('Filter values:', { username, status, startDate, endDate, minPrice, maxPrice });
+
+        const filter = {};
+
+        // Filter by username
+        if (username) {
+            console.log('Filtering by username:', username);
+            filter.userId = { $in: Array.isArray(username) ? username : [username] };
+        }
+
+        // Filter by status
+        if (status) {
+            console.log('Filtering by status:', status);
+            filter.status = { $in: Array.isArray(status) ? status : [status] };
+        }
+
+        // Filter by date range
+        if (startDate || endDate) {
+            filter.createdAt = {};
+            if (startDate) filter.createdAt.$gte = new Date(startDate);
+            if (endDate) filter.createdAt.$lte = new Date(endDate);
+            console.log('Filtering by date range:', { startDate, endDate });
+        }
+
+        // Filter by price range
+        if (minPrice || maxPrice) {
+            filter.totalPrice = {};
+            if (minPrice) filter.totalPrice.$gte = parseFloat(minPrice);
+            if (maxPrice) filter.totalPrice.$lte = parseFloat(maxPrice);
+            console.log('Filtering by price range:', { minPrice, maxPrice });
+        }
+
+        // Fetch filtered orders
+        let orders = await orderServices.getAllOrders(filter);
+        const users = await userServices.getAllUsers(); // For the filter options
+
+        // Fetch jersey details for each order
+        orders = await getOrdersWithJerseyDetails(orders);
+
+        // Render the orders view with filter selections
+        res.render('adminOrders', {
+            orders,
+            users,
+            usernames: Array.isArray(username) ? username : (username ? [username] : []),
+            statuses: Array.isArray(status) ? status : (status ? [status] : []),
+            startDate,
+            endDate,
+            minPrice,
+            maxPrice
+        });
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+// Helper function to fetch jersey details for each item in an order
 const getOrdersWithJerseyDetails = async (orders) => {
+    const jerseysServices = require("../services/jerseysServices"); // Adjust path as necessary
+
     for (let order of orders) {
         for (let item of order.items) {
-            const jersey = await jerseyServices.getJerseyById(item.itemId);
-            if (jersey) {
-                item.jerseyDetails = {
-                    team: jersey.team,
-                    kitType: jersey.kitType,
-                    image: jersey.image
-                };
+            try {
+                const jersey = await jerseysServices.getJerseyById(item.itemId);
+                if (jersey) {
+                    item.jerseyDetails = {
+                        team: jersey.team,
+                        kitType: jersey.kitType,
+                        image: jersey.image,
+                        size: item.size
+                    };
+                } else {
+                    console.warn(`Jersey with ID ${item.itemId} not found`);
+                }
+            } catch (error) {
+                console.error(`Error fetching jersey details for ID ${item.itemId}:`, error);
             }
         }
     }
     return orders;
+};
+
+module.exports = {
+    createOrder,
+    getAllOrders,
+    getOrderById,
+    getOrdersByStatus,
+    updateOrder,
+    deleteOrder,
+    updateOrderStatus,
+    getOrdersByUser,
+    getAllOrdersAdmin,
 };

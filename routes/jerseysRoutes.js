@@ -1,25 +1,24 @@
-
-
 const express = require("express");
 const router = express.Router();
 
-const jerseysController = require("../controllers/jerseysController");
+// Multer for image uploads
+const multer = require('multer');
+const storage = multer.memoryStorage(); // Store images in memory as Buffer objects
+const upload = multer({ storage: storage });
 
-// Jerseys paths
-// rest api - /articles in get, get all. in post upload new one.
-router.route("/")
-    .get(jerseysController.getAllJerseys)
-    // .post(articleController.createJersey);
-
-
-// importing login controller for protecting routes that change data
+// Import controllers
+const jerseyController = require("../controllers/jerseysController");
 const loginController = require("../controllers/loginController");
 
-router.route("/:id")
-    .get(jerseysController.getJerseyById)
-    .delete(loginController.isLoggedAsAdmin, jerseysController.deleteJerseyById)
+// Jerseys paths
+router.route("/browse").get(jerseyController.getAllJerseys)
+router.get('/', loginController.isLoggedAsAdmin, jerseyController.getAllJerseysAdmin);
+router.get('/add', loginController.isLoggedAsAdmin, jerseyController.getAddJerseyForm);
+router.post('/add', loginController.isLoggedAsAdmin, upload.single('image'), jerseyController.addJersey); 
+router.get('/edit/:id', loginController.isLoggedAsAdmin, jerseyController.getEditJerseyForm);
+router.post('/edit/:id', loginController.isLoggedAsAdmin, upload.single('image'), jerseyController.editJersey); 
+router.get('/image/:id', jerseyController.getJerseyImage);
+router.route("/:id").get(jerseyController.getJerseyById)
+router.route("/:id").delete(loginController.isLoggedAsAdmin, jerseyController.deleteJerseyById)
 
-// Route to serve jersey images
-router.get("/image/:id", jerseysController.getJerseyImage);
-
-module.exports = router;
+module.exports = router
