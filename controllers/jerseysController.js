@@ -164,7 +164,7 @@ const apiGetAllJerseys = async (req, res) => {
 }
 
 
-// Function to serve jersey images
+// Serve jersey image
 const getJerseyImage = async (req, res) => {
     const id = req.params.id;
     try {
@@ -176,7 +176,7 @@ const getJerseyImage = async (req, res) => {
         res.send(jersey.image.data);
     } catch (error) {
         console.error('Error fetching image:', error);
-        res.status(500)
+        res.status(500).send('Internal Server Error');
     }
 };
 
@@ -274,10 +274,10 @@ const editJersey = async (req, res) => {
     try {
         const jersey = await jerseysServices.updateJerseyById(id, updateData);
         if (!jersey) return res.status(404).send('Jersey not found');
-        res.redirect('/admin/jerseys');
+        res.redirect(`/admin/jerseys?message=Jersey updated successfully&type=success`);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error('Error updating jersey:', error);
+        res.redirect(`/admin/jerseys?message=Error updating jersey&type=error`);
     }
 };
 

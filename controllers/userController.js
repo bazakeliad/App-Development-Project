@@ -54,9 +54,10 @@ const updateUser = async (req, res) => {
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found' });
         }
-        res.redirect('/admin/users');
+        res.redirect(`/admin/users?message=User updated successfully&type=success`);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        console.error('Error updating user:', error);
+        res.redirect(`/admin/users?message=Error updating user&type=error`);
     }
 };
 
@@ -104,11 +105,11 @@ const updateUserProfile = async (req, res) => {
         }
 
         // Redirect with success message in the query string
-        res.redirect('/personalArea/profile?message=Profile updated successfully&type=success');
+        res.redirect('/personalArea/?message=Profile updated successfully&type=success');
     } catch (error) {
         console.error('Error updating user profile:', error);
         // Redirect with error message in the query string
-        res.redirect('/personalArea/profile?message=Error updating profile&type=error');
+        res.redirect('/personalArea/?message=Error updating profile&type=error');
     }
 };
 

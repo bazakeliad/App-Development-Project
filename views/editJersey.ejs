@@ -16,6 +16,16 @@
     <!-- Header -->
     <%- include('partials/compactHeader.ejs') %>
 
+    <!-- Toast Notification -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="updateToast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div id="toastBody" class="toast-body"></div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
     <div class="container my-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>Edit Jersey</h1>
@@ -129,5 +139,39 @@
     <!-- Bootstrap JS and jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        // Capture form submission for AJAX handling
+        $('#editJerseyForm').on('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function() {
+                    showToast('Jersey updated successfully!', 'success');
+                },
+                error: function() {
+                    showToast('Error updating jersey. Please try again.', 'error');
+                }
+            });
+        });
+
+        // Function to display toast notifications
+        function showToast(message, type) {
+            const toastEl = document.getElementById('updateToast');
+            const toastBody = document.getElementById('toastBody');
+            toastBody.textContent = message;
+
+            toastEl.classList.remove('text-bg-success', 'text-bg-danger');
+            toastEl.classList.add(type === 'success' ? 'text-bg-success' : 'text-bg-danger');
+            
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    </script>
 </body>
 </html>
