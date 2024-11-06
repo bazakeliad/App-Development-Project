@@ -16,9 +16,12 @@ const getAllJerseys = async (query = {}, sort = {}) => {
 
 const getJerseysByTeamPrefix = async (teamPrefix) => {
     try {
+
         // Using regex to match the start of the 'team' field with the 'teamprefix'
         const teams = await Jersey.find({
-          team: { $regex: `${teamPrefix}`, $options: 'i' } // 'i' option for case-insensitive search
+
+            // 'i' option for case-insensitive search
+            team: { $regex: `${teamPrefix}`, $options: 'i' }
         });
         return teams;
     } 
@@ -69,6 +72,7 @@ const deleteJerseyById = async (id) => {
 
 const getFeaturedJerseys = async () => {
     try {
+
         // Fetch only jerseys where isFeatured is true and limit to 6
         return await Jersey.find({ isFeatured: true }).limit(6);
     } catch (error) {
@@ -90,6 +94,5 @@ module.exports = {
     deleteJerseyById,
     getFeaturedJerseys,
     getJerseysByTeamPrefix,
-    deleteJerseyById,
     getJerseyCount
 };

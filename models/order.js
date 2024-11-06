@@ -23,7 +23,7 @@ const OrderSchema = new Schema({
         quantity: { 
             type: Number, 
             required: true, 
-            min: 1 // Ensure quantity is at least 1
+            min: 1
         },
         size: {
             type: String,
