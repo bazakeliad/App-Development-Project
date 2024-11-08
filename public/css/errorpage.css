@@ -8,17 +8,17 @@ body, html {
   justify-content: center;
   align-items: center;
   height: 50%;
-  padding-top: 70px; /* Push content higher on the screen */
-  padding-bottom: 70px; /* Push content lower on the screen */
+  padding-top: 70px;
+  padding-bottom: 70px;
   text-align: center;
 }
 
 .error-container h1 {
-  margin-bottom: 30px; /* Adjusts the spacing between title and message */
+  margin-bottom: 30px;
 }
 
 .error-container p {
-  margin-bottom: 40px; /* Spacing between message and button */
+  margin-bottom: 40px;
 }
 
 .error-container a {

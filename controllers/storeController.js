@@ -31,6 +31,7 @@ const createStore = async (req, res) => {
       res.redirect('/admin/stores?message=Store added successfully&type=success');
     } catch (error) {
         console.error('Error adding store:', error);
+
         // Redirect with error message
         res.redirect('/admin/stores?message=Error adding store&type=error');
     }
@@ -61,10 +62,12 @@ const updateStore = async (req, res) => {
       };
 
       await storeServices.updateStore(req.params.id, storeData);
+
         // Redirect with success message
         res.redirect('/admin/stores?message=Store updated successfully&type=success');
     } catch (error) {
         console.error('Error updating store:', error);
+        
         // Redirect with error message
         res.redirect('/admin/stores?message=Error updating store&type=error');
     }

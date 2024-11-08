@@ -1,4 +1,5 @@
 function initMap(googleMapsApiKey, stores) {
+    
   // Center map on Israel
   var israelCenter = { lat: 31.0461, lng: 34.8516 };
 

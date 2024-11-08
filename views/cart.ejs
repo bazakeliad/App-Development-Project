@@ -95,6 +95,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
+
             // Update Cart Item Quantity
             function updateCartItem(itemId, size, quantityDelta) {
                 $.ajax({
@@ -103,7 +104,7 @@
                     data: JSON.stringify({ quantity: quantityDelta, size: size }),
                     contentType: 'application/json',
                     success: function() {
-                        location.reload(); // Reload the page to reflect cart changes
+                        location.reload();
                     },
                     error: function() {
                         alert('Error updating item in the cart.');
@@ -121,7 +122,7 @@
                     contentType: 'application/json',
                     data: JSON.stringify({ itemId, size }),
                     success: function() {
-                        location.reload(); // Reload the page to reflect changes
+                        location.reload();
                     },
                     error: function() {
                         alert('Error removing item from cart.');

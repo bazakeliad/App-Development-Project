@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <!-- Meta Tags and Title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@
     <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
+
     <!-- Header -->
     <%- include('partials/compactHeader.ejs') %>
 
@@ -26,6 +28,7 @@
 
     <!-- Authentication Container --> 
     <div class="auth-container shadow">
+
         <!-- Tabs Navigation -->
         <ul class="nav nav-tabs mb-4" id="authTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -38,22 +41,27 @@
 
         <!-- Tabs Content -->
         <div class="tab-content" id="authTabContent">
+
             <!-- Login Tab -->
             <div class="tab-pane fade show active" id="login" role="tabpanel">
                 <h2 class="text-center">Welcome!</h2>
                 <form action="/login" method="POST">
+
                     <!-- Username Input -->
                     <div class="mb-3">
                         <label for="loginUsername" class="form-label">Username</label>
                         <input class="form-control" id="loginUsername" name="username" required>
                     </div>
+
                     <!-- Password Input -->
                     <div class="mb-3">
                         <label for="loginPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" id="loginPassword" name="password" required>
                     </div>
+
                     <!-- Error message placeholder -->
                     <div id="loginError" class="text-danger mb-3"></div>
+
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-primary w-100">Login</button>
                 </form>
@@ -63,32 +71,38 @@
             <div class="tab-pane fade" id="signup" role="tabpanel">
                 <h2 class="text-center">Create an Account</h2>
                 <form action="/register" method="POST" id="signupForm">
+
                     <!-- Name Input -->
                     <div class="mb-3">
                         <label for="signupName" class="form-label">Full Name</label>
                         <input type="text" class="form-control" id="signupName" name="name" required>
                     </div>
+
                     <!-- Email Input -->
                     <div class="mb-3">
                         <label for="signupEmail" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="signupEmail" name="email" required>
                     </div>
+
                     <!-- Username Input -->
                     <div class="mb-3">
                         <label for="signupUsername" class="form-label">Username</label>
                         <input class="form-control" id="signupUsername" name="username" required>
                     </div>
+
                     <!-- Password Input -->
                     <div class="mb-3">
                         <label for="signupPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" id="signupPassword" name="password" required>
                     </div>
+
                     <!-- Confirm Password Input -->
                     <div class="mb-3">
                         <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="signupConfirmPassword" name="confirmPassword" required>
                         <div id="passwordError" class="text-danger mt-2"></div>
                     </div>
+
                     <!-- Favorite Team Selection -->
                     <div class="mb-3">
                         <label for="team" class="form-label">Favorite Team</label>
@@ -99,8 +113,10 @@
                             <% }); %>
                         </select>
                     </div>
+                    
                     <!-- Error message placeholder -->
                     <div id="registerError" class="text-danger mb-3"></div>
+
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-primary w-100">Sign Up</button>
                 </form>
@@ -113,8 +129,10 @@
 
     <!-- Bootstrap JS and Optional jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Optional: Include the jQuery library -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
     <!-- Custom JS -->
     <script src="/js/login.js"></script>
 </body>

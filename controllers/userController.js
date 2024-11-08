@@ -16,6 +16,7 @@ const deleteUser = async (req, res) => {
     const { id } = req.params;
 
     try {
+
         // Delete the user
         const deletedUser = await userService.deleteUser(id);
         if (!deletedUser) {
@@ -30,7 +31,7 @@ const deleteUser = async (req, res) => {
             console.log(`No cart found for user ${id}`);
         }
 
-        res.status(204).send(); // No content
+        res.status(204).send();
     } catch (error) {
         console.error('Error deleting user and associated cart:', error);
         res.status(500).json({ message: error.message });
@@ -51,16 +52,15 @@ const getUserById = async (req, res) => {
 
 const updateUser = async (req, res) => {
     const { id } = req.params;
-    const { name, email, team, is_admin } = req.body;  // Match with model fields
+    const { name, email, team, is_admin } = req.body;
 
     try {
         const updateData = {
-            name,           // Name of the user
-            email,          // Email of the user
-            team,           // Team (can be null or empty string if not filled)
-            is_admin: is_admin === 'true'  // Convert the is_admin value to boolean
+            name,           
+            email,          
+            team,
+            is_admin: is_admin === 'true'
         };
-
         const updatedUser = await userService.updateUser(id, updateData);
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found' });
@@ -86,7 +86,7 @@ const getUserProfile = async (req, res) => {
             return res.status(404).send('User not found');
         }
 
-        const teams = await teamService.getAllTeams();  // Fetch the teams from the teamService
+        const teams = await teamService.getAllTeams();
 
         res.render('profile', { user, teams });
     } catch (error) {
@@ -99,13 +99,13 @@ const getUserProfile = async (req, res) => {
 // Update user profile
 const updateUserProfile = async (req, res) => {
     const { name, email, password, team } = req.body;
-    const userId = req.session.username;  // Ensure only the logged-in user can update
+    const userId = req.session.username;
 
     try {
         const updatedData = {
             name,
             email,
-            password: password !== '' ? password : undefined,  // Only update if provided
+            password: password !== '' ? password : undefined,
             team
         };
 
@@ -119,6 +119,7 @@ const updateUserProfile = async (req, res) => {
         res.redirect('/personalArea/?message=Profile updated successfully&type=success');
     } catch (error) {
         console.error('Error updating user profile:', error);
+        
         // Redirect with error message in the query string
         res.redirect('/personalArea/?message=Error updating profile&type=error');
     }

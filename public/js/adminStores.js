@@ -1,9 +1,10 @@
 let storeId = null;
 
 $(document).ready(function() {
+
     // Event listener for the delete button
     $(document).on('click', '.deleteBtn', function() {
-        storeId = $(this).data('id'); // Store store ID
+        storeId = $(this).data('id');
         const modal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
         modal.show();
     });
@@ -34,6 +35,7 @@ $(document).ready(function() {
             modal.hide();
         }
     });
+    
         // Check URL parameters for message and type to show a toast notification on page load
         const urlParams = new URLSearchParams(window.location.search);
         const message = urlParams.get('message');

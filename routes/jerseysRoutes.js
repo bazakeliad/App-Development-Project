@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Multer for image uploads
 const multer = require('multer');
-const storage = multer.memoryStorage(); // Store images in memory as Buffer objects
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // Import controllers

@@ -4,12 +4,12 @@ const reviewSchema = new mongoose.Schema({
     userId: {
         type: String,
         required: true,
-        ref: 'User' // Assuming you have a User model
+        ref: 'User'
     },
     itemId: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,
-        ref: 'Jersey' // Assuming you have an Item model
+        ref: 'Jersey'
     },
     message: {
         type: String,
