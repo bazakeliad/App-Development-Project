@@ -4,9 +4,9 @@ const Jersey = require('../models/jersey');
 const cartServices = require('../services/cartServices');
 const jerseyService = require('../services/jerseysServices');
 const emailService = require('../services/emailServices');
-const userService = require('../services/userServices'); // Import user services to fetch user details
+const userService = require('../services/userServices');
 
-
+// Delete cart
 const deleteCart = async (req, res) => {
     try {
         const cart = await cartServices.deleteCart(req.params.id);
@@ -17,14 +17,15 @@ const deleteCart = async (req, res) => {
     }
 };
 
+// Update cart
 const updateCart = async (req, res) => {
     const jerseyId = req.query.id;
     const quantity = parseInt(req.body.quantity) || 1;
-    const size = req.body.size || 'N/A'; // Add size handling
+    const size = req.body.size || 'N/A';
     const userId = req.session.username;
 
     try {
-        await cartServices.updateCart(userId, jerseyId, quantity, size); // Pass size to the service layer
+        await cartServices.updateCart(userId, jerseyId, quantity, size);
         res.status(200).json({ message: 'Cart updated' });
     } catch (error) {
         console.error('Error updating cart:', error);
@@ -32,13 +33,15 @@ const updateCart = async (req, res) => {
     }
 };
 
+// Get cart
 const getCart = async (req, res) => {
     const userId = req.session.username;
     try {
         const cart = await Cart.findOne({ userId });
+
         // If no cart is found in the database, initialize an empty cart
         if (!cart) {
-            req.session.cart = []; // Initialize the cart in the session
+            req.session.cart = [];
             return res.render('cart', { cartItems: [], subtotal: 0, userId });
         }
         const cartItems = await Promise.all(
@@ -50,7 +53,7 @@ const getCart = async (req, res) => {
                         team: jersey.team,
                         kitType: jersey.kitType,
                         price: jersey.price,
-                        size: item.size, // Ensure size is retrieved correctly
+                        size: item.size,
                         quantity: item.quantity,
                         image: jersey.image
                     };
@@ -65,7 +68,7 @@ const getCart = async (req, res) => {
         }, 0);
 
         // Store the cart items in the session
-        req.session.cart = filteredCartItems; // Sync the session cart
+        req.session.cart = filteredCartItems;
 
         res.render('cart', { cartItems: filteredCartItems, subtotal, userId });
 
@@ -149,6 +152,7 @@ const checkoutCart = async (req, res) => {
 
 // Render the checkout success page
 const checkoutSuccess = (req, res) => {
+
     // If successful, mark the checkout as successful
     cartServices.resetCheckoutSuccess(req.session);
 
@@ -158,7 +162,7 @@ const checkoutSuccess = (req, res) => {
 
 // Delete an item from the cart
 const deleteItemFromCart = async (req, res) => {
-    const { itemId, size } = req.body; // Include size to ensure correct item removal
+    const { itemId, size } = req.body;
     const userId = req.session.username;
     try {
         const cart = await Cart.findOne({ userId });
@@ -201,6 +205,7 @@ function checkCheckoutSequence(req, res, next) {
 function checkCartNotEmpty(req, res, next) {
     const cart = req.session.cart || [];
     if (cart.length === 0) {
+        
         // Redirect to /cart with an error message if the cart is empty
         return res.redirect('/cart?error=empty');
     }

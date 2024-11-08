@@ -1,9 +1,10 @@
 let deleteJerseyId = null;
 
 $(document).ready(function() {
+    
     // Event listener for the delete button
     $(document).on('click', '.deleteBtn', function() {
-        deleteJerseyId = $(this).data('id'); // Store jersey ID
+        deleteJerseyId = $(this).data('id');
         const modal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
         modal.show();
     });

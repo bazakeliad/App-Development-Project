@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         loginErrorDiv.innerHTML = "Username and/or password is incorrect!";
     }
     if (location.href.endsWith("?error=2")) {
+        
         // Switch to Sign-Up tab and show error message
         $('#signup-tab').click();
         registerErrorDiv.innerHTML = "Something went wrong with the registration!";
@@ -22,7 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             passwordError.textContent = "Passwords do not match. Please re-enter.";
         } else {
-            passwordError.textContent = ""; // Clear any previous error messages
+
+            // Clear any previous error messages
+            passwordError.textContent = "";
         }
     });
 });

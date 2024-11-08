@@ -1,8 +1,8 @@
-// services/teamService.js
 const Jersey = require("../models/jersey");
 
 const getAllTeams = async () => {
   try {
+    
       // Only select teams with a non-null and non-empty teamTwitterHandle
       const jerseys = await Jersey.find({ teamTwitterHandle: { $ne: null, $ne: '' } })
           .select('team teamTwitterHandle -_id');

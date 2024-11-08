@@ -34,9 +34,10 @@ const getOrderById = async (req, res) => {
 
 // Get all orders by status
 const getOrdersByStatus = async (req, res) => {
-    const { status } = req.body // Get status from query parameters
+    const { status } = req.body
 
     try {
+        
         // Find orders with the specified status
         const orders = await orderServices.getOrdersByStatus(status)
         
@@ -44,7 +45,7 @@ const getOrdersByStatus = async (req, res) => {
             return res.status(404).json({ message: 'No orders found with that status' });
         }
         
-        res.status(200).json(orders); // Respond with the orders
+        res.status(200).json(orders); 
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -73,43 +74,42 @@ const deleteOrder = async (req, res) => {
     }
 };
 
+// Update order status
 const updateOrderStatus = async (req, res) => {
-    const { id } = req.params;  // Order ID from URL
-    const { status } = req.body;  // New status from AJAX request
-
-    console.log(`Received request to update Order ID ${id} to Status: ${status}`);  // Debugging
-
+    const { id } = req.params;
+    const { status } = req.body;
     if (!status) {
         return res.status(400).json({ message: 'Status is required' });
     }
 
     try {
+
         // Update the order with the new status
         const updatedOrder = await orderServices.updateOrder(id, { status });
         
         if (!updatedOrder) {
-            console.log(`Order ID ${id} not found`);  // Debugging
+            console.log(`Order ID ${id} not found`);
             return res.status(404).json({ message: 'Order not found' });
         }
 
-        console.log(`Order ID ${id} updated successfully to Status: ${status}`);  // Debugging
+        console.log(`Order ID ${id} updated successfully to Status: ${status}`);
         return res.status(200).json({ message: 'Order status updated successfully', updatedOrder });
     } catch (error) {
-        console.error(`Error updating order ${id}:`, error);  // Log the error
+        console.error(`Error updating order ${id}:`, error);
         return res.status(500).json({ message: 'Internal server error', error });
     }
 };
 
-
+// Get user's order
 const getOrdersByUser = async (req, res) => {
     try {
         const userId = req.session.username;
         let orders = await orderServices.getOrdersByUser(userId);
-        console.log("Orders fetched:", orders); // Log orders to verify data
-        orders = await getOrdersWithJerseyDetails(orders); // Add jersey details
+        console.log("Orders fetched:", orders);
+        orders = await getOrdersWithJerseyDetails(orders);
         res.render('userOrders', { orders, title: 'My Orders' });
     } catch (error) {
-        console.error("Error getting user orders:", error); // Log the error
+        console.error("Error getting user orders:", error);
         res.status(500).json({ message: error.message });
     }
 };
@@ -118,8 +118,6 @@ const getOrdersByUser = async (req, res) => {
 const getAllOrdersAdmin = async (req, res) => {
     try {
         const { username, status, startDate, endDate, minPrice, maxPrice } = req.query;
-
-        // Debugging: Log the received filter values
         console.log('Filter values:', { username, status, startDate, endDate, minPrice, maxPrice });
 
         const filter = {};
@@ -154,7 +152,7 @@ const getAllOrdersAdmin = async (req, res) => {
 
         // Fetch filtered orders
         let orders = await orderServices.getAllOrders(filter);
-        const users = await userServices.getAllUsers(); // For the filter options
+        const users = await userServices.getAllUsers();
 
         // Fetch jersey details for each order
         orders = await getOrdersWithJerseyDetails(orders);
@@ -178,7 +176,7 @@ const getAllOrdersAdmin = async (req, res) => {
 
 // Helper function to fetch jersey details for each item in an order
 const getOrdersWithJerseyDetails = async (orders) => {
-    const jerseysServices = require("../services/jerseysServices"); // Adjust path as necessary
+    const jerseysServices = require("../services/jerseysServices");
 
     for (let order of orders) {
         for (let item of order.items) {

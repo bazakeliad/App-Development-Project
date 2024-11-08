@@ -4,6 +4,7 @@ async function deleteReview(reviewId) {
         url: `/admin/reviews/${reviewId}`,
         type: 'DELETE',
         success: function(result) {
+
             // On success, remove the review from the DOM
             $(`#review_${reviewId}`).remove();
         },
@@ -15,10 +16,12 @@ async function deleteReview(reviewId) {
 
 // Event listener for the delete button
 $('.deleteBtn').on('click', function() {
-    const reviewId = this.getAttribute('data-id'); // Get the review ID from the data attribute
+
+     // Get the review ID from the data attribute
+    const reviewId = this.getAttribute('data-id');
     
     // Ask for confirmation
     if (confirm('Are you sure you want to delete this review?')) {
-        deleteReview(reviewId); // Call the delete function only if confirmed
+        deleteReview(reviewId);
     }
 });

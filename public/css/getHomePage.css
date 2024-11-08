@@ -4,15 +4,16 @@
     margin: 10px 0;
 }
 .star {
-    font-size: 1.5em; /* Adjust size as needed */
-    color: lightgray; /* Default color for empty stars */
+    font-size: 1.5em;
+    color: lightgray;
 }
 .star.filled {
-    color: gold; /* Color for filled stars */
+    color: gold;
 }
+
 /* Carousel Image Styling */
 .carousel-item img {
     width: 100%;
     object-fit: cover;
-    max-height: 100vh; /* Sets a max height to prevent oversized images */
+    max-height: 100vh;
 }
