@@ -353,3 +353,22 @@ footer a:hover {
 .promo-banner h2, .promo-banner p {
     margin-bottom: 1rem;
 }
+
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.canvas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#smileyCanvas {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+}
