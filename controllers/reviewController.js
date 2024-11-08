@@ -4,7 +4,8 @@ const userService = require('../services/userServices');
 
 const renderAddReviewForm = async (req, res) => {
     try {
-        const jerseys = await jerseyService.getAllJerseys();
+        let jerseys = await jerseyService.getAllJerseys();
+        jerseys = jerseys.sort((a, b) => a.team.localeCompare(b.team)); // Sort jerseys alphabetically by team name
         res.render('addReview', { jerseys });
     } catch (error) {
         console.error('Error fetching jerseys:', error);

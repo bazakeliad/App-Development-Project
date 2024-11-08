@@ -1,0 +1,180 @@
+[{
+  "_id": "admin",
+  "name": "admin",
+  "password": "admin",
+  "email": "admintheadmin1243@gmail.com",
+  "team": "FCBarcelona",
+  "is_admin": true,
+  "__v": 0
+},
+{
+  "_id": "JamesRobertson",
+  "name": "James Robertson",
+  "password": "Aa123456",
+  "email": "JamesRobertson1029@gmail.com",
+  "team": "realmadrid",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "SarahPatel",
+  "name": "Sarah Patel",
+  "password": "Aa123456",
+  "email": "SarahPatel11298@gmail.com",
+  "team": "FCBarcelona",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "LeoGarcia",
+  "name": "Leo Garcia",
+  "password": "Aa123456",
+  "email": "LeoGarcia8786@gmail.com",
+  "team": "lfc",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "EmilyCarter",
+  "name": "Emily Carter",
+  "password": "Aa123456",
+  "email": "EmilyCarter16523@gmail.com",
+  "team": "ManCity",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "DavidWhite",
+  "name": "David White",
+  "password": "Aa123456",
+  "email": "DavidWhite9061@gmail.com",
+  "team": "ManUtd",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "LucasMartinez",
+  "name": "Lucas Martinez",
+  "password": "Aa123456",
+  "email": "LucasMartinez5633@gmail.com",
+  "team": "juventusfc",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "NinaKim",
+  "name": "Nina Kim",
+  "password": "Aa123456",
+  "email": "NinaKim3778398@gmail.com",
+  "team": "SpursOfficial",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "AlexJohnson",
+  "name": "Alex Johnson",
+  "password": "Aa123456",
+  "email": "AlexJohnson19892@gmail.com",
+  "team": "Arsenal",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "MichaelBrown",
+  "name": "Michael Brown",
+  "password": "Aa123456",
+  "email": "MichaelBrown4564@gmail.com",
+  "team": "realmadrid",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "JennaWilson",
+  "name": "Jenna Wilson",
+  "password": "Aa123456",
+  "email": "JennaWilson2893@gmail.com",
+  "team": "Inter_en",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "JustinGreen",
+  "name": "Justin Green",
+  "password": "Aa123456",
+  "email": "JustinGreen6564@gmail.com",
+  "team": "acmilan",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "DanielLee",
+  "name": "Daniel Lee",
+  "password": "Aa123456",
+  "email": "DanielLee7764@gmail.com",
+  "team": "FCBayernEN",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "ElliotTorres",
+  "name": "Elliot Torres",
+  "password": "Aa123456",
+  "email": "ElliotTorres3668@gmail.com",
+  "team": "ChelseaFC",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "LukeHarrison",
+  "name": "Luke Harrison",
+  "password": "Aa123456",
+  "email": "LukeHarrison7748@gmail.com",
+  "team": "BlackYellow",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "EthanReed",
+  "name": "Ethan Reed",
+  "password": "Aa123456",
+  "email": "EthanReed3792@gmail.com",
+  "team": "psg_english",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "ItayShabo",
+  "name": "Itay Shabo",
+  "password": "Aa123456",
+  "email": "shabo.itay10@gmail.com",
+  "team": "realmadrid",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "AriealBaev",
+  "name": "Arieal Baev",
+  "password": "Aa123456",
+  "email": "arielba2002@gmail.com",
+  "team": "FCBarcelona",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "EliadBazak",
+  "name": "Eliad Bazak",
+  "password": "Aa123456",
+  "email": "eliadjudo@gmail.com",
+  "team": "lfc",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "BenEpshtein",
+  "name": "Ben Epshtein",
+  "password": "Aa123456",
+  "email": "ben.epstein.b1@gmail.com",
+  "team": "ManCity",
+  "is_admin": false,
+  "__v": 0
+}]

@@ -23,7 +23,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "FC Barcelona 2024 Home Jersey",
+  "description": "FC Barcelona Home Jersey. Celebrate your team’s rich heritage with this classic jersey, combining iconic colors with modern performance features. Perfect for match day or casual wear, this jersey is designed for fans who want to show their passion wherever they go!",
   "isFeatured": true,
   "images": [],
   "__v": 0
@@ -53,7 +53,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Real Madrid CF 2024 Home Jersey",
+  "description": "Real Madrid CF Home Jersey. Crafted with premium, breathable fabric, this jersey offers maximum comfort and durability. Whether you’re cheering in the stands or relaxing at home, this high-quality jersey keeps you cool and comfortable all day",
   "isFeatured": true,
   "images": [],
   "__v": 0
@@ -83,7 +83,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Liverpool F.C. 2024 Home Jersey",
+  "description": "Liverpool F.C. Home Jersey. Engineered for both comfort and performance, this jersey is made with lightweight, moisture-wicking fabric that keeps you cool and dry, no matter the intensity. Perfect for supporting your team or hitting the field yourself.",
   "isFeatured": true,
   "images": [],
   "__v": 0
@@ -113,7 +113,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Manchester City F.C. 2024 Home Jersey",
+  "description": "Manchester City F.C. Home Jersey. This jersey brings a fresh take to a timeless design, blending traditional team colors with modern style. Made from soft, breathable material, it’s ideal for game day, training sessions, or everyday wear.",
   "isFeatured": true,
   "images": [],
   "__v": 0
@@ -143,7 +143,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Manchester United F.C. 2024 Home Jersey",
+  "description": "Manchester United F.C. Home Jersey. Experience match-day comfort in this high-performance jersey. Its lightweight fabric and relaxed fit allow for freedom of movement, while moisture-wicking technology keeps you feeling fresh from kickoff to the final whistle.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -171,7 +171,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Juventus F.C. 2024 Home Jersey",
+  "description": "Juventus F.C. Home Jersey. Grab this exclusive, limited-edition jersey and stand out from the crowd! With unique colors and a design inspired by the team’s heritage, this special jersey is a must-have collector’s item for true fans.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -200,7 +200,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Tottenham Hotspur F.C. 2024 Away Jersey",
+  "description": "Tottenham Hotspur F.C. Away Jersey. A jersey that every fan will love, combining the team’s iconic colors with a timeless design. Built for comfort and style, it’s the perfect addition to any fan’s collection. Show your support in the most stylish way possible",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -228,7 +228,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Arsenal F.C. 2024 Home Jersey",
+  "description": "Arsenal F.C. Home Jersey. Crafted with attention to detail, this jersey embodies the pride and passion of a dedicated fan. Feel closer to your team with every wear, thanks to its finely stitched logos and high-quality fabric",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -256,7 +256,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Real Madrid CF 2024 Away Jersey",
+  "description": "Real Madrid CF Away Jersey. Feel the spirit of the game in every thread of this jersey. Designed to inspire passion, energy, and loyalty, it’s the perfect way to showcase your love for the team on and off the field.",
   "isFeatured": true,
   "images": [],
   "__v": 0
@@ -285,7 +285,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "FC Barcelona 2024 Away Jersey",
+  "description": "FC Barcelona Away Jersey. Step into the future while honoring the past. This jersey combines legendary team colors with a modern fit, designed to let you cheer in comfort and style no matter where you are.",
   "isFeatured": true,
   "images": [],
   "__v": 0
@@ -297,7 +297,7 @@
   "team": "Manchester City F.C.",
   "teamTwitterHandle": "ManCity",
   "kitType": "Away",
-  "price": 69.99,
+  "price": 71.99,
   "image": {
     "data": {
       "$binary": {
@@ -312,7 +312,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Manchester City F.C. 2022 Away Jersey",
+  "description": "Manchester City F.C. Away Jersey. Show your support like a true champion! This jersey is inspired by the team’s winning legacy, with lightweight, durable fabric that keeps you comfortable, whether you’re on the field or in the stands.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -342,7 +342,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Inter Milan 2024 Home Jersey",
+  "description": "Inter Milan Home Jersey. Whether you’re a lifelong supporter or a new fan, this jersey is made just for you. Its classic design and official logos make it a piece every fan can wear with pride.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -370,7 +370,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Manchester City F.C. 2024 Third Jersey",
+  "description": "Manchester City F.C. Third Jersey. Express your unique style with this versatile jersey. Built to fit your life on and off the pitch, it’s perfect for any occasion where you want to display your team loyalty.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -400,7 +400,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Liverpool F.C. 2024 Away Jersey",
+  "description": "Liverpool F.C. Away Jersey. Celebrate the rich legacy of your team with this iconic jersey. Designed to represent the club’s journey and spirit, it’s a piece of history you can wear every day.",
   "isFeatured": true,
   "images": [],
   "__v": 0
@@ -429,7 +429,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Liverpool F.C. 2024 Third Jersey",
+  "description": "Liverpool F.C. Third Jersey. Stand out with this bold, fearless design! Perfect for fans who aren’t afraid to show their loyalty, this jersey combines striking colors with a comfortable, long-lasting fit.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -458,7 +458,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "AC Milan 2024 Home Jersey",
+  "description": "AC Milan Home Jersey. This jersey isn’t just for game day; it’s built for any day! With its stylish design and premium fabric, it’s a versatile piece that lets you support your team anywhere.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -487,7 +487,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Tottenham Hotspur F.C. 2024 Home Jersey",
+  "description": "Tottenham Hotspur F.C. Home Jersey. Stand shoulder to shoulder with other fans in this classic team jersey. Its design unites fans worldwide, making it more than just a jersey - it’s a symbol of unity.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -516,7 +516,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "AC Milan 2022 Away Jersey",
+  "description": "AC Milan Away Jersey. This jersey is a collector’s dream come true. Limited in edition and high in quality, it’s the ultimate piece for fans who want to own a part of team history.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -544,7 +544,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Liverpool F.C. 2023 Third Jersey",
+  "description": "Arsenal F.C. Third Jersey. Show your team pride loud and clear. This jersey lets you wear your heart on your sleeve, with every detail designed to reflect your love for the game.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -572,7 +572,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Arsenal F.C. 2023 Away Jersey",
+  "description": "Arsenal F.C. Away Jersey. Cheer on your team in breathable comfort! This jersey’s lightweight fabric ensures you stay cool and comfortable, no matter how intense the match gets.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -599,7 +599,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Inter Milan 2024 Away Jersey",
+  "description": "Inter Milan Away Jersey. Made for the stadium, perfect for the streets. This jersey’s stylish design and comfortable fit make it a great choice for everyday wear, not just on game days.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -627,7 +627,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Inter Milan 2024 Third Jersey",
+  "description": "Inter Milan Third Jersey. Wear it with pride! This jersey is crafted for fans who stand by their team through every victory and defeat. Show your unwavering support with every wear.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -656,7 +656,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Juventus F.C. 2024 Away Jersey",
+  "description": "Juventus F.C. Away Jersey. Be inspired by the same drive as your favorite players. This jersey combines cutting-edge design with a timeless look, perfect for fans who live and breathe the game.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -685,7 +685,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "FC Barcelona 2023 Third Jersey",
+  "description": "FC Barcelona Third Jersey. Nothing says dedication like this team jersey. Show your true colors with pride and wear this iconic kit as a badge of loyalty to your club.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -715,7 +715,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Manchester United F.C. 2024 Away Jersey",
+  "description": "Manchester United F.C. Third Jersey. Built for both performance and style, this jersey features elite craftsmanship and an iconic look that’ll make any fan proud to wear it.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -744,7 +744,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Manchester United F.C. 2024 Home Jersey",
+  "description": "Manchester United F.C. Away Jersey. This jersey is for the loyal fans who support their team through thick and thin. Show your resilience and dedication with this timeless design.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -773,7 +773,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "FC Bayern Munich 2024 Home Jersey",
+  "description": "FC Bayern Munich Home Jersey. This jersey is designed to make you stand out, no matter where you are. With bold colors and a sleek fit, it’s perfect for showing your team pride in style.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -802,7 +802,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Chelsea F.C. 2024 Home Jersey",
+  "description": "Chelsea F.C. Home Jersey. Blending fashion with passion, this jersey’s sleek design and tailored fit let you support your team in style, whether it’s match day or any day.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -830,7 +830,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "FC Bayern Munich 2024 Away Jersey",
+  "description": "FC Bayern Munich Away Jersey. Feel confident and stylish while repping your team! This jersey combines classic colors with a modern fit, designed to keep you looking and feeling great.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -858,7 +858,7 @@
     "M"
   ],
   "category": "Jerseys",
-  "description": "Chelsea F.C. 2024 Away Jersey",
+  "description": "Chelsea F.C. Away Jersey. Feel the excitement of the field in this dynamic jersey. With every wear, experience the rush of game day and the thrill of supporting your team.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -886,7 +886,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Borussia Dortmund 2024 Home Jersey",
+  "description": "Borussia Dortmund Home Jersey. With a design inspired by the club’s proud history, this jersey captures the essence of tradition. Perfect for fans who love their team’s rich heritage.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -916,7 +916,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Paris Saint-Germain F.C. 2024 Home Jersey",
+  "description": "Paris Saint-Germain F.C. Home Jersey. Designed with fans in mind, this jersey offers the perfect balance of style, comfort, and durability. A versatile addition to any collection.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -945,7 +945,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Borussia Dortmund 2024 Away Jersey",
+  "description": "Borussia Dortmund Away Jersey. This jersey is a testament to true loyalty. Wear it proudly as a symbol of your dedication and passion for the team.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -972,7 +972,7 @@
     "S"
   ],
   "category": "Jerseys",
-  "description": "Paris Saint-Germain F.C. 2024 Away Jersey",
+  "description": "Paris Saint-Germain F.C. Away Jersey. This jersey is all about enhancing your fan experience. From the pitch to the pub, its design and comfort make it the ideal piece for supporting your team in every setting.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -1000,7 +1000,7 @@
     "XL"
   ],
   "category": "Jerseys",
-  "description": "Paris Saint-Germain F.C. 2024 Third Jersey",
+  "description": "Paris Saint-Germain F.C. Third Jersey. Prepare for game day like never before. This jersey’s dynamic design and breathable material ensure you’re ready to cheer at the top of your lungs in style and comfort.",
   "isFeatured": false,
   "images": [],
   "__v": 0
@@ -1029,7 +1029,7 @@
     "L"
   ],
   "category": "Jerseys",
-  "description": "Borussia Dortmund 2024 Third Jersey",
+  "description": "Borussia Dortmund Third Jersey. Step into the legacy of the greats with this jersey, inspired by the club's top players. Its timeless design and authentic detailing bring you closer to your team’s incredible history.",
   "isFeatured": false,
   "images": [],
   "__v": 0
