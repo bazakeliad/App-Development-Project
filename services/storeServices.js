@@ -21,10 +21,21 @@ const deleteStore = async (id) => {
     return await Store.findByIdAndDelete(id);
 };
 
+const findStoreByCoordinates = async (lat, lng) => {
+    try {
+    
+      // Find a store with the same coordinates in the database
+      return await Store.findOne({ 'coordinates.lat': lat, 'coordinates.lng': lng });
+    } catch (error) {
+      console.error('Error checking store coordinates:', error);
+      throw error;
+    }
+  };
 module.exports = {
     getAllStores,
     getStoreById,
     createStore,
     updateStore,
-    deleteStore
+    deleteStore,
+    findStoreByCoordinates
 };

@@ -18,24 +18,48 @@ const renderAddStorePage = (req, res) => {
 
 // Create a new store
 const createStore = async (req, res) => {
-  try {
-      const storeData = {
-          name: req.body.name,
-          address: req.body.address,
-          coordinates: {
-              lat: req.body.lat,
-              lng: req.body.lng
-          }
-      };
-      await storeServices.createStore(storeData);
-      res.redirect('/admin/stores?message=Store added successfully&type=success');
+    try {
+        // Validate input
+        const { name, address, lat, lng } = req.body;
+  
+        if (!name || !address || !lat || !lng) {
+            return res.redirect('/admin/stores?message=All fields are required&type=error');
+        }
+  
+        // Parse lat and lng to ensure they are numbers
+        const parsedLat = parseFloat(lat);
+        const parsedLng = parseFloat(lng);
+  
+        // Check if the coordinates already exist in the database
+        const existingStore = await storeServices.findStoreByCoordinates(parsedLat, parsedLng);
+  
+        if (existingStore) {
+            
+            // If a store with the same coordinates exists, return an error message
+            return res.redirect('/admin/stores?message=Store with these coordinates already exists&type=error');
+        }
+  
+        // Create store data object
+        const storeData = {
+            name,
+            address,
+            coordinates: {
+                lat: parsedLat,
+                lng: parsedLng
+            }
+        };
+        await storeServices.createStore(storeData);
+  
+        // Redirect with success message
+        res.redirect('/admin/stores?message=Store added successfully&type=success');
     } catch (error) {
         console.error('Error adding store:', error);
-
-        // Redirect with error message
+  
+        // Send a generic error message
         res.redirect('/admin/stores?message=Error adding store&type=error');
     }
-};
+  };
+  
 
 // Render the Edit Store page
 const renderEditStorePage = async (req, res) => {
