@@ -83,7 +83,12 @@ $(document).ready(function() {
             const searchQuery = document.getElementById('inpSearch').value;
             if (searchQuery) {
                 const [team, kitType] = searchQuery.split(',').map(s => s.trim());
-                const url = `/jerseys/browse?team=${encodeURIComponent(team)}&kitType=${encodeURIComponent(kitType)}`;
+
+                let url = `/jerseys/browse?team=${encodeURIComponent(team)}`;
+                // If kitType is defined and not empty, add it to the URL
+                if (kitType) {
+                    url += `&kitType=${encodeURIComponent(kitType)}`;
+                }
                 window.location.href = url;
             }
         } else {
