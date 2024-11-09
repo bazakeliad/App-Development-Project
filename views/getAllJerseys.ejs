@@ -98,7 +98,7 @@
                 <div class="row">
                     <% for (let i = 0; i < jerseys.length; i++) { %>
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="card h-100">
+                            <div class="card h-100 d-flex flex-column">
                                 <a href="/jerseys/<%= jerseys[i]._id %>" class="card-link">
                                     <% if (jerseys[i].image && jerseys[i].image.data) { %>
                                         <img src="/jerseys/image/<%= jerseys[i]._id %>" class="card-img-top" alt="<%= jerseys[i].team %>">
@@ -110,7 +110,7 @@
                                         <p class="card-text fw-bold">$<%= (typeof jerseys[i].price === 'number') ? jerseys[i].price.toFixed(2) : 'N/A' %></p>
                                     </div>
                                 </a>
-                                <div class="card-footer text-center">
+                                <div class="card-footer mt-auto text-center">
                                     <button type="button" class="btn btn-outline-primary add-to-cart-btn" data-item-id="<%= jerseys[i]._id %>" data-jersey-index="<%= i %>">
                                         <i class="bi bi-cart-plus"></i> Add to Cart
                                     </button>
