@@ -56,12 +56,12 @@
                     
                         <!-- Item ID Filter -->
                         <div class="mb-4">
-                            <label class="form-label"><i class="bi bi-tag"></i> Item ID</label>
+                            <label class="form-label"><i class="bi bi-tag"></i> Jersey</label>
                             <% items.forEach(function(item) { %>
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" name="itemId" value="<%= item._id %>" id="item-<%= item._id %>" 
                                            <%= itemIds && itemIds.includes(item._id.toString()) ? 'checked' : '' %>>
-                                    <label class="form-check-label" for="item-<%= item._id %>"><%= item._id %></label>
+                                    <label class="form-check-label" for="item-<%= item._id %>"><%= item.team %> - <%= item.kitType %></label>
                                 </div>
                             <% }); %>
                         </div>
@@ -115,7 +115,7 @@
                                 <tr id="review_<%= review._id %>">
                                     <td><%= review._id %></td>
                                     <td><%= review.userId %></td>
-                                    <td><%= review.itemId %></td>
+                                    <td><%= review.jerseyName %> - <%= review.jerseyKitType %></td>
                                     <td><%= review.message %></td>
                                     <td><%= review.rating %></td>
                                     <td><%= review.createdAt.toDateString() %></td>

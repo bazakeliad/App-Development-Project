@@ -111,7 +111,7 @@ const getAllReviewsAdmin = async (req, res) => {
 
         // Fetch all users and items for filter dropdowns
         const users = await userService.getAllUsers();
-        const items = await jerseyService.getAllJerseys();
+        const jerseys = await jerseyService.getAllJerseys(); // Fetch all jerseys
 
         // Build the filter object based on query parameters
         const filters = {};
@@ -122,8 +122,6 @@ const getAllReviewsAdmin = async (req, res) => {
             filters.itemId = Array.isArray(itemId) ? { $in: itemId } : itemId;
         }
         if (rating) {
-            
-            // Convert ratings to an array of numbers and use $in for filtering
             const ratingsArray = Array.isArray(rating) ? rating.map(Number) : [Number(rating)];
             filters.rating = { $in: ratingsArray };
         }
@@ -138,11 +136,27 @@ const getAllReviewsAdmin = async (req, res) => {
         // Fetch the filtered reviews from the database
         const reviews = await reviewService.getFilteredReviews(filters);
 
+        // Map item IDs to jersey details for easier lookup
+        const jerseyMap = {};
+        jerseys.forEach(jersey => {
+            jerseyMap[jersey._id] = jersey; 
+        });
+
+        // Add jersey details to each review
+        const reviewsWithJerseyDetails = reviews.map(review => {
+            const jersey = jerseyMap[review.itemId];
+            return {
+                ...review._doc, // 
+                jerseyName: jersey ? jersey.team : 'Unknown Jersey',
+                jerseyKitType: jersey ? jersey.kitType : 'Unknown Kit'
+            };
+        });
+
         // Render the adminReviews EJS template with the provided data
         res.render('adminReviews', {
-            reviews,
+            reviews: reviewsWithJerseyDetails, // Use enriched reviews here
             users,
-            items,
+            items: jerseys, // Pass jerseys for filtering
             userIds: Array.isArray(userId) ? userId : userId ? [userId] : [],
             itemIds: Array.isArray(itemId) ? itemId : itemId ? [itemId] : [],
             ratings: Array.isArray(rating) ? rating.map(Number) : rating ? [Number(rating)] : [],
