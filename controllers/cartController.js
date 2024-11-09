@@ -41,6 +41,7 @@ const getCart = async (req, res) => {
 
         // If no cart is found in the database, initialize an empty cart
         if (!cart) {
+            req.session.cart = [];
             return res.render('cart', { cartItems: [], subtotal: 0, userId });
         }
         const cartItems = await Promise.all(
@@ -65,7 +66,10 @@ const getCart = async (req, res) => {
         const subtotal = filteredCartItems.reduce((total, item) => {
             return total + item.price * item.quantity;
         }, 0);
-
+        
+        // Store the cart items length in the session
+        req.session.cart = filteredCartItems.length;
+        
         res.render('cart', { cartItems: filteredCartItems, subtotal, userId });
 
     } 
@@ -200,7 +204,7 @@ function checkCheckoutSequence(req, res, next) {
 // Check if the cart is empty before proceeding to checkout
 function checkCartNotEmpty(req, res, next) {
     const cart = req.session.cart || [];
-    if (cart.length === 0) {
+    if (cart == 0) {
         
         // Redirect to /cart with an error message if the cart is empty
         return res.redirect('/cart?error=empty');
