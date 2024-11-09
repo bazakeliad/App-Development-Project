@@ -1,24 +1,22 @@
 const teamServices = require('../services/teamServices');
 const userServices = require('../services/userServices');
 
-// Handle /myteam route
+// Get user's favorite team
 const getTeamSelection = async (req, res) => {
     try {
-        // Check if the user is logged in
+        // Check if the user is logged in and get its details
         if (req.session && req.session.username) {
-            // Fetch the logged-in user's details
             const user = await userServices.getUserByUsername(req.session.username);
 
-            // If the user has a favorite team (teamTwitterHandle)
+            // Check if user has favorite team and redirect accordingly
             if (user && user.team) {
-                // Redirect to the team's tweets page using the Twitter handle
                 return res.redirect(`/myteam/${user.team}`);
             } else {
-                // If the user doesn't have a favorite team, redirect to personalArea
                 return res.redirect('/personalArea/profile');
             }
         } else {
-            // If the user is not logged in, redirect to the login page
+
+            // If the user is not logged in redirect to the login page
             return res.redirect('/login');
         }
     } catch (error) {
@@ -32,7 +30,7 @@ const postTeamSelection = (req, res) => {
     res.redirect(`/myteam/${twitterHandle}`);
 };
 
-// Handle tweets for the selected team and display jerseys
+// Render my team page
 const getmyteam = async (req, res) => {
     try {
         const twitterHandle = req.params.twitterHandle;
@@ -44,6 +42,7 @@ const getmyteam = async (req, res) => {
         const teamExists = teams.some(team => team.twitterHandle === twitterHandle);
         
         if (!teamExists) {
+
             // Redirect to pageNotFound if the team doesn't exist
             return res.redirect('/pageNotFound');
         }

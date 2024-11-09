@@ -13,6 +13,7 @@
 
     <!-- Header -->
     <%- include('partials/compactHeader.ejs') %>
+
     <!-- Toast Notification -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
         <div id="messageToast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
@@ -34,11 +35,13 @@
             </a>
         </div>
         <div class="row">
+
             <!-- Filter Sidebar -->
             <aside class="col-md-3">
                 <div class="filter-section">
                     <h5 class="filter-title"><i class="bi bi-funnel"></i> Filter Reviews</h5>
                     <form action="/admin/reviews" method="GET" id="filter-form">
+                        
                         <!-- User ID Filter -->
                         <div class="mb-4">
                             <label class="form-label"><i class="bi bi-person"></i> User ID</label>

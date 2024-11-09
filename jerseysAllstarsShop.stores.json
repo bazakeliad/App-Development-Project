@@ -1,0 +1,72 @@
+[{
+  "_id": {
+    "$oid": "672f2d81ce7709ad80196f39"
+  },
+  "name": "Allstars Jerseys Tel Aviv-Yafo",
+  "address": "Ben Yehuda St 158, Tel Aviv-Yafo",
+  "coordinates": {
+    "lat": 32.08654,
+    "lng": 34.773202
+  },
+  "createdAt": {
+    "$date": "2024-11-09T09:38:09.134Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T09:39:07.191Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672f2ebece7709ad80196f6a"
+  },
+  "name": "Allstars Jerseys Jerusalem",
+  "address": "Ben Sira St 3, Jerusalem",
+  "coordinates": {
+    "lat": 31.779191,
+    "lng": 35.221686
+  },
+  "createdAt": {
+    "$date": "2024-11-09T09:43:26.885Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T09:43:26.885Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672f2f5ace7709ad80196f76"
+  },
+  "name": "Allstars Jerseys Rishon LeTsiyon",
+  "address": "Lehi St 2, Rishon LeTsiyon",
+  "coordinates": {
+    "lat": 31.985706,
+    "lng": 34.766873
+  },
+  "createdAt": {
+    "$date": "2024-11-09T09:46:02.528Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T09:46:02.528Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672f2fbdce7709ad80196f82"
+  },
+  "name": "Allstars Jerseys Modi'in",
+  "address": "HaHarat St 1, Modi'in Makabim-Re'ut",
+  "coordinates": {
+    "lat": 31.89042,
+    "lng": 34.962273
+  },
+  "createdAt": {
+    "$date": "2024-11-09T09:47:41.579Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T09:47:41.579Z"
+  },
+  "__v": 0
+}]

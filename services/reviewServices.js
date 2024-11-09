@@ -1,4 +1,4 @@
-const Review = require('../models/review'); // Adjust the path as necessary
+const Review = require('../models/review');
 
 // Create a review
 const createReview = async (userId, itemId, message, rating) => {
@@ -8,13 +8,13 @@ const createReview = async (userId, itemId, message, rating) => {
 
 // Get all reviews
 const getAllReviews = async () => {
-    return await Review.find(); // Add any necessary filters
+    return await Review.find();
 };
 
 // Get a review by ID
 const getReviewById = async (id) => {
     try {
-        return await Review.findById(id);  // Find review by ID
+        return await Review.findById(id);
     } catch (error) {
         throw new Error('Error retrieving review by ID');
     }
@@ -33,17 +33,19 @@ const deleteReview = async (id) => {
 const getFilteredReviews = async (filters) => {
     return await Review.find(filters);
 };
- const getReviewsGroupedByRating = async () => {
+
+const getReviewsGroupedByRating = async () => {
     try {
         const groupedReviews = await Review.aggregate([
             {
+                // Group by the `rating` field and count how many reviews there are for each rating
                 $group: {
-                    _id: "$rating", // Group by the `rating` field
-                    count: { $sum: 1 } // Count how many reviews there are for each rating
+                    _id: "$rating",
+                    count: { $sum: 1 }
                 }
             },
             {
-                $sort: { _id: 1 } // Sort by rating (ascending order)
+                $sort: { _id: 1 }
             }
         ]);
         return groupedReviews;
@@ -61,6 +63,7 @@ const getReviewsByJerseyId = async (jerseyId) => {
         return [];
     }
 };
+
 module.exports = {
     createReview,
     getAllReviews,

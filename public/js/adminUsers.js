@@ -1,9 +1,10 @@
 let deleteUserId = null;
 
 $(document).ready(function() {
+
     // Event listener for the delete button
     $(document).on('click', '.deleteBtn', function() {
-        deleteUserId = $(this).data('id'); // Store user ID
+        deleteUserId = $(this).data('id');
         const modal = new bootstrap.Modal(document.getElementById('deleteConfirmationModal'));
         modal.show();
     });

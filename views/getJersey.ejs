@@ -11,11 +11,13 @@
     <link rel="stylesheet" href="/main.css">
 </head>
 <body>
+
     <!-- Header -->
     <%- include('partials/compactHeader.ejs') %>
 
     <!-- Main Content -->
     <div class="container my-5">
+
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -25,9 +27,11 @@
         </nav>
 
         <div class="row">
+
             <!-- Left Column: Images -->
             <div class="col-md-6">
                 <% if (jersey.images && jersey.images.length > 1) { %>
+
                     <!-- Image Carousel -->
                     <div id="jerseyCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -37,6 +41,7 @@
                                 </div>
                             <% }); %>
                         </div>
+
                         <!-- Carousel Controls -->
                         <button class="carousel-control-prev" type="button" data-bs-target="#jerseyCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -48,6 +53,7 @@
                         </button>
                     </div>
                 <% } else { %>
+
                     <!-- Single Image -->
                     <% if (jersey.images && jersey.images.length === 1) { %>
                         <img src="/jerseys/image/<%= jersey._id %>/0" class="img-fluid rounded" alt="<%= jersey.team %> Jersey">
@@ -78,10 +84,12 @@
                     <label for="quantity" class="form-label">Quantity:</label>
                     <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1">
                 </div>
+
                 <!-- Add to Cart Button -->
                 <button type="button" class="btn btn-outline-primary add-to-cart-btn" data-item-id="<%= jersey._id %>">
                     <i class="bi bi-cart-plus"></i> Add to Cart
                 </button>
+
                 <!-- Tabs for Additional Information -->
                 <ul class="nav nav-tabs mt-5" id="jerseyTab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -96,6 +104,7 @@
                 </ul>
 
                 <div class="tab-content" id="jerseyTabContent">
+
                     <!-- Description Tab -->
                     <div class="tab-pane fade show active p-3" id="description" role="tabpanel">
                         <% if (jersey.description) { %>
@@ -104,6 +113,7 @@
                             <p>No description available.</p>
                         <% } %>
                     </div>
+
                     <!-- Reviews Tab -->
                     <div class="tab-pane fade p-3" id="reviews" role="tabpanel">
                         <% if (reviews && reviews.length > 0) { %>
@@ -118,6 +128,7 @@
                             <p>No reviews yet. Be the first to review this jersey!</p>
                         <% } %>
                     </div>
+
                     <!-- Shipping Info Tab -->
                     <div class="tab-pane fade p-3" id="shipping" role="tabpanel">
                         <p>Standard shipping: 3-5 business days.</p>
@@ -148,13 +159,14 @@
     <script>
         $(document).ready(function() {
             $('.add-to-cart-btn').on('click', function() {
+
                 // Check if user is logged in using res.locals.user passed from the server
                 const user = <%= user ? 'true' : 'false' %>;
 
                 // If the user is not logged in, redirect to login page
                 if (!user) {
                     window.location.href = '/login';
-                    return; // Stop further execution
+                    return;
                 }
 
                 const jerseyId = $(this).data('item-id');

@@ -1,5 +1,5 @@
 async function getNews() {
-  const res = await fetch('http://localhost:80/apis/news'); // Calls your backend API
+  const res = await fetch('http://localhost:80/apis/news');
   const jsonResponse = await res.json();
   console.log(jsonResponse);
   return jsonResponse;

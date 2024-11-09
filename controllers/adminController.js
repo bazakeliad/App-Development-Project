@@ -5,6 +5,7 @@ const reviewService = require('../services/reviewServices');
 // Dashboard: View statistics and latest orders
 const getDashboard = async (req, res) => {
     try {
+        
         // Get total orders, total revenue, and total jerseys
         const totalOrders = await Order.countDocuments();
         const totalRevenue = await Order.aggregate([
@@ -12,7 +13,7 @@ const getDashboard = async (req, res) => {
         ]);
         const totalJerseys = await jerseysServices.getJerseyCount();
 
-        // Fetch latest orders (optional: you can limit to a specific number)
+        // Fetch latest orders
         const latestOrders = await Order.find().sort({ createdAt: -1 }).limit(5);
 
         // Orders by Month: Group by year and month and count orders
@@ -20,7 +21,7 @@ const getDashboard = async (req, res) => {
             {
                 $group: {
                     _id: { 
-                        year: { $year: { $toDate: "$createdAt" } },  // Ensure $toDate conversion
+                        year: { $year: { $toDate: "$createdAt" } },
                         month: { $month: { $toDate: "$createdAt" } } 
                     },
                     orders: { $sum: 1 }
@@ -40,7 +41,7 @@ const getDashboard = async (req, res) => {
             {
                 $group: {
                     _id: { 
-                        year: { $year: { $toDate: "$createdAt" } },  // Ensure $toDate conversion
+                        year: { $year: { $toDate: "$createdAt" } },
                         month: { $month: { $toDate: "$createdAt" } }
                     },
                     revenue: { $sum: '$totalPrice' }
@@ -94,7 +95,7 @@ const getDashboard = async (req, res) => {
 // Display admin console
 const getAdminConsole = (req, res) => {
     try {
-        res.render('adminConsole.ejs'); // Render the admin console page
+        res.render('adminConsole.ejs');
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
