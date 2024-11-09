@@ -202,11 +202,10 @@ const addJersey = async (req, res) => {
         });
 
         console.log('Facebook Post ID:', fbResponse.data.id);
-
-        res.redirect('/admin/jerseys');
+        res.redirect(`/admin/jerseys?message=User updated successfully&type=success`);
     } catch (error) {
-        console.error('Error adding jersey or posting to Facebook:', error);
-        res.status(500).send('Internal Server Error');
+        console.error('Error updating user:', error);
+        res.redirect(`/admin/jerseys?message=Error updating user&type=error`);
     }
 };
 
@@ -252,10 +251,10 @@ const editJersey = async (req, res) => {
 
     try {
         await jerseysServices.updateJerseyById(id, updateData);
-        res.redirect('/admin/jerseys');
+        res.redirect(`/admin/jerseys?message=User updated successfully&type=success`);
     } catch (error) {
-        console.error('Error updating jersey:', error);
-        res.status(500).send('Internal Server Error');
+        console.error('Error updating user:', error);
+        res.redirect(`/admin/jerseys?message=Error updating user&type=error`);
     }
 };
 

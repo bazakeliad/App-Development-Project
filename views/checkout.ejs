@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="zip" class="form-label">ZIP Code</label>
-                        <input type="text" class="form-control" id="zip" name="zip" required pattern="\d{5}">
+                        <input type="text" class="form-control" id="zip" name="zip" required>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="country" class="form-label">Country</label>
@@ -65,7 +65,7 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="cardExpiry" class="form-label">Expiration Date (MM/YY)</label>
-                        <input type="text" class="form-control" id="cardExpiry" name="cardExpiry" required pattern="(0[1-9]|1[0-2])/\d{2}" placeholder="MM/YY">
+                        <input type="text" class="form-control" id="cardExpiry" name="cardExpiry" required pattern="^(0[1-9]|1[0-2])/(2[5-9]|[3-9][0-9])$|^(1[2])/(24)$" placeholder="MM/YY">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="cardCVC" class="form-label">CVC</label>
