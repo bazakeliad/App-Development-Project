@@ -1,6 +1,4 @@
 
-# All Stars Jerseys Online Shop
-
 Welcome to the All-Star Jerseys online shop! This application allows users to browse, search, and purchase official jerseys of their favorite sports teams and players. Built using Node.js and the MVC (Model-View-Controller) architecture, this platform offers an intuitive user experience for both browsing and managing online orders.
 
 The project supports features like user authentication, product management, and order processing, making it ideal for small-to-medium e-commerce projects. If you're shopping for soccer jerseys, you'll find everything you need here!
