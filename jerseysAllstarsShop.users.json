@@ -152,15 +152,6 @@
   "__v": 0
 },
 {
-  "_id": "AriealBaev",
-  "name": "Arieal Baev",
-  "password": "Aa123456",
-  "email": "arielba2002@gmail.com",
-  "team": "FCBarcelona",
-  "is_admin": false,
-  "__v": 0
-},
-{
   "_id": "EliadBazak",
   "name": "Eliad Bazak",
   "password": "Aa123456",
@@ -175,6 +166,15 @@
   "password": "Aa123456",
   "email": "ben.epstein.b1@gmail.com",
   "team": "ManCity",
+  "is_admin": false,
+  "__v": 0
+},
+{
+  "_id": "Ariel Baev",
+  "name": "Ariel Baev",
+  "password": "Aa123456",
+  "email": "arielba2002@gmail.com",
+  "team": "FCBarcelona",
   "is_admin": false,
   "__v": 0
 }]
