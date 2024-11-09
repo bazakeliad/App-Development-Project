@@ -1,0 +1,1524 @@
+[{
+  "_id": {
+    "$oid": "672e87b5d5cffd7b566667f0"
+  },
+  "userId": "JamesRobertson",
+  "totalPrice": 811.89,
+  "address": "Elm Street 123, Springfield, 98765, United States",
+  "items": [
+    {
+      "itemId": "672d2a70baca51901d1f95b9",
+      "quantity": 4,
+      "size": "M",
+      "_id": {
+        "$oid": "672e87b5d5cffd7b566667f1"
+      }
+    },
+    {
+      "itemId": "672d191bbaca51901d1f8e93",
+      "quantity": 3,
+      "size": "L",
+      "_id": {
+        "$oid": "672e87b5d5cffd7b566667f2"
+      }
+    },
+    {
+      "itemId": "672d36c7baca51901d1f9d92",
+      "quantity": 2,
+      "size": "M",
+      "_id": {
+        "$oid": "672e87b5d5cffd7b566667f3"
+      }
+    },
+    {
+      "itemId": "672d469fbaca51901d1fa363",
+      "quantity": 2,
+      "size": "L",
+      "_id": {
+        "$oid": "672e87b5d5cffd7b566667f4"
+      }
+    }
+  ],
+  "status": "shipped",
+  "createdAt": {
+    "$date": "2024-11-02T21:50:45.916Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:26:51.987Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672e9904ce7709ad80193e81"
+  },
+  "userId": "JamesRobertson",
+  "totalPrice": 1079.84,
+  "address": "Elm Street 123, Springfield, 98765, United States",
+  "items": [
+    {
+      "itemId": "672d191bbaca51901d1f8e93",
+      "quantity": 4,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9904ce7709ad80193e82"
+      }
+    },
+    {
+      "itemId": "672d26ccbaca51901d1f93b4",
+      "quantity": 2,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9904ce7709ad80193e83"
+      }
+    },
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 3,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9904ce7709ad80193e84"
+      }
+    },
+    {
+      "itemId": "672d3791baca51901d1f9dc3",
+      "quantity": 2,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9904ce7709ad80193e85"
+      }
+    },
+    {
+      "itemId": "672d38ccbaca51901d1f9eee",
+      "quantity": 2,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9904ce7709ad80193e86"
+      }
+    },
+    {
+      "itemId": "672d4535baca51901d1fa249",
+      "quantity": 3,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9904ce7709ad80193e87"
+      }
+    }
+  ],
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2024-09-08T23:04:36.687Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:27:01.533Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672e9a1ace7709ad80193fa1"
+  },
+  "userId": "SarahPatel",
+  "totalPrice": 1433.8,
+  "address": "Maple Avenue 456, Riverdale, 10234, United States",
+  "items": [
+    {
+      "itemId": "672d158cbaca51901d1f8d53",
+      "quantity": 5,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9a1ace7709ad80193fa2"
+      }
+    },
+    {
+      "itemId": "672d381bbaca51901d1f9e26",
+      "quantity": 3,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9a1ace7709ad80193fa3"
+      }
+    },
+    {
+      "itemId": "672d27e2baca51901d1f9418",
+      "quantity": 4,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9a1ace7709ad80193fa4"
+      }
+    },
+    {
+      "itemId": "672d399dbaca51901d1f9fae",
+      "quantity": 2,
+      "size": "XL",
+      "_id": {
+        "$oid": "672e9a1ace7709ad80193fa5"
+      }
+    },
+    {
+      "itemId": "672d33bdbaca51901d1f9b06",
+      "quantity": 2,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9a1ace7709ad80193fa6"
+      }
+    },
+    {
+      "itemId": "672d449abaca51901d1fa1ad",
+      "quantity": 4,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9a1ace7709ad80193fa7"
+      }
+    }
+  ],
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2024-10-08T23:09:14.907Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:27:17.071Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672e9a7dce7709ad80194018"
+  },
+  "userId": "SarahPatel",
+  "totalPrice": 1041.85,
+  "address": "Maple Avenue 456, Riverdale, 10234, United States",
+  "items": [
+    {
+      "itemId": "672d3791baca51901d1f9dc3",
+      "quantity": 2,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9a7dce7709ad80194019"
+      }
+    },
+    {
+      "itemId": "672d38ccbaca51901d1f9eee",
+      "quantity": 3,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9a7dce7709ad8019401a"
+      }
+    },
+    {
+      "itemId": "672d4bdabaca51901d1fa64e",
+      "quantity": 4,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9a7dce7709ad8019401b"
+      }
+    },
+    {
+      "itemId": "672d4d45baca51901d1fa763",
+      "quantity": 6,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9a7dce7709ad8019401c"
+      }
+    }
+  ],
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2024-10-18T23:10:53.296Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:27:27.356Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672e9bbdce7709ad8019417e"
+  },
+  "userId": "LeoGarcia",
+  "totalPrice": 2053.7,
+  "address": "Birch Lane 321, Brighton, 56789, United Kingdom",
+  "items": [
+    {
+      "itemId": "672d1ae9baca51901d1f8f0a",
+      "quantity": 5,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9bbdce7709ad8019417f"
+      }
+    },
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 3,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9bbdce7709ad80194180"
+      }
+    },
+    {
+      "itemId": "672d27e2baca51901d1f9418",
+      "quantity": 2,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9bbdce7709ad80194181"
+      }
+    },
+    {
+      "itemId": "672d22aabaca51901d1f922b",
+      "quantity": 6,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9bbdce7709ad80194182"
+      }
+    },
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 4,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9bbdce7709ad80194183"
+      }
+    },
+    {
+      "itemId": "672d399dbaca51901d1f9fae",
+      "quantity": 1,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9bbdce7709ad80194184"
+      }
+    },
+    {
+      "itemId": "672d3a63baca51901d1fa03a",
+      "quantity": 1,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9bbdce7709ad80194185"
+      }
+    },
+    {
+      "itemId": "672d4535baca51901d1fa249",
+      "quantity": 1,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9bbdce7709ad80194186"
+      }
+    },
+    {
+      "itemId": "672d4bdabaca51901d1fa64e",
+      "quantity": 3,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9bbdce7709ad80194187"
+      }
+    },
+    {
+      "itemId": "672d4bdabaca51901d1fa64e",
+      "quantity": 1,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9bbdce7709ad80194188"
+      }
+    },
+    {
+      "itemId": "672d4aafbaca51901d1fa5ef",
+      "quantity": 1,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9bbdce7709ad80194189"
+      }
+    },
+    {
+      "itemId": "672d4ea5baca51901d1fa85e",
+      "quantity": 1,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9bbdce7709ad8019418a"
+      }
+    },
+    {
+      "itemId": "672d53a96ac82ef0892159f5",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9bbdce7709ad8019418b"
+      }
+    }
+  ],
+  "status": "canceled",
+  "createdAt": {
+    "$date": "2024-09-03T23:16:13.792Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:27:41.716Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672e9c42ce7709ad8019420d"
+  },
+  "userId": "LeoGarcia",
+  "totalPrice": 395.93999999999994,
+  "address": "Birch Lane 321, Brighton, 56789, United Kingdom",
+  "items": [
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 6,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9c42ce7709ad8019420e"
+      }
+    }
+  ],
+  "status": "pending",
+  "createdAt": {
+    "$date": "2024-07-06T23:18:26.322Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T09:11:16.555Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672e9d0bce7709ad801942d4"
+  },
+  "userId": "DavidWhite",
+  "totalPrice": 731.89,
+  "address": "Pine Street 987, Laketown, 12034, United States",
+  "items": [
+    {
+      "itemId": "672d45f8baca51901d1fa2e3",
+      "quantity": 3,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9d0bce7709ad801942d5"
+      }
+    },
+    {
+      "itemId": "672d48cdbaca51901d1fa536",
+      "quantity": 3,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9d0bce7709ad801942d6"
+      }
+    },
+    {
+      "itemId": "672d38ccbaca51901d1f9eee",
+      "quantity": 1,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9d0bce7709ad801942d7"
+      }
+    },
+    {
+      "itemId": "672d4cdcbaca51901d1fa70e",
+      "quantity": 1,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9d0bce7709ad801942d8"
+      }
+    },
+    {
+      "itemId": "672d4da7baca51901d1fa7c5",
+      "quantity": 1,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9d0bce7709ad801942d9"
+      }
+    },
+    {
+      "itemId": "672d4d45baca51901d1fa763",
+      "quantity": 2,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9d0bce7709ad801942da"
+      }
+    }
+  ],
+  "status": "shipped",
+  "createdAt": {
+    "$date": "2024-11-05T23:21:47.776Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:29:30.847Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672e9d6ace7709ad80194382"
+  },
+  "userId": "DavidWhite",
+  "totalPrice": 1413.8,
+  "address": "Pine Street 987, Laketown, 12034, United States",
+  "items": [
+    {
+      "itemId": "672d26ccbaca51901d1f93b4",
+      "quantity": 2,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9d6ace7709ad80194383"
+      }
+    },
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9d6ace7709ad80194384"
+      }
+    },
+    {
+      "itemId": "672d33bdbaca51901d1f9b06",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9d6ace7709ad80194385"
+      }
+    },
+    {
+      "itemId": "672d316abaca51901d1f99df",
+      "quantity": 4,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9d6ace7709ad80194386"
+      }
+    },
+    {
+      "itemId": "672d21abbaca51901d1f91d9",
+      "quantity": 4,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9d6ace7709ad80194387"
+      }
+    },
+    {
+      "itemId": "672d4aafbaca51901d1fa5ef",
+      "quantity": 4,
+      "size": "XL",
+      "_id": {
+        "$oid": "672e9d6ace7709ad80194388"
+      }
+    },
+    {
+      "itemId": "672d4da7baca51901d1fa7c5",
+      "quantity": 4,
+      "size": "XL",
+      "_id": {
+        "$oid": "672e9d6ace7709ad80194389"
+      }
+    }
+  ],
+  "status": "shipped",
+  "createdAt": {
+    "$date": "2024-07-06T23:23:22.806Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:30:12.705Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672e9e30ce7709ad80194499"
+  },
+  "userId": "LucasMartinez",
+  "totalPrice": 1045.84,
+  "address": "Cedar Avenue 654, Riverside, 67890, Australia",
+  "items": [
+    {
+      "itemId": "672d26ccbaca51901d1f93b4",
+      "quantity": 1,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9e30ce7709ad8019449a"
+      }
+    },
+    {
+      "itemId": "672d45f8baca51901d1fa2e3",
+      "quantity": 1,
+      "size": "XL",
+      "_id": {
+        "$oid": "672e9e30ce7709ad8019449b"
+      }
+    },
+    {
+      "itemId": "672d381bbaca51901d1f9e26",
+      "quantity": 1,
+      "size": "XL",
+      "_id": {
+        "$oid": "672e9e30ce7709ad8019449c"
+      }
+    },
+    {
+      "itemId": "672d3a63baca51901d1fa03a",
+      "quantity": 4,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9e30ce7709ad8019449d"
+      }
+    },
+    {
+      "itemId": "672d449abaca51901d1fa1ad",
+      "quantity": 2,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9e30ce7709ad8019449e"
+      }
+    },
+    {
+      "itemId": "672d4535baca51901d1fa249",
+      "quantity": 3,
+      "size": "S",
+      "_id": {
+        "$oid": "672e9e30ce7709ad8019449f"
+      }
+    },
+    {
+      "itemId": "672d3791baca51901d1f9dc3",
+      "quantity": 4,
+      "size": "XL",
+      "_id": {
+        "$oid": "672e9e30ce7709ad801944a0"
+      }
+    }
+  ],
+  "status": "shipped",
+  "createdAt": {
+    "$date": "2024-11-08T23:26:40.734Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:30:07.277Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672e9e79ce7709ad80194502"
+  },
+  "userId": "LucasMartinez",
+  "totalPrice": 1239.84,
+  "address": "Cedar Avenue 654, Riverside, 67890, Australia",
+  "items": [
+    {
+      "itemId": "672d158cbaca51901d1f8d53",
+      "quantity": 4,
+      "size": "M",
+      "_id": {
+        "$oid": "672e9e79ce7709ad80194503"
+      }
+    },
+    {
+      "itemId": "672d191bbaca51901d1f8e93",
+      "quantity": 4,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9e79ce7709ad80194504"
+      }
+    },
+    {
+      "itemId": "672d1ae9baca51901d1f8f0a",
+      "quantity": 4,
+      "size": "XL",
+      "_id": {
+        "$oid": "672e9e79ce7709ad80194505"
+      }
+    },
+    {
+      "itemId": "672d21abbaca51901d1f91d9",
+      "quantity": 4,
+      "size": "L",
+      "_id": {
+        "$oid": "672e9e79ce7709ad80194506"
+      }
+    }
+  ],
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2024-03-08T23:27:53.681Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:30:24.756Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672e9ee2ce7709ad80194554"
+  },
+  "userId": "LucasMartinez",
+  "totalPrice": 129.98,
+  "address": "Cedar Avenue 654, Riverside, 67890, Australia",
+  "items": [
+    {
+      "itemId": "672d22aabaca51901d1f922b",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9ee2ce7709ad80194555"
+      }
+    },
+    {
+      "itemId": "672d48cdbaca51901d1fa536",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672e9ee2ce7709ad80194556"
+      }
+    }
+  ],
+  "status": "canceled",
+  "createdAt": {
+    "$date": "2024-05-08T23:29:38.031Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T09:07:15.106Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ea022ce7709ad80194692"
+  },
+  "userId": "NinaKim",
+  "totalPrice": 1217.83,
+  "address": "Oakwood Drive 213, Kingsville, 34521, United States",
+  "items": [
+    {
+      "itemId": "672d26ccbaca51901d1f93b4",
+      "quantity": 1,
+      "size": "L",
+      "_id": {
+        "$oid": "672ea022ce7709ad80194693"
+      }
+    },
+    {
+      "itemId": "672d22aabaca51901d1f922b",
+      "quantity": 1,
+      "size": "M",
+      "_id": {
+        "$oid": "672ea022ce7709ad80194694"
+      }
+    },
+    {
+      "itemId": "672d4874baca51901d1fa506",
+      "quantity": 3,
+      "size": "M",
+      "_id": {
+        "$oid": "672ea022ce7709ad80194695"
+      }
+    },
+    {
+      "itemId": "672d158cbaca51901d1f8d53",
+      "quantity": 3,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ea022ce7709ad80194696"
+      }
+    },
+    {
+      "itemId": "672d1ae9baca51901d1f8f0a",
+      "quantity": 3,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ea022ce7709ad80194697"
+      }
+    },
+    {
+      "itemId": "672d21abbaca51901d1f91d9",
+      "quantity": 3,
+      "size": "XL",
+      "_id": {
+        "$oid": "672ea022ce7709ad80194698"
+      }
+    },
+    {
+      "itemId": "672d354abaca51901d1f9c0e",
+      "quantity": 3,
+      "size": "S",
+      "_id": {
+        "$oid": "672ea022ce7709ad80194699"
+      }
+    }
+  ],
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2024-06-08T23:34:58.831Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:30:30.115Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ea06ace7709ad801946e6"
+  },
+  "userId": "NinaKim",
+  "totalPrice": 924.8799999999999,
+  "address": "Oakwood Drive 213, Kingsville, 34521, United States",
+  "items": [
+    {
+      "itemId": "672d191bbaca51901d1f8e93",
+      "quantity": 5,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ea06ace7709ad801946e7"
+      }
+    },
+    {
+      "itemId": "672d1ae9baca51901d1f8f0a",
+      "quantity": 7,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ea06ace7709ad801946e8"
+      }
+    }
+  ],
+  "status": "canceled",
+  "createdAt": {
+    "$date": "2024-06-28T23:36:10.992Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:56:35.296Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ea11ace7709ad801947c2"
+  },
+  "userId": "AlexJohnson",
+  "totalPrice": 879.8799999999999,
+  "address": "Elmwood Circle 159, Greendale, 54321, Canada",
+  "items": [
+    {
+      "itemId": "672d191bbaca51901d1f8e93",
+      "quantity": 1,
+      "size": "S",
+      "_id": {
+        "$oid": "672ea11ace7709ad801947c3"
+      }
+    },
+    {
+      "itemId": "672d2a70baca51901d1f95b9",
+      "quantity": 2,
+      "size": "L",
+      "_id": {
+        "$oid": "672ea11ace7709ad801947c4"
+      }
+    },
+    {
+      "itemId": "672d158cbaca51901d1f8d53",
+      "quantity": 3,
+      "size": "M",
+      "_id": {
+        "$oid": "672ea11ace7709ad801947c5"
+      }
+    },
+    {
+      "itemId": "672d36c7baca51901d1f9d92",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ea11ace7709ad801947c6"
+      }
+    },
+    {
+      "itemId": "672d316abaca51901d1f99df",
+      "quantity": 1,
+      "size": "S",
+      "_id": {
+        "$oid": "672ea11ace7709ad801947c7"
+      }
+    },
+    {
+      "itemId": "672d27e2baca51901d1f9418",
+      "quantity": 4,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ea11ace7709ad801947c8"
+      }
+    }
+  ],
+  "status": "pending",
+  "createdAt": {
+    "$date": "2024-09-22T23:39:06.075Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-08T23:39:06.075Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ea17cce7709ad80194808"
+  },
+  "userId": "AlexJohnson",
+  "totalPrice": 374.95,
+  "address": "Elmwood Circle 159, Greendale, 54321, Canada",
+  "items": [
+    {
+      "itemId": "672d1ae9baca51901d1f8f0a",
+      "quantity": 5,
+      "size": "S",
+      "_id": {
+        "$oid": "672ea17cce7709ad80194809"
+      }
+    }
+  ],
+  "status": "shipped",
+  "createdAt": {
+    "$date": "2024-11-08T22:40:44.595Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:30:47.613Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ea247ce7709ad801948d0"
+  },
+  "userId": "JustinGreen",
+  "totalPrice": 1606.7599999999998,
+  "address": "Willow Street 741, Brookhaven, 45678, United Kingdom",
+  "items": [
+    {
+      "itemId": "672d3791baca51901d1f9dc3",
+      "quantity": 2,
+      "size": "S",
+      "_id": {
+        "$oid": "672ea247ce7709ad801948d1"
+      }
+    },
+    {
+      "itemId": "672d4a39baca51901d1fa5bb",
+      "quantity": 2,
+      "size": "S",
+      "_id": {
+        "$oid": "672ea247ce7709ad801948d2"
+      }
+    },
+    {
+      "itemId": "672d4c4abaca51901d1fa6aa",
+      "quantity": 4,
+      "size": "M",
+      "_id": {
+        "$oid": "672ea247ce7709ad801948d3"
+      }
+    },
+    {
+      "itemId": "672d53a96ac82ef0892159f5",
+      "quantity": 5,
+      "size": "M",
+      "_id": {
+        "$oid": "672ea247ce7709ad801948d4"
+      }
+    },
+    {
+      "itemId": "672d4e61baca51901d1fa826",
+      "quantity": 3,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ea247ce7709ad801948d5"
+      }
+    },
+    {
+      "itemId": "672d4ea5baca51901d1fa85e",
+      "quantity": 8,
+      "size": "S",
+      "_id": {
+        "$oid": "672ea247ce7709ad801948d6"
+      }
+    }
+  ],
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2024-10-08T23:44:07.092Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:31:01.436Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ea27fce7709ad8019492b"
+  },
+  "userId": "JustinGreen",
+  "totalPrice": 534.93,
+  "address": "Willow Street 741, Brookhaven, 45678, United Kingdom",
+  "items": [
+    {
+      "itemId": "672d158cbaca51901d1f8d53",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ea27fce7709ad8019492c"
+      }
+    },
+    {
+      "itemId": "672d191bbaca51901d1f8e93",
+      "quantity": 1,
+      "size": "M",
+      "_id": {
+        "$oid": "672ea27fce7709ad8019492d"
+      }
+    },
+    {
+      "itemId": "672d1ae9baca51901d1f8f0a",
+      "quantity": 5,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ea27fce7709ad8019492e"
+      }
+    }
+  ],
+  "status": "pending",
+  "createdAt": {
+    "$date": "2024-10-04T23:45:03.740Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-08T23:45:03.740Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ea2dece7709ad801949c3"
+  },
+  "userId": "DanielLee",
+  "totalPrice": 695.8999999999999,
+  "address": "Maple Street 302, Ashwood, 10235, Australia",
+  "items": [
+    {
+      "itemId": "672d21abbaca51901d1f91d9",
+      "quantity": 4,
+      "size": "L",
+      "_id": {
+        "$oid": "672ea2dece7709ad801949c4"
+      }
+    },
+    {
+      "itemId": "672d3438baca51901d1f9b6e",
+      "quantity": 6,
+      "size": "L",
+      "_id": {
+        "$oid": "672ea2dece7709ad801949c5"
+      }
+    }
+  ],
+  "status": "pending",
+  "createdAt": {
+    "$date": "2024-02-01T23:46:38.494Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-08T23:46:38.494Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ea320ce7709ad80194a22"
+  },
+  "userId": "DanielLee",
+  "totalPrice": 848.8699999999999,
+  "address": "Maple Street 302, Ashwood, 10235, Australia",
+  "items": [
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 3,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ea320ce7709ad80194a23"
+      }
+    },
+    {
+      "itemId": "672d3791baca51901d1f9dc3",
+      "quantity": 3,
+      "size": "S",
+      "_id": {
+        "$oid": "672ea320ce7709ad80194a24"
+      }
+    },
+    {
+      "itemId": "672d354abaca51901d1f9c0e",
+      "quantity": 3,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ea320ce7709ad80194a25"
+      }
+    },
+    {
+      "itemId": "672d38ccbaca51901d1f9eee",
+      "quantity": 4,
+      "size": "S",
+      "_id": {
+        "$oid": "672ea320ce7709ad80194a26"
+      }
+    }
+  ],
+  "status": "pending",
+  "createdAt": {
+    "$date": "2024-01-09T23:47:44.329Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-08T23:47:44.329Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ebcdbce7709ad80194b9d"
+  },
+  "userId": "ItayShabo",
+  "totalPrice": 1019.8699999999999,
+  "address": "Beit moshe 21, Modi'in, 23451, Israel",
+  "items": [
+    {
+      "itemId": "672d191bbaca51901d1f8e93",
+      "quantity": 9,
+      "size": "M",
+      "_id": {
+        "$oid": "672ebcdbce7709ad80194b9e"
+      }
+    },
+    {
+      "itemId": "672d1ae9baca51901d1f8f0a",
+      "quantity": 4,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ebcdbce7709ad80194b9f"
+      }
+    }
+  ],
+  "status": "shipped",
+  "createdAt": {
+    "$date": "2024-11-09T01:37:31.815Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:32:24.404Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ebd01ce7709ad80194bdb"
+  },
+  "userId": "ItayShabo",
+  "totalPrice": 399.95,
+  "address": "Beit moshe 21, Modi'in, 23451, Israel",
+  "items": [
+    {
+      "itemId": "672d191bbaca51901d1f8e93",
+      "quantity": 5,
+      "size": "M",
+      "_id": {
+        "$oid": "672ebd01ce7709ad80194bdc"
+      }
+    }
+  ],
+  "status": "canceled",
+  "createdAt": {
+    "$date": "2024-05-19T01:38:09.880Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:32:27.930Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ebe1cce7709ad80194c82"
+  },
+  "userId": "Ariel Baev",
+  "totalPrice": 1479.8,
+  "address": "gan havi 33, Rishon LeTsiyon, 34509, Israel",
+  "items": [
+    {
+      "itemId": "672d158cbaca51901d1f8d53",
+      "quantity": 5,
+      "size": "L",
+      "_id": {
+        "$oid": "672ebe1cce7709ad80194c83"
+      }
+    },
+    {
+      "itemId": "672d1ae9baca51901d1f8f0a",
+      "quantity": 5,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ebe1cce7709ad80194c84"
+      }
+    },
+    {
+      "itemId": "672d21abbaca51901d1f91d9",
+      "quantity": 5,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ebe1cce7709ad80194c85"
+      }
+    },
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 5,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ebe1cce7709ad80194c86"
+      }
+    }
+  ],
+  "status": "canceled",
+  "createdAt": {
+    "$date": "2024-06-29T01:42:52.263Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T09:11:51.652Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ebe63ce7709ad80194ce7"
+  },
+  "userId": "Ariel Baev",
+  "totalPrice": 871.8699999999999,
+  "address": "gan havi 33, Rishon LeTsiyon, 34509, Israel",
+  "items": [
+    {
+      "itemId": "672d26ccbaca51901d1f93b4",
+      "quantity": 4,
+      "size": "S",
+      "_id": {
+        "$oid": "672ebe63ce7709ad80194ce8"
+      }
+    },
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 4,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ebe63ce7709ad80194ce9"
+      }
+    },
+    {
+      "itemId": "672d27e2baca51901d1f9418",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ebe63ce7709ad80194cea"
+      }
+    },
+    {
+      "itemId": "672d306abaca51901d1f997c",
+      "quantity": 4,
+      "size": "L",
+      "_id": {
+        "$oid": "672ebe63ce7709ad80194ceb"
+      }
+    }
+  ],
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2024-07-23T01:44:03.156Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:32:42.164Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ebee8ce7709ad80194d90"
+  },
+  "userId": "BenEpshtein",
+  "totalPrice": 875.88,
+  "address": "den gedi 25, Tel Aviv-Yafo, 20987, Israel",
+  "items": [
+    {
+      "itemId": "672d21abbaca51901d1f91d9",
+      "quantity": 6,
+      "size": "L",
+      "_id": {
+        "$oid": "672ebee8ce7709ad80194d91"
+      }
+    },
+    {
+      "itemId": "672d1ae9baca51901d1f8f0a",
+      "quantity": 2,
+      "size": "M",
+      "_id": {
+        "$oid": "672ebee8ce7709ad80194d92"
+      }
+    },
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 2,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ebee8ce7709ad80194d93"
+      }
+    },
+    {
+      "itemId": "672d316abaca51901d1f99df",
+      "quantity": 2,
+      "size": "S",
+      "_id": {
+        "$oid": "672ebee8ce7709ad80194d94"
+      }
+    }
+  ],
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2024-11-08T22:55:14.598Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:32:46.045Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ebf22ce7709ad80194ded"
+  },
+  "userId": "BenEpshtein",
+  "totalPrice": 483.92999999999995,
+  "address": "den gedi 25, Tel Aviv-Yafo, 20987, Israel",
+  "items": [
+    {
+      "itemId": "672d158cbaca51901d1f8d53",
+      "quantity": 2,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ebf22ce7709ad80194dee"
+      }
+    },
+    {
+      "itemId": "672d26ccbaca51901d1f93b4",
+      "quantity": 1,
+      "size": "M",
+      "_id": {
+        "$oid": "672ebf22ce7709ad80194def"
+      }
+    },
+    {
+      "itemId": "672d22aabaca51901d1f922b",
+      "quantity": 4,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ebf22ce7709ad80194df0"
+      }
+    }
+  ],
+  "status": "delivered",
+  "createdAt": {
+    "$date": "2024-07-23T01:47:14.770Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:32:48.209Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ebf83ce7709ad80194eb3"
+  },
+  "userId": "EliadBazak",
+  "totalPrice": 847.8799999999999,
+  "address": "or avinu 51, Ma'ale Adumim, 21035, Israel",
+  "items": [
+    {
+      "itemId": "672d1ae9baca51901d1f8f0a",
+      "quantity": 5,
+      "size": "M",
+      "_id": {
+        "$oid": "672ebf83ce7709ad80194eb4"
+      }
+    },
+    {
+      "itemId": "672d191bbaca51901d1f8e93",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ebf83ce7709ad80194eb5"
+      }
+    },
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 3,
+      "size": "L",
+      "_id": {
+        "$oid": "672ebf83ce7709ad80194eb6"
+      }
+    },
+    {
+      "itemId": "672d3791baca51901d1f9dc3",
+      "quantity": 3,
+      "size": "S",
+      "_id": {
+        "$oid": "672ebf83ce7709ad80194eb7"
+      }
+    }
+  ],
+  "status": "pending",
+  "createdAt": {
+    "$date": "2024-11-09T01:48:51.700Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T01:48:51.700Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672ec006ce7709ad80194f7a"
+  },
+  "userId": "EliadBazak",
+  "totalPrice": 1282.81,
+  "address": "or avinu 51, Ma'ale Adumim, 21035, Israel",
+  "items": [
+    {
+      "itemId": "672d22aabaca51901d1f922b",
+      "quantity": 3,
+      "size": "XS",
+      "_id": {
+        "$oid": "672ec006ce7709ad80194f7b"
+      }
+    },
+    {
+      "itemId": "672d2a70baca51901d1f95b9",
+      "quantity": 5,
+      "size": "S",
+      "_id": {
+        "$oid": "672ec006ce7709ad80194f7c"
+      }
+    },
+    {
+      "itemId": "672d38ccbaca51901d1f9eee",
+      "quantity": 6,
+      "size": "L",
+      "_id": {
+        "$oid": "672ec006ce7709ad80194f7d"
+      }
+    },
+    {
+      "itemId": "672d45f8baca51901d1fa2e3",
+      "quantity": 2,
+      "size": "S",
+      "_id": {
+        "$oid": "672ec006ce7709ad80194f7e"
+      }
+    },
+    {
+      "itemId": "672d4aafbaca51901d1fa5ef",
+      "quantity": 3,
+      "size": "L",
+      "_id": {
+        "$oid": "672ec006ce7709ad80194f7f"
+      }
+    }
+  ],
+  "status": "shipped",
+  "createdAt": {
+    "$date": "2024-11-09T01:51:02.883Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T09:13:39.822Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672f22d3ce7709ad80195aef"
+  },
+  "userId": "ItayShabo",
+  "totalPrice": 883.8699999999999,
+  "address": "Beit moshe 21, Modi'in, 23451, Israel",
+  "items": [
+    {
+      "itemId": "672d27e2baca51901d1f9418",
+      "quantity": 13,
+      "size": "XS",
+      "_id": {
+        "$oid": "672f22d3ce7709ad80195af0"
+      }
+    }
+  ],
+  "status": "canceled",
+  "createdAt": {
+    "$date": "2024-10-01T08:52:35.048Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:55:44.694Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672f2307ce7709ad80195b2d"
+  },
+  "userId": "ItayShabo",
+  "totalPrice": 923.8599999999999,
+  "address": "Beit moshe 21, Modi'in, 23451, Israel",
+  "items": [
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 14,
+      "size": "S",
+      "_id": {
+        "$oid": "672f2307ce7709ad80195b2e"
+      }
+    }
+  ],
+  "status": "canceled",
+  "createdAt": {
+    "$date": "2024-10-09T08:53:27.928Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T08:55:46.170Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672f2336ce7709ad80195b7e"
+  },
+  "userId": "ItayShabo",
+  "totalPrice": 215.96999999999997,
+  "address": "Beit moshe 21, Modi'in, 23451, Israel",
+  "items": [
+    {
+      "itemId": "672d1ae9baca51901d1f8f0a",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672f2336ce7709ad80195b7f"
+      }
+    },
+    {
+      "itemId": "672d21abbaca51901d1f91d9",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672f2336ce7709ad80195b80"
+      }
+    },
+    {
+      "itemId": "672d25c4baca51901d1f937c",
+      "quantity": 1,
+      "size": "XS",
+      "_id": {
+        "$oid": "672f2336ce7709ad80195b81"
+      }
+    }
+  ],
+  "status": "pending",
+  "createdAt": {
+    "$date": "2024-11-08T08:54:14.123Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-09T09:12:19.897Z"
+  },
+  "__v": 0
+}]
