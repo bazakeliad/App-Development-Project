@@ -89,5 +89,5 @@ Start the server
 
 ## Import pre-defined data
 
-You can import pre-defined data by importing the 
+You can import pre-defined data to mongodb by importing the 
 json files located in the root folder of the project.
