@@ -27,6 +27,23 @@ const getAllTeams = async () => {
   }
 };
 
+const fetchRawTeams = async () => {
+    try {
+        // Only select teams with a non-null and non-empty teamTwitterHandle
+        const jerseys = await Jersey.find({ teamTwitterHandle: { $ne: null, $ne: '' } })
+            .select('team teamTwitterHandle -_id');
+
+        // Return the full list, including duplicates
+        return jerseys.map(jersey => ({
+            name: jersey.team,
+            twitterHandle: jersey.teamTwitterHandle
+        }));
+    } catch (error) {
+        throw new Error('Error fetching teams');
+    }
+};
+  
+
 // Fetch jerseys by the team's twitter handle
 const getJerseysByTwitterHandle = async (teamTwitterHandle) => {
     return await Jersey.find({ teamTwitterHandle: teamTwitterHandle });
@@ -34,5 +51,6 @@ const getJerseysByTwitterHandle = async (teamTwitterHandle) => {
 
 module.exports = {
     getAllTeams,
+    fetchRawTeams,
     getJerseysByTwitterHandle
 };

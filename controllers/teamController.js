@@ -36,7 +36,7 @@ const getmyteam = async (req, res) => {
         const twitterHandle = req.params.twitterHandle;
         
         // Fetch all teams
-        const teams = await teamServices.getAllTeams();
+        const teams = await teamServices.fetchRawTeams();
 
         // Check if the provided twitterHandle exists in the teams list
         const teamExists = teams.some(team => team.twitterHandle === twitterHandle);
