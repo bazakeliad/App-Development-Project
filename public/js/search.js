@@ -5,11 +5,12 @@ document.getElementById('searchButton').addEventListener('click', function() {
     // If the search input is empty and not visible, open the input field
     if (!searchQuery && !document.getElementById('inpSearch').classList.contains('active')) {
         $('#inpSearch').addClass('active').focus();
-        return; // Exit to avoid redirect
+        return;
     }
 
     // Make sure the input is not empty before redirecting
     if (searchQuery) {
+
         // Split the search query into team and kit type
         const [team, kitType] = searchQuery.split(',').map(s => s.trim());
 
@@ -27,7 +28,9 @@ async function search() {
 
     // If the search input is empty, clear previous suggestions
     if (search.trim() === '') {
-        document.getElementById('autocomplete_list').innerHTML = ''; // Clear previous suggestions
+
+        // Clear previous suggestions
+        document.getElementById('autocomplete_list').innerHTML = '';
         return; // Exit the function
     }
 
@@ -35,7 +38,9 @@ async function search() {
     const res = await fetch(`http://localhost:80/apis/jerseys/team/${search}`);
     const results = await res.json();
     const autocomplete_list = document.getElementById('autocomplete_list');
-    autocomplete_list.innerHTML = ''; // Clear previous suggestions
+
+    // Clear previous suggestions
+    autocomplete_list.innerHTML = '';
 
     // Display results in the autocomplete list
     if (results.length > 0) {
@@ -43,13 +48,18 @@ async function search() {
             const item = document.createElement('div');
             item.classList.add('autocomplete-item');
             const refined_result = result.team + ", " + result.kitType;
-            item.innerText = refined_result; // Show team and kit type in the suggestion
+
+            // Show team and kit type in the suggestion
+            item.innerText = refined_result;
 
             // When clicked, insert value into the input field
             item.addEventListener('click', function(event) {
-                event.stopPropagation(); // Prevent hiding the search bar
+
+                // Prevent hiding the search bar
+                event.stopPropagation();
                 document.getElementById('inpSearch').value = refined_result;
-                autocomplete_list.innerHTML = ''; // Clear the list after selection
+                // Clear the list after selection
+                autocomplete_list.innerHTML = '';
             });
 
             autocomplete_list.appendChild(item);

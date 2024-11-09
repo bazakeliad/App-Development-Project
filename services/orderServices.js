@@ -6,7 +6,6 @@ const createOrder = async (orderData) => {
 }
 
 const getAllOrders = async (filter = {}) => {
-    console.log('Applied filter:', filter);  // Debug: Check the filter passed to MongoDB query
     const orders = await Order.find(filter);
 
     // Fetch jersey details for each order item
@@ -18,8 +17,8 @@ const getAllOrders = async (filter = {}) => {
                     item.jerseyDetails = {
                         team: jersey.team,
                         kitType: jersey.kitType,
-                        image: jersey.image, // Ensure the image is fetched
-                        size: item.size // Add size if it's part of the order item
+                        image: jersey.image,
+                        size: item.size
                     };
                 }
             } catch (error) {
@@ -41,8 +40,8 @@ const getOrdersByStatus = async (status) => {
 
 const updateOrder = async (orderId, orderData) => {
     return await Order.findByIdAndUpdate(orderId, orderData, { 
-        new: true,  // Return the updated document
-        runValidators: true  // Ensure the validators (like enum) run on update
+        new: true,
+        runValidators: true
     });
 };
 
@@ -50,10 +49,10 @@ const getOrdersByUser = async (userId) => {
     return await Order.find({ userId });
 }
 
-
 const deleteOrder = async (orderId) => {
     return await Order.findByIdAndDelete(orderId);
 }
+
 module.exports = {
     createOrder,
     getAllOrders,

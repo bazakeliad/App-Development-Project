@@ -4,11 +4,13 @@ const teamService = require('../services/teamServices');
 const jerseysService = require('../services/jerseysServices');
 const emailService = require('../services/emailServices');
 
+// Check if the user is logged in
 async function isLoggedIn(req, res, next) {
   if (req.session.username != null) {
     return next();
   } 
   else {
+
     // Fetch featured jerseys from the database
     const allFeaturedJerseys = await jerseysService.getFeaturedJerseys();
 

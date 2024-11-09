@@ -4,25 +4,23 @@ const reviewService = require('../services/reviewServices');
 const storeServices = require('../services/storeServices');
 
 
-// Updated controller to select 2 random articles on the server side
+// Fetch sport news from newsapi.org web service
 const getAllNews = async (req, res) => {
     require('dotenv').config();
     const apiKey = process.env.API_KEY;
     const answer = await fetch(`https://newsapi.org/v2/everything?q=(Messi+AND+Ronaldo)+-porn+-beach+-Ohtani+-null+-died+-JKS+-Rolex+-Naismith+-celebrities+-Distasteful+-kingdom+-capitalizing+-Fossil+-Lacchesi=&language=en&apiKey=${apiKey}`);
     const jsonResponse = await answer.json();
-
-    // Select 2 random articles on the server
     const articles = jsonResponse.articles;
 
     // Remove articles with null fields
     const filteredArticles = articles.filter(article => {
+        
         // Check if any field in the article is null
         return Object.values(article).every(value => value !== null) && article.author !== "Al Jazeera";
     });
 
     const randomArticles = [];
-    const maxArticles = Math.min(3, filteredArticles.length); // Adjust to select 3 random articles
-
+    const maxArticles = Math.min(3, filteredArticles.length);
 
     while (randomArticles.length < maxArticles) {
         const randomIndex = Math.floor(Math.random() * filteredArticles.length);
@@ -32,7 +30,8 @@ const getAllNews = async (req, res) => {
         }
     }
 
-    res.send(randomArticles); // Send only the random articles
+    // Send only the random articles
+    res.send(randomArticles);
 };
 
 // Return home page to the user
@@ -42,7 +41,7 @@ const getHomePage = async (req, res) => {
         // Fetch featured jerseys from the database
         const allFeaturedJerseys = await jerseysServices.getFeaturedJerseys();
 
-        // Limit the number of jerseys to display (e.g., 4 jerseys)
+        // Limit the number of jerseys to display
         const featuredJerseys = allFeaturedJerseys.slice(0, 4);
 
         // Fetch all reviews from the database
@@ -50,8 +49,8 @@ const getHomePage = async (req, res) => {
 
         // Get the best six reviews with the highest rating
         const bestTestimonials = testimonials
-            .sort((a, b) => b.rating - a.rating) // Sort reviews by rating in descending order
-            .slice(0, 6); // Take the top six reviews
+            .sort((a, b) => b.rating - a.rating)
+            .slice(0, 6);
 
         // Check if the logged-in user is an admin
         let isAdmin = false
@@ -95,14 +94,14 @@ const getPageNotFound = async (req, res) => {
         // Fetch featured jerseys from the database
         const allFeaturedJerseys = await jerseysServices.getFeaturedJerseys();
 
-        // Limit the number of jerseys to display (e.g., 4 jerseys)
+        // Limit the number of jerseys to display
         const featuredJerseys = allFeaturedJerseys.slice(0, 4);
 
         res.render('pageNotFound', {
             featuredJerseys,
             title: 'Page Not Found',
             message: 'It looks like the page you are looking for does not exist.',
-            actionUrl: '/jerseys/browse', // Redirect to Browse Jerseys page
+            actionUrl: '/jerseys/browse',
             actionText: 'Browse All Jerseys'
         });
     } 
@@ -112,7 +111,6 @@ const getPageNotFound = async (req, res) => {
     }
 };
 
-// exporting functions
 module.exports = {
     getAllNews,
     getHomePage,

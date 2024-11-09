@@ -16,6 +16,6 @@ body {
 }
 
 .auth-container {
-  max-width: 400px;  /* Fixed width */
-  width: 70%;       /* Full width within the container */
+  max-width: 400px;
+  width: 70%;
 }

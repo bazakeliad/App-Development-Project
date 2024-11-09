@@ -1,4 +1,3 @@
-// services/teamService.js
 const Jersey = require("../models/jersey");
 
 const getAllTeams = async () => {

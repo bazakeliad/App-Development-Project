@@ -25,6 +25,7 @@ const createReview = async (req, res) => {
         res.redirect('/personalArea/review?message=Review added successfully&type=success');
     } catch (error) {
         console.error('Error creating review:', error);
+
         // Redirect to personalArea with error message
         res.redirect('/personalArea/review?message=Error adding review&type=error');
     }
@@ -60,13 +61,14 @@ const updateReview = async (req, res) => {
         res.redirect('/admin/reviews?message=Review updated successfully&type=success');
     } catch (error) {
         console.error('Error updating review:', error);
+
         // Redirect with error message
         res.redirect('/admin/reviews?message=Error updating review&type=error');
     }
 };
 
 const getReviewById = async (req, res) => {
-    console.log('Fetching review by ID:', req.params.id);  // Check if this log is printed
+    console.log('Fetching review by ID:', req.params.id);
     try {
         const review = await reviewService.getReviewById(req.params.id);
         if (!review) {
@@ -87,7 +89,7 @@ const deleteReview = async (req, res) => {
         if (!deletedReview) {
             return res.status(404).json({ message: 'Review not found' });
         }
-        res.status(204).send(); // No content
+        res.status(204).send();
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -109,7 +111,7 @@ const getAllReviewsAdmin = async (req, res) => {
 
         // Fetch all users and items for filter dropdowns
         const users = await userService.getAllUsers();
-        const items = await jerseyService.getAllJerseys(); // Assuming items are jerseys
+        const items = await jerseyService.getAllJerseys();
 
         // Build the filter object based on query parameters
         const filters = {};
@@ -120,6 +122,7 @@ const getAllReviewsAdmin = async (req, res) => {
             filters.itemId = Array.isArray(itemId) ? { $in: itemId } : itemId;
         }
         if (rating) {
+            
             // Convert ratings to an array of numbers and use $in for filtering
             const ratingsArray = Array.isArray(rating) ? rating.map(Number) : [Number(rating)];
             filters.rating = { $in: ratingsArray };

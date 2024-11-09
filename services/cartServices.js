@@ -11,9 +11,11 @@ const deleteCartByUserId = async (userId) => {
 
 
 const updateCart = async (userId, jerseyId, quantity, size) => {
+
     // Find the existing cart
     let cart = await Cart.findOne({ userId });
     if (!cart) {
+
         // If no cart exists, create a new one
         cart = new Cart({ userId, items: [] });
     }
@@ -28,13 +30,15 @@ const updateCart = async (userId, jerseyId, quantity, size) => {
     const existingItem = cart.items.find(item => item.jerseyId === jerseyId && item.size === size);
 
     if (existingItem) {
+
         // If the item exists in the cart, increase the quantity
         existingItem.quantity += quantity;
     } else {
+        
         // Otherwise, add the new item to the cart
         cart.items.push({
             jerseyId: jerseyId,
-            size: size, // Store the selected size
+            size: size,
             quantity: quantity,
             price: jersey.price
         });

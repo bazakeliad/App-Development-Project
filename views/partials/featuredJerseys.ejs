@@ -54,6 +54,7 @@
 
         // Confirm Add to Cart
         $('#confirmAddToCartBtn').click(function() {
+            
             // Check if user is logged in using res.locals.user passed from the server
             const user = <%= user ? 'true' : 'false' %>;
 
