@@ -3,6 +3,9 @@ const userServices = require("../services/userServices");
 const teamService = require('../services/teamServices');
 const jerseysService = require('../services/jerseysServices');
 const emailService = require('../services/emailServices');
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
+
 
 // Check if the user is logged in
 async function isLoggedIn(req, res, next) {
@@ -112,7 +115,8 @@ async function login(req, res) {
 async function register(req, res) {
   const { name, username, password, email, team } = req.body;
   try {
-      await loginService.register(name, username, password, email, team);
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+      await loginService.register(name, username, hashedPassword, email, team);
 
       // Set the session's username cookie
       req.session.username = username;
