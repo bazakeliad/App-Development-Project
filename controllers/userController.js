@@ -1,6 +1,8 @@
 const userService = require('../services/userServices');
 const teamService = require('../services/teamServices');
 const cartService = require('../services/cartServices');
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
 
 // Get all users
 const getAllUsers = async (req, res) => {
@@ -105,10 +107,14 @@ const updateUserProfile = async (req, res) => {
         const updatedData = {
             name,
             email,
-            password: password !== '' ? password : undefined,
             team
         };
 
+        // If a new password is provided, hash it before updating
+        if (password !== '') {
+            const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+            updatedData.password = hashedPassword;
+        }
         const updatedUser = await userService.updateUser(userId, updatedData);
 
         if (!updatedUser) {
